@@ -1,0 +1,121 @@
+// Override top logo
+.header-brand {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+}
+
+// elFinder
+.elfinder.ui-widget.ui-widget-content {
+  box-shadow: none !important;
+}
+
+// Required field asterix
+.required:after{ 
+  content: '*'; 
+  color: $red; 
+  padding-left: 5px;
+}
+
+.disabled-view-form {
+  .form-control::placeholder {
+    display: none !important;
+    opacity: 0 !important;
+  }
+  .required:after{ 
+    content: ''; 
+  }
+  select {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
+
+  /* For IE10 */
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+// Class for disabled fields to show as content
+.disabled-view-form .control-label {
+  font-weight: bold;
+}
+.disabled-view-form .form-control:disabled, 
+.disabled-view-form .form-control[readonly] {
+  border: 0;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+.disabled-view-form .input-icon-addon {
+  justify-content: left;
+}
+.disabled-view-form .input-icon .form-control:not(:first-child) {
+  padding-left: 1.5rem !important;
+}
+.disabled-view-form {
+  .selectize-control.multi,
+  .selectize-input.has-items {
+    padding: 0 !important;
+  }
+ 
+  .selectize-control.single {
+    background-color: transparent !important;
+    padding: 0 !important;
+    .selectize-input.disabled {
+      padding: 0 !important;
+      border: 0 !important;
+      opacity: 1 !important;
+      background-color: transparent !important;
+      .item {
+        line-height: 1.6rem;
+        color: $gray-700 !important;
+        border: 0 !important;
+        background-color: transparent !important;
+      }
+    }
+    .selectize-input:after {
+      display: none !important;
+    }
+  }
+
+  .selectize-control.multi {
+    padding: 0 !important;
+    .selectize-input.disabled {
+      padding: 0 !important;
+      border: 0 !important;
+      opacity: 1 !important;
+      .item {
+        color: $gray-700 !important;
+        //border: 1px solid #ccc;
+        //border: 1px solid rgba(0, 0, 0, 0.15);
+        border: 0 !important;
+        background-color: $gray-200 !important;
+      }
+    }
+  }
+}
+
+// Sortable styles
+.reorder-rows .ui-sortable-helper {
+  background-color: #fff !important;
+  display: table;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.reorder-rows .reorder-rows-placeholder {
+  background-color: #f5f5f5 !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  height: 47px;
+}
+#table-tasks .reorder-rows .btn {
+  margin-top: 6px;
+  margin-bottom: 5px;
+}
+#table-tasks .reorder-rows .reorder-rows-placeholder {
+  height: 60px;
+}

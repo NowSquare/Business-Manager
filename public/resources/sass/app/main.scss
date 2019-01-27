@@ -1,0 +1,28 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,500,700');
+
+// Variables
+@import '~tabler-ui/src/assets/scss/variables';
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap.scss';
+
+// Tabler
+@import '~tabler-ui/src/assets/scss/dashboard/dashboard';
+
+// Tabler plugins
+@import '~tabler-ui/src/assets/plugins/charts-c3/scss/_c3';
+
+// Selectize
+@import 'libs/selectize';
+
+// DataTables
+@import 'libs/datatables';
+
+// Bootstrap datepicker
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css';
+
+// General
+@import 'general';

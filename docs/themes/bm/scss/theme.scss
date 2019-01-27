@@ -1,0 +1,58 @@
+/*!
+ * DAUX.IO
+ * https://dauxio.github.io/
+ * MIT License
+ */
+
+// Daux Style
+@import "vendor/normalize.scss";
+@import "_fonts.scss";
+@import "_variables.scss";
+@import "_mixins.scss";
+
+// Layout
+@import "_structure.scss";
+
+// Content presentation
+@import "_typography.scss";
+@import "_components.scss";
+@import "_homepage.scss";
+@import "vendor/highlight.scss";
+
+@media print {
+    @import "_print.scss";
+}
+
+$mdl-shadow--2dp: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !default;
+$mdl-shadow--3dp: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12) !default;
+$mdl-shadow--4dp: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !default;
+$mdl-shadow--6dp: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2) !default;
+$mdl-shadow--8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2) !default;
+$mdl-shadow--16dp: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2) !default;
+$mdl-shadow--xlarge: 0 26px 34px 5px rgba(0, 0, 0, 0.02), 0 12px 40px 7px rgba(0, 0, 0, 0.06), 0 12px 20px -7px rgba(0, 0, 0, 0.1) !default;
+/*
+img.homepage-image {
+    box-shadow: $mdl-shadow--8dp;
+}
+*/
+.Page__header h1 {
+  font-size: 1.25rem;
+}
+
+.HomepageFooter__links a {
+  color: #fff;
+}
+
+.img-screen {
+  width: 100% !important;
+  max-width: 480px !important;
+  box-shadow: $mdl-shadow--4dp;
+  margin: 1rem 0 2rem 0 !important;
+}
+
+.img-original {
+  transform: scale(0.75);
+  transform-origin: top left;
+  box-shadow: $mdl-shadow--4dp;
+  margin: 1rem 0 2rem 0 !important;
+}

@@ -1,0 +1,14 @@
+{
+  "Client": "Client",
+  "Vendor": "Vendor",
+  "day": "day",
+  "hour": "hour",
+  "pcs": "pcs",
+  "pkg": "pkg",
+  "ft": "ft",
+  "lb": "lb",
+  "gal": "gal",
+  "meter": "meter",
+  "kg": "kg",
+  "l": "l"
+}

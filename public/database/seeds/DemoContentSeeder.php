@@ -1,0 +1,285 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\PermissionServiceProvider;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+use Faker\Factory as Faker;
+
+class DemoContentSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Eloquent::unguard();
+
+        $user_count = 76;
+        $company_count = 28;
+        $project_count = 16;
+
+        $faker = Faker::create();
+
+        // Users
+        $managers = [];
+        $manager_ids = [];
+        $employees = [];
+        $employee_ids = [];
+        $contractors = [];
+        $contractor_ids = [];
+        $clients = [];
+        $client_ids = [];
+        $leads = [];
+        $lead_ids = [];
+
+        $men = 1;
+        $women = 1;
+        if ($user_count > 0) {
+          foreach (range(1, $user_count - 1) as $index) {
+            $gender = (mt_rand(0, 1) == 1) ? 'male' : 'female';
+            if ($gender == 'male') {
+              $firstName = $faker->firstNameMale;
+              $avatar = new \SplFileInfo(base_path() . '/database/seeds/avatars/men/' . $men . '.jpg');
+              $men++;
+            } else {
+              $firstName = $faker->firstNameFemale;
+              $avatar = new \SplFileInfo(base_path() . '/database/seeds/avatars/women/' . $women . '.jpg');
+              $women++;
+            }
+            $lastName = $faker->lastName;
+            $email = str_slug(substr($firstName, 0, 1)) . '.' . str_slug($lastName, '_') . '@' . $faker->domainName;
+
+            //$active = (mt_rand(0,4) == 0) ? false : true;
+            $active = true;
+
+            $created_at = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+
+            DB::table('users')->insert([
+              'account_id' => 1,
+              'name' => $firstName . ' ' . $lastName,
+              'first_name' => $firstName,
+              'last_name' => $lastName,
+              'salutation' => $faker->title($gender),
+              'job_title' => substr($faker->jobTitle, 0, 63),
+              'email' => $email,
+              'password' => bcrypt('welcome'),
+              'email_verified_at' => $faker->dateTimeThisYear($max = '-1 week'),
+              'phone' => $faker->e164PhoneNumber,
+              'street1' => $faker->streetAddress,
+              'city' => $faker->city,
+              'state' => $faker->state,
+              'postal_code' => $faker->postcode,
+              'timezone' => $faker->timezone,
+              'currency_code' => $faker->currencyCode,
+              'active' => $active,
+              'signup_ip_address' => $faker->ipv4(),
+              'logins' => $faker->numberBetween($min = 1, $max = 50),
+              'last_login' => $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now'),
+              'last_login_ip_address' => $faker->ipv4(),
+              'created_at' => $created_at,
+              'created_by' => 1,
+              'updated_at' => $updated_at,
+              'updated_by' => 1
+            ]);
+
+            $user = \App\User::find($index + 1);
+
+            $user->avatar = $avatar;
+            $user->save();
+
+            // Assign role
+            $role_dice = mt_rand(0, 12);
+            if ($role_dice === 1 || $role_dice === 2) {
+              $user->assignRole('Manager');
+              $managers[] = $user;
+              $manager_ids[] = $user->id;
+            } elseif ($role_dice === 3 || $role_dice === 4 || $role_dice === 5) {
+              $user->assignRole('Employee');
+              $employees[] = $user;
+              $employee_ids[] = $user->id;
+            } elseif ($role_dice === 6 || $role_dice === 7 || $role_dice === 8) {
+              $user->assignRole('Contractor');
+              $contractors[] = $user;
+              $contractor_ids[] = $user->id;
+            } else {
+              $user->assignRole('Client');
+              $clients[] = $user;
+              $client_ids[] = $user->id;
+            }
+          }
+        }
+
+        // Companies
+        if ($company_count > 0) {
+          foreach (range(1, $company_count) as $index) {
+            $default = ($index == 1) ? true : null;
+            $active = true;
+            $company = $faker->company;
+            $email_pre = ['info', 'info', 'info', 'contact', 'hi', 'hello'];
+            $email_tld = ['com', 'com', 'com', 'org', 'biz', 'store', 'agency'];
+            $email = $email_pre[mt_rand(0, count($email_pre) - 1)] . '@' . str_slug($company, '-') . '.' . $email_tld[mt_rand(0, count($email_tld) - 1)];
+
+            $industries = ['Accounting & Legal', 'Advertising', 'Automotive', 'Banking & Finance', 'Business Services', 'Communications', 'Internet & Online', 'Entertainment', 'Marketing', 'Media', 'Transportation'];
+
+            $created_at = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+
+            DB::table('companies')->insert([
+              'account_id' => 1,
+              'default' => $default,
+              'active' => $active,
+              'name' => $company,
+              'email' => $email,
+              'industry' => $industries[mt_rand(0, count($industries) - 1)],
+              'website' => $faker->domainName,
+              'phone' => $faker->e164PhoneNumber,
+              'street1' => $faker->streetAddress,
+              'city' => $faker->city,
+              'state' => $faker->state,
+              'postal_code' => $faker->postcode,
+              'short_description' => $faker->catchPhrase,
+              'created_at' => $created_at,
+              'created_by' => 1,
+              'updated_at' => $updated_at,
+              'updated_by' => 1
+            ]);
+
+            $company = \Platform\Models\Company::find($index);
+
+            // Add client to company
+            if (isset($clients[$index - 1])) {
+              $clients[$index - 1]->companies()->sync($company->id);
+              if ($clients[$index - 1]->active == false) {
+                $company->active = false;
+                $company->save();
+              }
+            }
+          }
+        }
+
+        if ($project_count > 0) {
+          foreach (range(1, $project_count) as $index) {
+            $notify_people_involved = true;
+            $active = true;
+            $task_count = mt_rand(8, 26);
+
+            $max_employees = (count($employee_ids) > 10) ? 10 : 8;
+            $employee_pool = array_random($employee_ids, mt_rand(4, $max_employees));
+            $max_contractors = (count($contractor_ids) > 5) ? 5 : 3;
+            $contractor_pool = array_random($contractor_ids, mt_rand(2, 5));
+
+            $project_status_id = [1, 28, 21, 32, 43, 45, 49, 72];
+            $project_status_id = array_random($project_status_id);
+
+            $created_at = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+
+            $start_date = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+            $due_date = $faker->dateTimeBetween($startDate = $start_date, $endDate = '+3 months');
+
+            $completed_date = null;
+            if ($project_status_id == 72) {
+              $completed_date = $faker->dateTimeBetween($startDate = $start_date, $endDate = 'now');
+            }
+
+            DB::table('projects')->insert([
+              'company_id' => mt_rand(1, $company_count - 1),
+              'project_status_id' => $project_status_id,
+              'active' => $active,
+              'name' => ucfirst($faker->bs),
+              'short_description' => $faker->catchPhrase,
+              'description' => '<h1>' . $faker->realText($maxNbChars = 36, $indexSize = 1) . '</h1><p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p><h2>' . $faker->realText($maxNbChars = 36, $indexSize = 1) . '</h2><p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p>',
+              'category' => $faker->bs,
+              'client_can_comment' => true,
+              'client_can_view_tasks' => true,
+              'client_can_view_description' => true,
+              'client_can_upload_files' => true,
+              'client_can_approve_proposition' => true,
+              'notify_people_involved' => $notify_people_involved,
+              'start_date' => $start_date,
+              'due_date' => $due_date,
+              'completed_date' => $completed_date,
+              'created_at' => $created_at,
+              'created_by' => 1,
+              'updated_at' => $updated_at,
+              'updated_by' => 1
+            ]);
+
+            $project = \Platform\Models\Project::find($index);
+
+            // Add managers
+            $project_managers = [];
+            if (count($manager_ids) >= 2) {
+              $project_managers = array_random($manager_ids, mt_rand(1,2));
+              $project->managers()->sync($project_managers); 
+            }
+
+            // Add tasks
+            for($i = 1; $i < $task_count; $i++) {
+              $project_status_id = [1, 28, 21, 32, 43, 45, 49, 72];
+              $project_status_id = array_random($project_status_id);
+              $priority = [0,1,2,3,1,1,1,1,1,1,1];
+              $priority = array_random($priority);
+
+              $assigned_to_id = [];
+
+              if (count($employee_pool) >= 2) {
+                $assigned_to_id = array_random($employee_pool, mt_rand(1,2));
+              }
+
+              if (count($contractor_pool) >= 1) {
+                $assigned_to_id = array_merge($assigned_to_id, array_random($contractor_pool, mt_rand(0,1)));
+              }
+
+              $created_at = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now');
+              $updated_at = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+
+              $start_date = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+              $due_date = $faker->dateTimeBetween($startDate = $start_date, $endDate = '+3 months');
+
+              $completed_date = null;
+              $completed_by_id = null;
+              if ($project_status_id == 72) {
+                $completed_date = $faker->dateTimeBetween($startDate = $start_date, $endDate = 'now');
+                $completed_by_id = array_random($assigned_to_id);
+              }
+
+              $project_task = new \Platform\Models\ProjectTask;
+              $project_task->project_id = $project->id;
+              $project_task->project_status_id = $project_status_id;
+              $project_task->subject = ucfirst($faker->bs);
+              $project_task->priority = $priority;
+              $project_task->description = '<p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p>';
+              $project_task->start_date = $start_date;
+              $project_task->due_date = $due_date;
+              $project_task->completed_date = $completed_date;
+              $project_task->completed_by_id = $completed_by_id;
+              $project_task->save();
+
+              // Sync assignees
+              if (! empty($assigned_to_id)) {
+                $project_task->assignees()->sync($assigned_to_id);
+              }
+
+              // Notify assignee(s)
+              if ($notify_people_involved == 1 && ! empty($project_managers)) {
+                if ($project_task->assignees->count() > 0) {
+                  foreach ($project_task->assignees as $user) {
+                    if ($user->active) {
+                      \Notification::send($user, new \App\Notifications\ProjectAssignedToTask(env('APP_URL') . '/login', \App\User::find(array_random($project_managers)), $user, $project_task));
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        Eloquent::reguard();
+    }
+}

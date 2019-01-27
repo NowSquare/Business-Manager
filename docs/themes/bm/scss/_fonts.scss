@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
+
+:root {
+    --font-family-text: -apple-system,
+        ".SFNSText-Regular",
+        "San Francisco",
+        "Roboto",
+        "Segoe UI",
+        "Helvetica Neue",
+        "Lucida Grande",
+        Arial,
+        sans-serif;
+    --font-family-monospace: Monaco, Menlo, Consolas, "Lucida Console", "Courier New", monospace;
+    --font-family-heading: "Roboto", var(--font-family-text);
+}

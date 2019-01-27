@@ -1,0 +1,38 @@
+{
+    "name": "orchestra/imagine",
+    "description": "Imagine (Wrapper) Component for Laravel 5",
+    "keywords": ["orchestra-platform", "orchestral", "laravel", "image-manipulation", "image"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mior Muhammad Zaki",
+            "email": "crynobone@gmail.com",
+            "homepage": "https://github.com/crynobone"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "imagine/imagine": "~0.7",
+        "orchestra/support-core": "~3.7.0",
+        "orchestra/support-providers": "~3.7.0"
+    },
+    "require-dev": {
+        "illuminate/container": "~5.7.0",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Orchestra\\Imagine\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.7-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
