@@ -134,7 +134,7 @@
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title"><span class="text-muted">{{ $project->client->active_name }} -</span> {{ $project->name }}</h3>
+              <h3 class="card-title"><span class="text-muted d-none d-md-inline">{{ $project->client->active_name }} -</span> {{ $project->name }}</h3>
               <div class="card-options">
                 <span class="text-muted small">{!! $project->status->bullet_name !!}</span>
               </div>
