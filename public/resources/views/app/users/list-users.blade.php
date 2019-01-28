@@ -45,7 +45,7 @@ foreach($columns as $column) {
 ?>
                     <th{!! $width !!} class="text-truncate">{{ $head }}</th>
 <?php } ?>
-                    <th>{{ trans('g.role') }}</th>
+                    <th style="min-width: 120px">{{ trans('g.role') }}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -114,7 +114,7 @@ foreach ($roles as $role) {
     buttons: [
       {
         extend: 'collection',
-        text: "<i class=\"material-icons\" style=\"position:relative;top:1px\">import_export</i> {{ trans('g.export') }} ",
+        text: "<i class=\"material-icons d-none d-md-inline\" style=\"position:relative;top:1px\">import_export</i> {{ trans('g.export') }} ",
         className: 'btn btn-secondary buttons-collection dropdown-toggle mr-2 rounded-0',
         buttons: [
           {
@@ -367,7 +367,7 @@ foreach($columns as $i => $column) {
       });
     }
   });
-  $('.dataTables_filter .form-control-sm').removeClass('form-control-sm').css('width', '175px');
+  $('.dataTables_filter .form-control-sm').removeClass('form-control-sm').css('width', '125px');
   $('.dataTables_length .custom-select-sm').removeClass('custom-select-sm form-control-sm');
   $('.btn-delete-selected').attr('disabled', 1);
 });

@@ -16,7 +16,7 @@ $.extend(true, $.fn.dataTable.defaults, {
   responsive: false,
   dom:  "<'row'<'col-7 col-md-5'<'float-left ml-1'f><'float-left ml-2'l>><'col-5 col-md-7 text-right'<'mr-3'B>>>" +
       "<'row'<'col-sm-12'tr>>" +
-      "<'row'<'col-sm-12 col-md-5'<'ml-3 text-muted'i>><'col-sm-12 col-md-7'<'mr-3'p>>>",
+      "<'row'<'col-sm-12 col-md-5'<'ml-3 text-muted'i>><'col-sm-12 col-md-7'<'mr-3 mt-2'p>>>",
   language: {
   lengthMenu: "_MENU_",
   processing: '<div class="text-center" style="width:100%;margin:1rem 0"><div class="loader" style="margin:auto"></div></div>',
