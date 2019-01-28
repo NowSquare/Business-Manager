@@ -26,13 +26,13 @@ class UpdateController extends \App\Http\Controllers\Controller {
 	/**
 	 * Reset installation
 	 */
-	public function resetInstallation($app_key) {
+	public static function resetInstallation($app_key) {
     if ($app_key !== env('APP_KEY')) abort(404);
 
     set_time_limit(500);
 
     // Clean uploads and attachments
-    $this->clean();
+    UpdateController::clean();
 
     \Artisan::call('cache:clear');
     \Artisan::call('route:clear');

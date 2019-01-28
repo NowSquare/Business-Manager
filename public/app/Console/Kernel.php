@@ -24,8 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+      // Reset demo
+      $schedule->call(function () {
+
+        if (env('DEMO', false)) {
+          \Platform\Controllers\UpdateController::resetInstallation(env('APP_KEY'));
+        }
+
+      })->hourly();
     }
 
     /**
