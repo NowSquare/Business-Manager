@@ -991,6 +991,7 @@ Components
     height: 16px; }
 
 .Navbar .Search {
+  width: 180px;
   float: right;
   margin: 8px 20px; }
   .Navbar .Search__field {
