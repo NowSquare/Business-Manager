@@ -347,7 +347,7 @@ return [
     "deadline" => "Deadline",
     "proposition" => "Proposition",
     "create_project_info" => "You can upload files when the project is saved.",
-    "project_notification_client" => "Send project created notification to client and task assignees",
+    "project_notification_client" => "Send project related notifications to client and team members",
     "project_update_notification_client" => "Notify the client and assignees whose task has been updated.",
     "project_client_help" => "\"Client\" refers to all active members of the client company. This can be more than one person.",
     "client_can_comment" => "Client can post comments",
