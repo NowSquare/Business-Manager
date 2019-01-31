@@ -34,6 +34,18 @@ class AuthServiceProvider extends ServiceProvider
           }
         });
 
+        Gate::define('user-view-project-tasks', function ($user, $project) {
+          if ($user->hasPermissionTo('view-project-tasks')) {
+            return true;
+          } else {
+            // Check if user has client role
+            if ($user->roles[0]->id == 5) {
+              if ($project->client_can_view_tasks == 1) return true;
+            }
+          }
+          return false;
+        });
+
         Gate::define('user-view-project-comments', function ($user, $project) {
           if ($user->hasPermissionTo('view-comments')) {
             // Check if user has client role

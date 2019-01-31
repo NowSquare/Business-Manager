@@ -91,7 +91,7 @@
                 <li class="nav-item pl-5">
                   <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="true">{{ trans('g.general') }}</a>
                 </li>
-<?php if (auth()->user()->can('view-project-tasks') || auth()->user()->can('view-personal-project-tasks')) { ?>
+<?php if (auth()->user()->can('user-view-project-tasks', $project) || auth()->user()->can('view-personal-project-tasks')) { ?>
                 <li class="nav-item">
                   <a class="nav-link" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-selected="false">{{ trans('g.tasks') }}</a>
                 </li>
@@ -206,7 +206,7 @@ foreach ($project->managers->sortBy('name') as $manager) {
 <?php } // can('view-project-description') ?>
 
                 </div>
-<?php if (auth()->user()->can('view-project-tasks') || auth()->user()->can('view-personal-project-tasks')) { ?>
+<?php if (auth()->user()->can('user-view-project-tasks', $project) || auth()->user()->can('view-personal-project-tasks')) { ?>
                 <div class="tab-pane fade pt-5 pl-5 pr-5 pb-0" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
 
                   <div class="row row-cards row-deck" id="task-items">
