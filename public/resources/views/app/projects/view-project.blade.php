@@ -442,7 +442,7 @@ $('#taskForm .btn-complete-task')
                       </div>
                       <div class="col-md-6 col-lg-4 text-right">
 <?php if (auth()->user()->can('user-approve-project-proposition', $project)) { ?>
-  <?php if ($project->propositions[0]->approved === null && auth()->user()->roles[0]->id != 1) { ?>
+  <?php if (isset($project->propositions[0]) && $project->propositions[0]->approved === null && auth()->user()->roles[0]->id != 1) { ?>
                         <button type="button" class="btn btn-success btn-lg btn-block btn-approve-proposition"><i class="material-icons" style="position: relative; top:1px;">check_circle_outline</i> {{ trans('g.approve_proposition') }}</button>
 <script>
 $(function() {
@@ -481,7 +481,7 @@ $(function() {
 </script>
   <?php } ?>
 <?php } ?>
-<?php if ($project->propositions[0]->approved !== null) { ?>
+<?php if (isset($project->propositions[0]) && $project->propositions[0]->approved !== null) { ?>
                         <div><span class="text-success"><i class="material-icons" style="position: relative; top:7px;">check_circle_outline</i> {{ trans('g.proposition_is_approved') }}</span></div>
   <?php if (auth()->user()->roles[0]->id == 1) { ?>
                         <div class="mt-2"><a href="javascript:void(0);" class="text-danger btn-reset-approval small">{{ trans('g.reset_approval') }}</a></div>
