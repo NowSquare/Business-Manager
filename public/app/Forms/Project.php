@@ -161,7 +161,7 @@ class Project extends Form
             ])
             ->add('notify_people_involved', 'boolean', [
               'default_value' => 1,
-              'label' => ($this->getData('model') !== null) ? trans('g.project_update_notification_client') : trans('g.project_notification_client'),
+              'label' => trans('g.project_notification_client'),
               'wrapper' => ['class' => 'custom-control custom-checkbox my-2'],
               'label_attr' => ['class' => 'custom-control-label'],
               'attr' => ['class' => 'custom-control-input', 'id' => 'notify_people_involved']
