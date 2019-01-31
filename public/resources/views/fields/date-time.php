@@ -11,6 +11,10 @@
 <?php
 if ($showField): 
   $type = 'text';
+
+$disabled = (isset($options['attr']['disabled']) && $options['attr']['disabled']) ? true : false;
+$readonly = (isset($options['attr']['readonly']) && $options['attr']['readonly'] == 1) ? true : false;
+
 ?>
     <div class="row gutters-xs">
       <div class="col">
@@ -23,7 +27,7 @@ if ($showField):
         </div>
       </div>
       <div class="col-auto">
-        <select name="<?php echo $name . '_time' ?>" id="<?php echo $name . '_time' ?>" class="form-control" style="width: 115px">
+        <select name="<?php echo $name . '_time' ?>" id="<?php echo $name . '_time' ?>" class="form-control" style="width: 115px"<?php if ($disabled) echo ' disabled'; ?><?php if ($readonly) echo ' readonly'; ?>>
           <option value=""></option>
 <?php
 $time = mktime(0, 0, 0, 1, 1);
