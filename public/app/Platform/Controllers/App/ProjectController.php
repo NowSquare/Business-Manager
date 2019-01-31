@@ -1019,25 +1019,27 @@ class ProjectController extends \App\Http\Controllers\Controller {
     $project->propositions[0]->approved_by = auth()->user()->id;
     $project->propositions[0]->save();
 
-    // Notify all project members about approval, including auth() user
-    $users = collect();
+    if ($project->notify_people_involved == 1) {
+      // Notify all project members about approval, including auth() user
+      $users = collect();
 
-    // Get client user(s)
-    if ($project->client !== null) {
-      $users = $users->merge($project->client->users);
-    }
+      // Get client user(s)
+      if ($project->client !== null) {
+        $users = $users->merge($project->client->users);
+      }
 
-    // Get managers
-    if ($project->managers !== null) {
-      $users = $users->merge($project->managers);
-    }
+      // Get managers
+      if ($project->managers !== null) {
+        $users = $users->merge($project->managers);
+      }
 
-    $users = $users->unique('id');
+      $users = $users->unique('id');
 
-    foreach ($users as $user) {
-      if ($user->active) {
-        // Send notification
-        \Notification::send($user, new \App\Notifications\ProjectPropositionApproved(env('APP_URL') . '/login', auth()->user(), $user, $project));
+      foreach ($users as $user) {
+        if ($user->active) {
+          // Send notification
+          \Notification::send($user, new \App\Notifications\ProjectPropositionApproved(env('APP_URL') . '/login', auth()->user(), $user, $project));
+        }
       }
     }
 
@@ -1059,25 +1061,27 @@ class ProjectController extends \App\Http\Controllers\Controller {
     $project->propositions[0]->approved_by = null;
     $project->propositions[0]->save();
 
-    // Notify all project members about approval reset, including auth() user
-    $users = collect();
+    if ($project->notify_people_involved == 1) {
+      // Notify all project members about approval reset, including auth() user
+      $users = collect();
 
-    // Get client user(s)
-    if ($project->client !== null) {
-      $users = $users->merge($project->client->users);
-    }
+      // Get client user(s)
+      if ($project->client !== null) {
+        $users = $users->merge($project->client->users);
+      }
 
-    // Get managers
-    if ($project->managers !== null) {
-      $users = $users->merge($project->managers);
-    }
+      // Get managers
+      if ($project->managers !== null) {
+        $users = $users->merge($project->managers);
+      }
 
-    $users = $users->unique('id');
+      $users = $users->unique('id');
 
-    foreach ($users as $user) {
-      if ($user->active) {
-        // Send notification
-        \Notification::send($user, new \App\Notifications\ProjectPropositionApprovalReset(env('APP_URL') . '/login', auth()->user(), $user, $project));
+      foreach ($users as $user) {
+        if ($user->active) {
+          // Send notification
+          \Notification::send($user, new \App\Notifications\ProjectPropositionApprovalReset(env('APP_URL') . '/login', auth()->user(), $user, $project));
+        }
       }
     }
 
