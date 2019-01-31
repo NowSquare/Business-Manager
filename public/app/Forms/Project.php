@@ -222,7 +222,17 @@ class Project extends Form
             ->add('back', 'button', [
               'attr' => ['class' => 'btn btn-secondary mr-1', 'onclick="document.location = \'' . url('projects') . '\'"'],
               'label' => trans('g.back'),
-            ])
+            ]);
+
+        if ($this->getData('sl') !== null && auth()->user()->can('view-project')) {
+          $this
+              ->add('view', 'button', [
+                'attr' => ['class' => 'btn btn-secondary mr-1 tab-hash', 'onclick="document.location = \'' . url('projects/view/' . $this->getData('sl')) . '\'"'],
+                'label' => trans('g.view_project'),
+              ]);
+        }
+      
+        $this
             ->add('submit', 'submit', [
               'attr' => ['class' => 'btn btn-primary', 'id' => 'submit_form_with_tabs'],
               'label' => trans('g.save'),

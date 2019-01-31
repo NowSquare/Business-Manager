@@ -606,7 +606,7 @@ class ProjectController extends \App\Http\Controllers\Controller {
         'url' => url('projects/edit/' . $sl),
         'model' => $project->toArray(), // Pass model as array so hidden fields are respected
         'language_name' => 'g',
-        'data' =>  ['model' => $project] // Pass model as collection for field processing
+        'data' =>  ['model' => $project, 'sl' => $sl] // Pass model as collection for field processing
       ]);
 
       // History
@@ -629,7 +629,7 @@ class ProjectController extends \App\Http\Controllers\Controller {
       session(['elfinder.company_id' => $project->client->id]);
       session(['elfinder.project_id' => $project->id]);
 
-      return view('app.projects.edit-project', compact('project', 'form', 'history'));
+      return view('app.projects.edit-project', compact('sl', 'project', 'form', 'history'));
     }
   }
 
