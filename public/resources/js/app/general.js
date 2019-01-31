@@ -20,14 +20,14 @@ $(function(){
     window.location.hash = this.hash;
 
     $('a.tab-hash').each(function() {
-      _href = $(this)[0].protocol + "//" + $(this)[0].host + "/" + $(this)[0].pathname + $(this)[0].search;
+      _href = $(this)[0].protocol + "//" + $(this)[0].host + $(this)[0].pathname + $(this)[0].search;
       $(this).attr('href', _href + window.location.hash);
     });
   });
 
   // Set hash also on page load
   $('a.tab-hash').each(function() {
-    _href = $(this)[0].protocol + "//" + $(this)[0].host + "/" + $(this)[0].pathname + $(this)[0].search;
+    _href = $(this)[0].protocol + "//" + $(this)[0].host + $(this)[0].pathname + $(this)[0].search;
     $(this).attr('href', _href + window.location.hash);
   });
 
