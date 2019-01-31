@@ -34,6 +34,26 @@ class AuthServiceProvider extends ServiceProvider
           }
         });
 
+        // Only admins can reset a client approval
+        Gate::define('user-reset-approval-project-proposition', function ($user) {
+          // Check if user has admin role
+          if ($user->roles[0]->id == 1) {
+            return true;
+          }
+
+          return false;
+        });
+
+        // Only clients who have permission to approve a proposition can do this
+        Gate::define('user-approve-project-proposition', function ($user, $project) {
+          // Check if user has client role
+          if ($user->roles[0]->id == 5) {
+            if ($project->client_can_view_tasks == 1) return true;
+          }
+
+          return false;
+        });
+
         Gate::define('user-view-project-tasks', function ($user, $project) {
           if ($user->hasPermissionTo('view-project-tasks')) {
             return true;

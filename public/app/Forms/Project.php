@@ -138,6 +138,13 @@ class Project extends Form
               'label_attr' => ['class' => 'custom-control-label'],
               'attr' => ['class' => 'custom-control-input', 'id' => 'client_can_view_proposition']
             ])
+            ->add('client_can_approve_proposition', 'boolean', [
+              'default_value' => 1,
+              'label' => trans('g.client_can_approve_proposition'),
+              'wrapper' => ['class' => 'custom-control custom-checkbox my-2'],
+              'label_attr' => ['class' => 'custom-control-label'],
+              'attr' => ['class' => 'custom-control-input', 'id' => 'client_can_approve_proposition']
+            ])
             ->add('client_can_upload_files', 'boolean', [
               'default_value' => 0,
               'label' => trans('g.client_can_upload_files'),

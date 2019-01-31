@@ -46,6 +46,7 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
     case 'project'; $link = url('projects/view/' . \Platform\Controllers\Core\Secure::array2string(['project_id' => $notification->data['project_id']])); break;
     case 'project-task'; $link = url('projects/view/' . \Platform\Controllers\Core\Secure::array2string(['project_id' => $notification->data['project_id']]) . '?task=' . $notification->data['task_id'] . '#tasks'); break;
     case 'project-comment'; $link = url('projects/view/' . \Platform\Controllers\Core\Secure::array2string(['project_id' => $notification->data['project_id']]) . '#comments'); break;
+    case 'project-proposition'; $link = url('projects/view/' . \Platform\Controllers\Core\Secure::array2string(['project_id' => $notification->data['project_id']]) . '#proposition'); break;
   }
 ?>
                     <a href="{{ $link }}" class="dropdown-item d-flex">

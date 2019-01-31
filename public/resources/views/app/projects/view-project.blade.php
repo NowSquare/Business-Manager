@@ -440,8 +440,88 @@ $('#taskForm .btn-complete-task')
                       </div>
                       <div class="col-md-6 col-lg-4">
                       </div>
-                      <div class="col-md-6 col-lg-4">
-
+                      <div class="col-md-6 col-lg-4 text-right">
+<?php if (auth()->user()->can('user-approve-project-proposition', $project)) { ?>
+  <?php if ($project->propositions[0]->approved === null && auth()->user()->roles[0]->id != 1) { ?>
+                        <button type="button" class="btn btn-success btn-lg btn-block btn-approve-proposition"><i class="material-icons" style="position: relative; top:1px;">check_circle_outline</i> {{ trans('g.approve_proposition') }}</button>
+<script>
+$(function() {
+  $('.btn-approve-proposition').on('click', function() {
+    Swal({
+      title: "{!! trans('g.approve_proposition') !!}",
+      text: "{!! trans('g.approve_proposition_confirm') !!}",
+      type: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: "{!! trans('g.yes') !!}"
+    }).then((result) => {
+      if (result.value) {
+        var jqxhr = $.ajax({
+          url: "{{ url('projects/proposition/approve') }}",
+          data: {id: <?php echo $project->id ?>, _token: '<?= csrf_token() ?>'},
+          method: 'POST'
+        })
+        .done(function(data) {
+          if(data === true) {
+            document.location.reload();
+          } else if (typeof data.msg !== 'undefined') {
+            Swal(data.msg);
+          }
+        })
+        .fail(function() {
+          console.log('error');
+        })
+        .always(function() {
+        });
+      }
+    });
+  });
+});
+</script>
+  <?php } ?>
+<?php } ?>
+<?php if ($project->propositions[0]->approved !== null) { ?>
+                        <div><span class="text-success"><i class="material-icons" style="position: relative; top:7px;">check_circle_outline</i> {{ trans('g.proposition_is_approved') }}</span></div>
+  <?php if (auth()->user()->roles[0]->id == 1) { ?>
+                        <div class="mt-2"><a href="javascript:void(0);" class="text-danger btn-reset-approval small">{{ trans('g.reset_approval') }}</a></div>
+<script>
+$(function() {
+  $('.btn-reset-approval').on('click', function() {
+    Swal({
+      title: "{!! trans('g.reset_approval') !!}",
+      text: "{!! trans('g.reset_approval_confirm') !!}",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: "{!! trans('g.yes') !!}"
+    }).then((result) => {
+      if (result.value) {
+        var jqxhr = $.ajax({
+          url: "{{ url('projects/proposition/reset-approval') }}",
+          data: {id: <?php echo $project->id ?>, _token: '<?= csrf_token() ?>'},
+          method: 'POST'
+        })
+        .done(function(data) {
+          if(data === true) {
+            document.location.reload();
+          } else if (typeof data.msg !== 'undefined') {
+            Swal(data.msg);
+          }
+        })
+        .fail(function() {
+          console.log('error');
+        })
+        .always(function() {
+        });
+      }
+    });
+  });
+});
+</script>
+  <?php } ?>
+<?php } ?>
                       </div>
                     </div>
                   </div>

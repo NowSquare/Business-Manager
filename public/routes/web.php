@@ -89,6 +89,8 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   Route::get('projects/export/{type}', '\Platform\Controllers\App\ProjectController@getExportRecords')->middleware('permission:list-projects');
   Route::post('projects/delete-projects', '\Platform\Controllers\App\ProjectController@postDeleteProjects')->middleware('permission:delete-project');
   Route::post('projects/task/edit', '\Platform\Controllers\App\ProjectController@postEditTask')->middleware('permission:edit-project-task|mark-project-task-complete');
+  Route::post('projects/proposition/approve', '\Platform\Controllers\App\ProjectController@postApproveProposition');
+  Route::post('projects/proposition/reset-approval', '\Platform\Controllers\App\ProjectController@postResetPropositionApproval');
 
   // Comments
   Route::post('comments/add', '\Platform\Controllers\App\CommentController@postAddComment')->middleware('permission:create-comment');

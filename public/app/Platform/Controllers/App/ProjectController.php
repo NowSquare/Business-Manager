@@ -997,4 +997,90 @@ class ProjectController extends \App\Http\Controllers\Controller {
     }
   }
 
+  /**
+   * Approve proposition
+   */
+
+  public function postApproveProposition() {
+    $id = request()->get('id', null);
+
+    $project = \Platform\Models\Project::findOrFail($id);
+
+    if(! auth()->user()->can('user-approve-project-proposition', $project)) abort(404);
+
+    // Set proposition as approved, first check "valid until"
+    if ($project->propositions[0]->proposition_valid_until !== null) {
+      if ($project->propositions[0]->proposition_valid_until->isPast()) {
+        return response()->json(['msg' => trans('g.valid_until_expired')]);
+      }
+    }
+
+    $project->propositions[0]->approved = \Carbon\Carbon::now('UTC');
+    $project->propositions[0]->approved_by = auth()->user()->id;
+    $project->propositions[0]->save();
+
+    // Notify all project members about approval, including auth() user
+    $users = collect();
+
+    // Get client user(s)
+    if ($project->client !== null) {
+      $users = $users->merge($project->client->users);
+    }
+
+    // Get managers
+    if ($project->managers !== null) {
+      $users = $users->merge($project->managers);
+    }
+
+    $users = $users->unique('id');
+
+    foreach ($users as $user) {
+      if ($user->active) {
+        // Send notification
+        \Notification::send($user, new \App\Notifications\ProjectPropositionApproved(env('APP_URL') . '/login', auth()->user(), $user, $project));
+      }
+    }
+
+    return response()->json(true);
+  }
+
+  /**
+   * Reset proposition approval
+   */
+
+  public function postResetPropositionApproval() {
+    $id = request()->get('id', null);
+
+    $project = \Platform\Models\Project::findOrFail($id);
+
+    if(! auth()->user()->can('user-reset-approval-project-proposition', $project)) abort(404);
+
+    $project->propositions[0]->approved = null;
+    $project->propositions[0]->approved_by = null;
+    $project->propositions[0]->save();
+
+    // Notify all project members about approval reset, including auth() user
+    $users = collect();
+
+    // Get client user(s)
+    if ($project->client !== null) {
+      $users = $users->merge($project->client->users);
+    }
+
+    // Get managers
+    if ($project->managers !== null) {
+      $users = $users->merge($project->managers);
+    }
+
+    $users = $users->unique('id');
+
+    foreach ($users as $user) {
+      if ($user->active) {
+        // Send notification
+        \Notification::send($user, new \App\Notifications\ProjectPropositionApprovalReset(env('APP_URL') . '/login', auth()->user(), $user, $project));
+      }
+    }
+
+    return response()->json(true);
+  }
 }

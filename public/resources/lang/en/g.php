@@ -146,6 +146,14 @@ return [
     "new_project_comment_mail" => "You are receiving this email because :sender has added a comment to a project you are involved in. Please click the button below to log in to your account.",
     "new_project_comment_notification" => ":sender added a comment to project: :name.",
 
+    "proposition_approval_subject" => "Project proposition approved - :subject",
+    "proposition_approval_subject_mail" => "You are receiving this email because :sender has approved the proposition for a project you are involved in. Please click the button below to log in to your account.",
+    "project_proposition_approved_notification" => ":sender approved the proposition for project: :name.",
+
+    "proposition_approval_reset_subject" => "Project proposition approval reset - :subject",
+    "proposition_approval_reset_subject_mail" => "You are receiving this email because :sender has reset the proposition approval for a project you are involved in. Please click the button below to log in to your account.",
+    "project_proposition_approval_reset_notification" => ":sender reset the proposition approval for project: :name.",
+
     /*
      |--------------------------------------------------------------------------
      | Log
@@ -349,6 +357,12 @@ return [
     "client_can_upload_files" => "Client can upload files",
     "client_can_view_proposition" => "Client can view proposition",
     "client_can_approve_proposition" => "Client can approve proposition",
+    "approve_proposition" => "Approve proposition",
+    "approve_proposition_confirm" => "Do you want to approve this proposition?",
+    "valid_until_expired" => "The offer cannot be approved because the expiry date has passed.",
+    "proposition_is_approved" => "Proposition is approved",
+    "reset_approval" => "Reset approval",
+    "reset_approval_confirm" => "Do you want to reset the approval?",
     "reference" => "Reference",
     "reference_code" => "Reference code",
     "proposition_valid_until" => "Proposition valid until",
