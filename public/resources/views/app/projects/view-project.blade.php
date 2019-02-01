@@ -8,63 +8,19 @@
 
 <?php if (auth()->user()->can('view-and-upload-all-project-files') || auth()->user()->can('user-view-and-upload-personal-project-files', $project)) { ?>
 
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/elfinder.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/theme.css') }}">
+@include('layouts.modules.elfinder-init')
 
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/Material/css/theme-gray.min.css') }}">
-
-  <script src="{{ url('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script>
-
-<?php if (app()->getLocale() != 'en') { ?>
-      <script src="{{ url('packages/barryvdh/elfinder/js/i18n/elfinder.' . app()->getLocale() . '.js') }}"></script>
-<?php } ?>
+<script type="text/javascript">
+  $(function() {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      if ($(e.target).attr('id') == 'files-tab') {
+        $('#elfinder').trigger('resize');
+      }
+    });
+  });
+</script>
 
 <?php } // view-and-upload-all-project-files || view-and-upload-personal-project-files ?>
-
-  <script type="text/javascript" charset="utf-8">
-      $().ready(function() {
-<?php if (auth()->user()->can('view-and-upload-all-project-files') || auth()->user()->can('user-view-and-upload-personal-project-files', $project)) { ?>
-          $('#elfinder').elfinder({
-<?php if (app()->getLocale() != 'en') { ?>
-                  lang: '{{ app()->getLocale() }}',
-<?php } ?>
-              customData: { 
-                  _token: '{{ csrf_token() }}'
-              },
-              url : '{{ route("elfinder.connector") }}',
-              soundPath: '{{ url('packages/barryvdh/elfinder/sounds') }}',
-              resizable: false,
-              rememberLastDir: false,
-              useBrowserHistory: false,
-              uiOptions: {
-                toolbar : [
-                  ['back', 'forward'],
-                  ['home', 'up'],
-                  ['mkdir', 'upload'],
-                  ['paste'],
-                  ['rm'],
-                  ['duplicate', 'rename', 'edit'],
-                  ['extract', 'archive'],
-                  ['search'],
-                  ['view']
-                ]
-              },
-              contextmenu : {
-                files  : [
-                  'getfile', '|','open', '|', 'copy', 'cut', 'paste', 'duplicate', '|',
-                  'rm', '|', 'edit', 'rename', '|', 'archive', 'extract', '|', 'info'
-                ]
-              }
-          });
-<?php } // view-and-upload-all-project-files || view-and-upload-personal-project-files ?>
-
-          $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            if ($(e.target).attr('id') == 'files-tab') {
-              $('#elfinder').trigger('resize');
-            }
-          });
-      });
-  </script>
 @stop
 
 @section('content')

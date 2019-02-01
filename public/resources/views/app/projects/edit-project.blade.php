@@ -6,105 +6,38 @@
   <link rel="stylesheet" href="{{ url('assets/css/wysiwyg.css?' . config('system.client_side_timestamp')) }}">
   <script src="{{ url('assets/js/wysiwyg.js?' . config('system.client_side_timestamp')) }}"></script>
 
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/elfinder.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/theme.css') }}">
+@include('layouts.modules.elfinder-init')
 
-  <link rel="stylesheet" type="text/css" href="{{ url('packages/Material/css/theme-gray.min.css') }}">
+<script type="text/javascript">
+  $(function() {
 
-  <script src="{{ url('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script>
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      if ($(e.target).attr('id') == 'files-tab') {
+        $('#elfinder').trigger('resize');
+      }
+    });
 
-<?php if (app()->getLocale() != 'en') { ?>
-      <!-- elFinder translation (OPTIONAL) -->
-      <script src="{{ url('packages/barryvdh/elfinder/js/i18n/elfinder.' . app()->getLocale() . '.js') }}"></script>
-<?php } ?>
+    var submitted = false;
 
-  <!-- elFinder initialization (REQUIRED) -->
-  <script type="text/javascript" charset="utf-8">
-      // Documentation for client options:
-      // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
-      $().ready(function() {
-          $('#elfinder').elfinder({
-              // set your elFinder options here
-<?php if (app()->getLocale() != 'en') { ?>
-                  lang: '{{ app()->getLocale() }}', // locale
-<?php } ?>
-              customData: { 
-                  _token: '{{ csrf_token() }}'
-              },
-              url : '{{ route("elfinder.connector") }}',  // connector URL
-              soundPath: '{{ url('packages/barryvdh/elfinder/sounds') }}',
-              resizable: false,
-              rememberLastDir: false,
-              useBrowserHistory: false,
-              /*
-              uiOptions: {
-                toolbar : [
-                  // toolbar configuration
-                  ['open'],
-                  ['back', 'forward'],
-                  ['reload'],
-                  ['home', 'up'],
-                  ['mkdir', 'mkfile', 'upload'],
-                  ['info'],
-                  ['quicklook'],
-                  ['copy', 'cut', 'paste'],
-                  ['rm'],
-                  ['duplicate', 'rename', 'resize', 'edit'],
-                  ['extract', 'archive'],
-                  ['search'],
-                  ['view'],
-                  ['help']
-                ]
-              },*/
-              uiOptions: {
-                toolbar : [
-                  ['back', 'forward'],
-                  ['home', 'up'],
-                  ['mkdir', 'mkfile', 'upload'],
-                  ['info'],
-                  ['paste'],
-                  ['rm'],
-                  ['duplicate', 'rename', 'resize', 'edit'],
-                  ['extract', 'archive'],
-                  ['search'],
-                  ['view']
-                ]
-              },
-              contextmenu : {
-                files  : [
-                  'getfile', '|','open', '|', 'copy', 'cut', 'paste', 'duplicate', '|',
-                  'rm', '|', 'edit', 'rename', '|', 'archive', 'extract', '|', 'info'
-                ]
-              }
-          });
+    $("form").submit(function() {
+      submitted = true;
+    });
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-          if ($(e.target).attr('id') == 'files-tab') {
-            $('#elfinder').trigger('resize');
-          }
-        });
+    $(window).bind('beforeunload', function() {
+      if (! submitted && ($('#form_changes_detected').val() == '1' || $('#task_changes_detected').val() == '1')) {
+        return true;
+      }
+    });
 
-        var submitted = false;
+    $('body').on('keyup change paste', 'input, select, textarea', function(){
+      $('#form_changes_detected').val('1');
+    });
 
-        $("form").submit(function() {
-          submitted = true;
-        });
-
-        $(window).bind('beforeunload', function() {
-          if (! submitted && ($('#form_changes_detected').val() == '1' || $('#task_changes_detected').val() == '1')) {
-            return true;
-          }
-        });
-
-        $('body').on('keyup change paste', 'input, select, textarea', function(){
-          $('#form_changes_detected').val('1');
-        });
-
-        $('#taskForm').on('keyup change paste', 'input, select, textarea', function(){
-          $('#task_changes_detected').val('1');
-        });
-      });
-  </script>
+    $('#taskForm').on('keyup change paste', 'input, select, textarea', function(){
+      $('#task_changes_detected').val('1');
+    });
+  });
+</script>
 @stop
 
 @section('content')
