@@ -52,7 +52,7 @@
                   <a class="nav-link" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-selected="false">{{ trans('g.tasks') }}</a>
                 </li>
 <?php } // view-project-tasks || view-personal-project-tasks ?>
-<?php if (auth()->user()->can('user-view-project-proposition', $project)) { ?>
+<?php if (auth()->user()->can('user-view-project-proposition', $project) && isset($project->propositions[0])) { ?>
                 <li class="nav-item">
                   <a class="nav-link" id="proposition-tab" data-toggle="tab" href="#proposition" role="tab" aria-selected="false">{{ trans('g.proposition') }}</a>
                 </li>
