@@ -109,4 +109,126 @@ class SettingController extends \App\Http\Controllers\Controller {
 
     return response()->json(true);
   }
+
+  /**
+   * Tax rates list json
+   */
+
+  public function getTaxRatesListJson() {
+    // DataTables parameters
+    $order_by = request()->input('order.0.column', 1);
+    $order = request()->input('order.0.dir', 'asc');
+    $search = request()->input('search.regex', '');
+    $q = request()->input('search.value', '');
+    $start = request()->input('start', 0);
+    $draw = request()->input('draw', 1);
+    $length = request()->input('length', 10);
+    if ($length == -1) $length = 1000;
+    $data = array();
+
+    $table = 'tax_rates';
+    $select_columns = [];
+    $select_columns[] = $table . '.rate';
+    $select_columns[] = $table . '.id';
+    $select_columns[] = $table . '.default';
+    $search_columns = [];
+    $search_columns[] = $table . '.rate';
+
+    $order_by = (isset($select_columns[$order_by])) ? $select_columns[$order_by] : null;
+
+    // Query model
+    $query = \Platform\Models\Core\TaxRate::select($select_columns);
+
+    $count = $query->where(function ($query) use($q, $search_columns) {
+        if($q != '') {
+          foreach ($search_columns as $search_column) {
+            $query->orWhere($search_column, 'like', '%' . $q . '%');
+          }
+        }
+      })->count();
+
+    $records = $query->orderBy($order_by, $order)
+      ->where(function ($query) use($q, $search_columns) {
+        if($q != '') {
+          foreach ($search_columns as $search_column) {
+            $query->orWhere($search_column, 'like', '%' . $q . '%');
+          }
+        }
+      })
+      ->take($length)->skip($start)->get();
+
+    if($length == -1) $length = $count;
+
+    $data = [];
+
+    foreach ($records as $record) {
+      $row['id'] = $record->id;
+      $row['DT_RowId'] = 'row_' . $record->id;
+      $row['rate'] = $record->percentage;
+      $row['default'] = $record->default;
+      $row['sl'] = Core\Secure::array2string(array('tax_rate_id' => $record->id));
+
+      $data[] = $row;
+    }
+
+    $response = array(
+      'draw' => $draw,
+      'recordsTotal' => $count,
+      'recordsFiltered' => $count,
+      'data' => $data
+    );
+
+    return response()->json($response);
+  }
+
+  /**
+   * Create rate
+   */
+
+  public function postCreateTaxRate() {
+    $rate = request()->get('rate');
+
+    // No duplicate
+    $tax_rate = \Platform\Models\Core\TaxRate::where('rate', $rate)->first();
+
+    if ($tax_rate !== null) {
+      return response()->json(['msg' => trans('g.tax_rate_exists')]);
+    }
+
+    if (is_numeric($rate)) {
+      $tax_rate = new \Platform\Models\Core\TaxRate;
+      $tax_rate->rate = $rate;
+      $tax_rate->save();
+    }
+
+    return response()->json(true);
+  }
+
+  /**
+   * Delete rate
+   */
+
+  public function postDeleteTaxRates() {
+    $ids = request()->get('ids');
+
+    if (is_array($ids)) {
+      foreach ($ids as $id) {
+        $query = \Platform\Models\Core\TaxRate::find($id);
+
+        if ($query !== null) {
+          // No in use
+          $proposition = \Platform\Models\ProjectPropositionItem::where('tax_rate', $query->rate)->first();
+
+          if ($proposition !== null) {
+            return response()->json(['msg' => trans('g.tax_rate_in_use')]);
+          }
+
+          // Delete
+          $query->delete();
+        }
+      }
+    }
+
+    return response()->json(true);
+  }
 }

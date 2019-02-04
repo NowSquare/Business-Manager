@@ -293,6 +293,13 @@ return [
     "run_migrations" => "Run migrations",
     "running_migrations" => "Running migrations...",
     "ready" => "Ready",
+    "tax_rates" => "Tax rates",
+    "tax_rate" => "Tax rate",
+    "rate" => "Rate",
+    "rates" => "Rates",
+    "create_tax_rate" => "Create tax rate",
+    "tax_rate_exists" => "This tax rate already exists.",
+    "tax_rate_in_use" => "You can't delete this tax rate because it is in use.",
 
     /*
      |--------------------------------------------------------------------------

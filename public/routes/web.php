@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   // Settings
   Route::get('settings', '\Platform\Controllers\App\SettingController@getSettings')->middleware('permission:access-settings')->name('settings');
   Route::post('settings', '\Platform\Controllers\App\SettingController@postSettings')->middleware('permission:access-settings');
+  Route::get('settings/tax-rates/json', '\Platform\Controllers\App\SettingController@getTaxRatesListJson')->middleware('permission:access-settings');
+  Route::post('settings/tax-rates/delete', '\Platform\Controllers\App\SettingController@postDeleteTaxRates')->middleware('permission:access-settings');
+  Route::post('settings/tax-rates/create', '\Platform\Controllers\App\SettingController@postCreateTaxRate')->middleware('permission:access-settings');
   Route::post('settings/run-migrations', '\Platform\Controllers\App\SettingController@postRunMigrations')->middleware('permission:access-settings');
 
   // Users

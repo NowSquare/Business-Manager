@@ -35,19 +35,22 @@
               <h3 class="card-title">{{ trans('g.system_settings') }}</h3>
             </div>
 
-            <div class="card-body p-0 px-3">
+            <div class="card-body p-0">
 
-              <ul class="nav nav-tabs" role="tablist">
+              <ul class="nav nav-tabs mx-0" role="tablist">
                 <li class="nav-item pl-5">
                   <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="true">{{ trans('g.general') }}</a>
                 </li>
+                <li class="nav-item pl-5">
+                  <a class="nav-link" id="tax-tab" data-toggle="tab" href="#tax" role="tab" aria-selected="false">{{ trans('g.tax_rates') }}</a>
+                </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-selected="true">{{ trans('g.update') }}</a>
+                  <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-selected="false">{{ trans('g.update') }}</a>
                 </li>
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-3 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <div class="tab-pane fade show active px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
                       {!! form_until($form, 'system_icon') !!}
@@ -57,7 +60,26 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-3 pt-5 pb-3" id="update" role="tabpanel" aria-labelledby="update-tab">
+                <div class="tab-pane fade p-0 py-3" id="tax" role="tabpanel" aria-labelledby="tax-tab">
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <table class="table table-striped table-hover table-borderless" id="datatable">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>{{ trans('g.rate') }}</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade px-5 pt-5 pb-3" id="update" role="tabpanel" aria-labelledby="update-tab">
                   <div class="row">
                     <div class="col-md-8">
                       <h4>{{ trans('g.current_version', ['version' => $version]) }}</h4>
@@ -86,7 +108,141 @@
 @stop
 
 @section('page_bottom')
+
 <script>
+var datatable;
+
+$(function() {
+  datatable = $('#datatable').DataTable({
+    dom:  "<'row'<'col-7 col-md-5'<'float-left ml-2'l>><'col-5 col-md-7 text-right'<'mr-3'B>>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'<'ml-3 text-muted'i>><'col-sm-12 col-md-7'<'mr-3 mt-2'p>>>",
+    ajax: "{{ url('settings/tax-rates/json') }}",
+    stateSaveCallback: function(settings,data) {
+      localStorage.setItem('tax_rates_{{ auth()->user()->id }}_' + settings.sInstance, JSON.stringify(data));
+    },
+    stateLoadCallback: function(settings) {
+      return JSON.parse(localStorage.getItem( 'tax_rates_{{ auth()->user()->id }}_' + settings.sInstance ));
+    },
+    buttons: [
+      {
+        text: "<i class=\"material-icons\" style=\"position:relative;top:1px\">add</i><span class=\"d-none d-md-inline\"> {{ trans('g.tax_rate') }}</span>",
+        attr: {
+            title : '{{ trans('g.create_tax_rate') }}',
+            'data-toggle' : 'tooltip'
+        },
+        className: 'btn btn-secondary rounded-0',
+        action: function ( e, dt, node, config ) {
+          addRecord();
+        }
+      }
+    ],
+    columns: [
+      {
+        data: "rate",
+        sortable: true
+      },
+      {
+        data: "sl",
+        sortable: false,
+        width: 18
+      }
+    ],
+    columnDefs: [
+      {
+        className: 'align-middle',
+        targets: [0]
+      },
+      {
+        className: 'align-middle',
+        render: function (data, type, row) {
+          var ret = '';
+          ret += '<a href="javascript:deleteRecords([' + row.id + '])" class="icon"><i class="fe fe-trash"></i></a>';
+          return ret;
+        },
+        targets: 1
+      },
+    ],
+    order: [[0, 'asc']],
+    drawCallback: function () {
+      $('[data-toggle="tooltip"]').tooltip({
+        boundary: 'window',
+        trigger: 'hover'
+      });
+    }
+  });
+
+  $('.dataTables_length .custom-select-sm').removeClass('custom-select-sm form-control-sm');
+});
+
+function addRecord() {
+  Swal({
+    title: "{!! trans('g.create_tax_rate') !!}",
+    input: 'select',
+    inputValue: '',
+    inputOptions: {
+<?php for($rate = 0; $rate <= 3000; $rate += 25) { ?>
+      '{{ $rate }}': '{{ number_format($rate / 100, auth()->user()->getDecimals(), auth()->user()->getDecimalSep(), auth()->user()->getThousandsSep()) }}%',
+<?php } ?>
+    },
+    inputPlaceholder: '',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: "{!! trans('g.save') !!}",
+    inputValidator: (value) => {
+    }
+  }).then((result) => {
+    if (result.value) {
+      var jqxhr = $.ajax({
+        url: "{{ url('settings/tax-rates/create') }}",
+        data: {rate: result.value, _token: '<?= csrf_token() ?>'},
+        method: 'POST'
+      })
+      .done(function(data) {
+        if(data === true) {
+          datatable.ajax.reload();
+        } else if(typeof data.msg !== 'undefined') {
+          Swal(data.msg);
+        }
+      })
+      .fail(function() {
+        console.log('error');
+      });
+    }
+  })
+}
+
+function deleteRecords(ids) {
+  Swal({
+    title: "{!! trans('g.are_you_sure') !!}",
+    text: "{!! trans('g.confirm_delete') !!}",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: "{!! trans('g.yes_delete') !!}"
+  }).then((result) => {
+    if (result.value) {
+      var jqxhr = $.ajax({
+        url: "{{ url('settings/tax-rates/delete') }}",
+        data: {ids: ids, _token: '<?= csrf_token() ?>'},
+        method: 'POST'
+      })
+      .done(function(data) {
+        if(data === true) {
+          datatable.ajax.reload();
+        } else if(typeof data.msg !== 'undefined') {
+          Swal(data.msg);
+        }
+      })
+      .fail(function() {
+        console.log('error');
+      });
+    }
+  })
+}
+
 $(function() {
   $('#run_migrations').on('click', function() {
     var $btn = $(this);
