@@ -33,6 +33,15 @@ class TaxRate extends Model
   }
 
   /**
+   * Get tax rate percentage.
+   *
+   * @return string
+   */
+  public function getPercentageAttribute() {
+    return str_replace(auth()->user()->getDecimalSep() . '00', '', number_format($this->rate / 100, auth()->user()->getDecimals(), auth()->user()->getDecimalSep(), auth()->user()->getThousandsSep())) . '%';
+  }
+
+  /**
    * Indicates if the model should be timestamped.
    *
    * @var bool

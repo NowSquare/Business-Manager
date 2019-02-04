@@ -841,7 +841,7 @@ $tax_rates = \Platform\Models\Core\TaxRate::orderBy('rate', 'desc')->get();
 
 foreach ($tax_rates as $rate) {
 ?>
-        <option value="{{ $rate->rate }}"@{{#ifvalue tax_rate value="<?php echo $rate->rate; ?>"}} selected@{{/ifvalue}}>{{ str_replace(auth()->user()->getDecimalSep() . '00', '', number_format($rate->rate / 100, auth()->user()->getDecimals(), auth()->user()->getDecimalSep(), auth()->user()->getThousandsSep())) }}%</option>
+        <option value="{{ $rate->rate }}"@{{#ifvalue tax_rate value="<?php echo $rate->rate; ?>"}} selected@{{/ifvalue}}>{{ $rate->percentage }}</option>
 <?php } ?>
       </select>
     </td>
