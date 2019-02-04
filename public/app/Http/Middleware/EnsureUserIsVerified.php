@@ -16,7 +16,7 @@ class EnsureUserIsVerified
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && ! $request->user()->hasRole('Admin') && $request->user()->email_verified_at === null) {
+        if ($request->user() && ! $request->user()->roles[0] == 1 && $request->user()->email_verified_at === null) {
 
             return $request->expectsJson()
                     ? abort(403, 'Your email address is not verified.')

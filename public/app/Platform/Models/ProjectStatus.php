@@ -36,6 +36,15 @@ class ProjectStatus extends Model
     protected $casts = [];
 
     /**
+     * Override name column for translation.
+     *
+     * @return string
+     */
+    public function getNameAttribute() {
+        return __($this->attributes['name']);
+    }
+
+    /**
      * Get name with color bullet.
      *
      * @return string

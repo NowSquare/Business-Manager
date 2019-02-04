@@ -390,7 +390,7 @@ class UserController extends \App\Http\Controllers\Controller {
     $model = \App\User::create($form_fields);
 
     // Assign role
-    $role = \Spatie\Permission\Models\Role::find($form_fields['role']);
+    $role = \App\Role::find($form_fields['role']);
     $model->assignRole($role);
 
     // Generate verification code
@@ -509,7 +509,7 @@ class UserController extends \App\Http\Controllers\Controller {
       //$model->projects()->sync($form_fields['projects']);
 
       // Assign role
-      $role = \Spatie\Permission\Models\Role::find($form_fields['role']);
+      $role = \App\Role::find($form_fields['role']);
       $model->syncRoles($role);
 
       $model->fill($form_fields);

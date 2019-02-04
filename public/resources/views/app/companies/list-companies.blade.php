@@ -86,7 +86,7 @@ function checkRowSelection() {
 $(function() {
   var roles = [];
 <?php
-$roles = \Spatie\Permission\Models\Role::all();
+$roles = \App\Role::all();
 foreach ($roles as $role) {
 ?>
   roles[<?php echo $role->id ?>] = "<?php echo str_replace('"', '&quot;', $role->name) ?>";

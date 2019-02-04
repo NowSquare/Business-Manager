@@ -92,7 +92,7 @@ class RegisterController extends Controller
         ]);
 
         // Assign default role
-        $default_role = \Spatie\Permission\Models\Role::find(config('system.default_signup_role'));
+        $default_role = \App\Role::find(config('system.default_signup_role'));
         $user->assignRole($default_role);
 
         // Log

@@ -63,7 +63,7 @@
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'role') !!}
 <?php
-$roles = \Spatie\Permission\Models\Role::all();
+$roles = \App\Role::all();
 foreach ($roles as $role) {
 ?>
                       <div class="card d-none role-card" id="role{{ $role->id }}">

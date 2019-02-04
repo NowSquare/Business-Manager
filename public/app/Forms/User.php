@@ -95,7 +95,7 @@ class User extends Form
               'label_show' => false,
             ]);
 
-        $roles = \Spatie\Permission\Models\Role::all()->map(function ($model) {
+        $roles = \App\Role::all()->map(function ($model) {
           return ['id' => $model->id, 'data' => ['data-data' => '{"color": "' . $model->color . '"}']];
         })->toArray();
 
@@ -111,7 +111,7 @@ class User extends Form
               'attr' => ['class' => 'form-control selectize-color', 'id' => 'role'],
               'default_value' => 5,
               'selected' => ($this->getData('model') !== null) ? $this->getData('model')->roles->pluck('id')[0] : null,
-              'choices' => \Spatie\Permission\Models\Role::all()->pluck('name', 'id')->toArray(),
+              'choices' => \App\Role::all()->pluck('name', 'id')->toArray(),
               'data' => $roles_data
             ])
 

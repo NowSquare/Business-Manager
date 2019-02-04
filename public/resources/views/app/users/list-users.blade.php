@@ -94,7 +94,7 @@ function checkRowSelection() {
 $(function() {
   var roles = [];
 <?php
-$roles = \Spatie\Permission\Models\Role::all();
+$roles = \App\Role::all();
 foreach ($roles as $role) {
 ?>
   roles[<?php echo $role->id ?>] = {name: "<?php echo str_replace('"', '&quot;', $role->name) ?>", color: '{{ $role->color }}', count: '<?php echo \App\User::whereHas('roles', function($q) use($role){ $q->where('id', $role->id); })->count() ?>'};

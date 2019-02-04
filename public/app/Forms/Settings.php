@@ -31,7 +31,7 @@ class Settings extends Form
               'wrapper' => ['class' => 'custom-control custom-checkbox'],
               'label_attr' => ['class' => 'custom-control-label'],
               'help_block' => [
-                'text' => trans('g.users_can_signup_help', ['client' => '<strong>' . \Spatie\Permission\Models\Role::find(config('system.default_signup_role'))->name . '</strong>']),
+                'text' => trans('g.users_can_signup_help', ['client' => '<strong>' . \App\Role::find(config('system.default_signup_role'))->name . '</strong>']),
                 'tag' => 'small',
                 'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
               ]

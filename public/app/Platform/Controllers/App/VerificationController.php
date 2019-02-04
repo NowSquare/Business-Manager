@@ -39,7 +39,7 @@ class VerificationController extends \App\Http\Controllers\Controller {
     $error = null;
     $success = null;
 
-    $admin = \Spatie\Permission\Models\Role::find(1);
+    $admin = \App\Role::find(1);
 
     if (auth()->check() && (auth()->user()->email_verified_at !== null || auth()->user()->hasRole($admin))) return redirect('dashboard');
 
