@@ -1,3 +1,18 @@
+// Webkit scrollbar
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  transition: .3s background;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ced4da;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+}
+
 // Override top logo
 .header-brand {
   font-size: 1.5rem;
