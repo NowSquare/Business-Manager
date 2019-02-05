@@ -31,7 +31,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane show active px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'logo') !!}

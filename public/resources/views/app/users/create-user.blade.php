@@ -36,7 +36,7 @@
 
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-selected="true">{{ trans('g.account') }}</a>
+                  <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-selected="false">{{ trans('g.account') }}</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-selected="false">{{ trans('g.details') }}</a>
@@ -50,7 +50,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-3 pb-3" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <div class="tab-pane px-3 pb-3" id="account" role="tabpanel" aria-labelledby="account-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'active') !!}
@@ -113,7 +113,7 @@ $(function(){
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-3 pb-3" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <div class="tab-pane px-3 pb-3" id="details" role="tabpanel" aria-labelledby="details-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'date_of_birth') !!}
@@ -126,7 +126,7 @@ $(function(){
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-3 pb-3" id="localization" role="tabpanel" aria-labelledby="localization-tab">
+                <div class="tab-pane px-3 pb-3" id="localization" role="tabpanel" aria-labelledby="localization-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
                       {!! form_until($form, 'time_format') !!}
@@ -136,7 +136,7 @@ $(function(){
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade py-3" id="user-notes" role="tabpanel" aria-labelledby="notes-tab">
+                <div class="tab-pane py-3" id="user-notes" role="tabpanel" aria-labelledby="notes-tab">
                   {!! form_until($form, 'notes') !!}
                 </div>
               </div>

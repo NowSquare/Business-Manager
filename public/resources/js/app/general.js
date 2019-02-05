@@ -14,7 +14,12 @@ $(function(){
 
   // Make Bootstrap tabs accessible by hash
   var hash = window.location.hash;
-  hash && $('ul.nav li a[href="' + hash + '"]').tab('show');
+  if (hash == '') {
+    // Open first tab in form (otherwise menu will be triggered)
+    $('form ul.nav li:first a').tab('show');
+  } else {
+    $('ul.nav li a[href="' + hash + '"]').tab('show');
+  }
 
   $('.nav-tabs li a').click(function (e) {
     window.location.hash = this.hash;

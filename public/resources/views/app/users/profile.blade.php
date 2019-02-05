@@ -36,7 +36,7 @@
 
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-selected="true">{{ trans('g.account') }}</a>
+                  <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-selected="false">{{ trans('g.account') }}</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-selected="false">{{ trans('g.contact_details') }}</a>
@@ -47,7 +47,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-3 pb-3" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <div class="tab-pane px-3 pb-3" id="account" role="tabpanel" aria-labelledby="account-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
                       {!! form_until($form, 'password') !!}
@@ -57,7 +57,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'date_of_birth') !!}
@@ -70,7 +70,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-3 pb-3" id="localization" role="tabpanel" aria-labelledby="localization-tab">
+                <div class="tab-pane px-3 pb-3" id="localization" role="tabpanel" aria-labelledby="localization-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
                       {!! form_until($form, 'time_format') !!}

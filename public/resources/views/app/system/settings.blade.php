@@ -39,7 +39,7 @@
 
               <ul class="nav nav-tabs mx-0" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="true">{{ trans('g.general') }}</a>
+                  <a class="nav-link" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="false">{{ trans('g.general') }}</a>
                 </li>
                 <li class="nav-item pl-5">
                   <a class="nav-link" id="tax-tab" data-toggle="tab" href="#tax" role="tab" aria-selected="false">{{ trans('g.tax_rates') }}</a>
@@ -50,7 +50,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <div class="tab-pane px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
                       {!! form_until($form, 'system_icon') !!}
@@ -60,7 +60,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade p-0 py-3" id="tax" role="tabpanel" aria-labelledby="tax-tab">
+                <div class="tab-pane p-0 py-3" id="tax" role="tabpanel" aria-labelledby="tax-tab">
                   <div class="row">
                     <div class="col-md-12">
 
@@ -79,7 +79,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade px-5 pt-5 pb-3" id="update" role="tabpanel" aria-labelledby="update-tab">
+                <div class="tab-pane px-5 pt-5 pb-3" id="update" role="tabpanel" aria-labelledby="update-tab">
                   <div class="row">
                     <div class="col-md-8">
                       <h4>{{ trans('g.current_version', ['version' => $version]) }}</h4>

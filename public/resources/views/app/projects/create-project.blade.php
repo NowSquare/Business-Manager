@@ -68,7 +68,7 @@ $(function() {
 
               <ul class="nav nav-tabs mx-0" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="true">{{ trans('g.general') }}</a>
+                  <a class="nav-link" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="false">{{ trans('g.general') }}</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="description-tab" data-toggle="tab" href="#project-description" role="tab" aria-selected="false">{{ trans('g.description') }}</a>
@@ -82,7 +82,7 @@ $(function() {
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <div class="tab-pane px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'completed_date') !!}
@@ -98,11 +98,11 @@ $(function() {
                   </div>
                 </div>
 
-                <div class="tab-pane fade p-5" id="project-description" role="tabpanel" aria-labelledby="description-tab">
+                <div class="tab-pane p-5" id="project-description" role="tabpanel" aria-labelledby="description-tab">
                   {!! form_until($form, 'description') !!}
                 </div>
 
-                <div class="tab-pane fade p-5" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <div class="tab-pane p-5" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
 
                   <div class="card mb-0">
                     <table class="table table-hover table-striped table-outline table-vcenter text-nowrap card-table table-sm mb-0" id="table-tasks">
@@ -368,7 +368,7 @@ function getUserAvatars(ids) {
 
                 </div>
 
-                <div class="tab-pane fade p-5" id="proposition" role="tabpanel" aria-labelledby="proposition-tab">
+                <div class="tab-pane p-5" id="proposition" role="tabpanel" aria-labelledby="proposition-tab">
                   <div class="pb-3">
                     <div class="row">
                       <div class="col-md-6 col-lg-4">

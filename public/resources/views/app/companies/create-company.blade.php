@@ -38,7 +38,7 @@
 
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-selected="true">{{ trans('g.details') }}</a>
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-selected="false">{{ trans('g.details') }}</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="notes-tab" data-toggle="tab" href="#company-notes" role="tab" aria-selected="false">{{ trans('g.notes') }}</a>
@@ -46,7 +46,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane px-3 pb-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_until($form, 'active') !!}
@@ -59,7 +59,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade py-3" id="company-notes" role="tabpanel" aria-labelledby="notes-tab">
+                <div class="tab-pane py-3" id="company-notes" role="tabpanel" aria-labelledby="notes-tab">
                   {!! form_until($form, 'notes') !!}
                 </div>
               </div>

@@ -45,7 +45,7 @@
 
               <ul class="nav nav-tabs mx-0" role="tablist">
                 <li class="nav-item pl-5">
-                  <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="true">{{ trans('g.general') }}</a>
+                  <a class="nav-link" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="false">{{ trans('g.general') }}</a>
                 </li>
 <?php if (auth()->user()->can('user-view-project-tasks', $project) || auth()->user()->can('view-personal-project-tasks')) { ?>
                 <li class="nav-item">
@@ -70,7 +70,7 @@
               </ul>
 
               <div class="tab-content">
-                <div class="tab-pane fade show active px-5 pt-5 pb-0" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <div class="tab-pane px-5 pt-5 pb-0" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-4">
                       {!! form_row($form->start_date) !!}
@@ -163,7 +163,7 @@ foreach ($project->managers->sortBy('name') as $manager) {
 
                 </div>
 <?php if (auth()->user()->can('user-view-project-tasks', $project) || auth()->user()->can('view-personal-project-tasks')) { ?>
-                <div class="tab-pane fade pt-5 pl-5 pr-5 pb-0" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <div class="tab-pane pt-5 pl-5 pr-5 pb-0" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
 
                   <div class="row row-cards row-deck" id="task-items">
 <?php
@@ -381,7 +381,7 @@ $('#taskForm .btn-complete-task')
 <?php } // view-project-tasks || view-personal-project-tasks ?>
 
 <?php if (auth()->user()->can('user-view-project-proposition', $project)) { ?>
-                <div class="tab-pane fade px-5" id="proposition" role="tabpanel" aria-labelledby="proposition-tab">
+                <div class="tab-pane px-5" id="proposition" role="tabpanel" aria-labelledby="proposition-tab">
 
                   <div class="pt-5 pb-5">
                     <div class="row">
@@ -808,13 +808,13 @@ foreach ($tax_rates as $rate) {
 <?php } // view-project-proposition ?>
 
 <?php if (auth()->user()->can('view-and-upload-all-project-files') || auth()->user()->can('user-view-and-upload-personal-project-files', $project)) { ?>
-                <div class="tab-pane fade p-0" id="files" role="tabpanel" aria-labelledby="files-tab">
+                <div class="tab-pane p-0" id="files" role="tabpanel" aria-labelledby="files-tab">
                   <div id="elfinder"></div>
                 </div>
 <?php } // view-and-upload-all-project-files || view-and-upload-personal-project-files ?>
 
 <?php if (auth()->user()->can('user-view-project-comments', $project) || auth()->user()->can('create-comment')) { ?>
-                <div class="tab-pane fade p-5" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                <div class="tab-pane p-5" id="comments" role="tabpanel" aria-labelledby="comments-tab">
 
                 <div class="card">
                   <div class="card-header">

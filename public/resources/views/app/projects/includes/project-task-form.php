@@ -141,7 +141,7 @@ if (isset($edit_form_tags) && $edit_form_tags) {
   echo '<input type="hidden" name="form_task_status_changed" id="form_task_status_changed" value="0">';
 }
 ?>
-<div class="modal fade" tabindex="-1" role="dialog" id="taskForm">
+<div class="modal" tabindex="-1" role="dialog" id="taskForm">
   <div class="modal-dialog modal-xl modal-lg modal-dialog-centered" role="document">
     <div class="modal-content border-0 rounded-0 shadow-lg">
       <div class="modal-header">
