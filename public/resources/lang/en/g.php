@@ -19,6 +19,8 @@ return [
     "no" => "No",
     "close" => "Close",
     "created" => "Created",
+    "select_option" => "Please select an option...",
+    "operation_failed" => "Operation failed",
     "nothing_to_show" => "Nothing to see yet.",
     "demo_mode_login" => "The system is in demo mode and is reset every hour. No notification emails will be sent.",
     "demo_mode_update_root_user" => "You can't update the root admin in demo mode.",
@@ -83,8 +85,8 @@ return [
     "role" => "Role",
     "all_roles" => "All roles",
     "are_you_sure" => "Are you sure?",
-    "confirm_delete" => "This will delete the selected record(s). You won't be able to revert this.",
-    "yes_delete" => "Yes, delete!",
+    "confirm_delete" => "This will delete the selected record(s). You will not be able to undo this.",
+    "yes_delete" => "Yes, delete",
     "back" => "Back",
     "save" => "Save",
     "delete_selected" => "Delete selected",
@@ -297,9 +299,9 @@ return [
     "tax_rate" => "Tax rate",
     "rate" => "Rate",
     "rates" => "Rates",
-    "create_tax_rate" => "Create tax rate",
+    "create_tax_rate" => "Add tax rate",
     "tax_rate_exists" => "This tax rate already exists.",
-    "tax_rate_in_use" => "You can't delete this tax rate because it is in use.",
+    "tax_rate_in_use" => "You cannot delete this rate because it is in use.",
 
     /*
      |--------------------------------------------------------------------------

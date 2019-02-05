@@ -363,7 +363,8 @@ function deleteRecords(ids) {
   Swal({
     title: "{!! trans('g.are_you_sure') !!}",
     text: "{!! trans('g.confirm_delete') !!}",
-    type: 'warning',
+    imageUrl: "{{ url('assets/img/icons/fe/trash-2.svg') }}",
+    imageWidth: 48,
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',

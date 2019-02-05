@@ -447,7 +447,8 @@ $(function() {
     Swal({
       title: "{!! trans('g.reset_approval') !!}",
       text: "{!! trans('g.reset_approval_confirm') !!}",
-      type: 'warning',
+      imageUrl: "{{ url('assets/img/icons/fe/trash-2.svg') }}",
+      imageWidth: 48,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

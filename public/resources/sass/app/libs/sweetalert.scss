@@ -1,0 +1,83 @@
+$swal2-white:       #fff !default;
+$swal2-black:       #495057 !default;
+
+// BOX MODEL
+$swal2-width: 24em !default;
+$swal2-padding: 1.7em !default;
+$swal2-border-radius: 3px !default;
+$swal2-box-shadow: #495057 !default;
+
+// ICONS
+$swal2-icon-size: 4em !default;
+$swal2-icon-margin: 0 auto 1.75em !default;
+$swal2-icon-zoom: normal !default;
+$swal2-success: $success !default;
+$swal2-success-border: rgba($swal2-success, .3) !default;
+$swal2-error: $danger !default;
+$swal2-warning: $warning !default;
+$swal2-info: $info !default;
+$swal2-question: $info !default;
+
+// IMAGE
+$swal2-image-margin: 0 auto 1.25em auto !default;
+
+// TITLE
+$swal2-title-margin: 0 0 .75em !default;
+$swal2-title-color: $swal2-black !default;
+$swal2-title-font-size: 20px !default;
+
+// CONTENT
+$swal2-content-color: #9aa0ac !default;
+$swal2-content-font-size: 0.9375rem !default;
+
+// CONFIRM BUTTON
+$swal2-confirm-button-border: 0 !default;
+$swal2-confirm-button-border-radius: 3px !default;
+$swal2-confirm-button-background-color: $primary !default;
+$swal2-confirm-button-color: $swal2-white !default;
+$swal2-confirm-button-font-size: .8125rem !default;
+
+// CANCEL BUTTON
+$swal2-cancel-button-border: 0 !default;
+$swal2-cancel-button-border-radius: 3px !default;
+$swal2-cancel-button-background-color: $danger !default;
+$swal2-cancel-button-color: $swal2-white !default;
+$swal2-cancel-button-font-size: .8125rem !default;
+
+@import '~sweetalert2/src/sweetalert2';
+
+.swal2-modal {
+  box-shadow: $mdl-shadow--4dp;
+}
+
+button.swal2-confirm {
+  background-color: $primary !important;
+}
+
+button.swal2-cancel {
+  background-color: $danger !important;
+}
+
+button.swal2-confirm,
+button.swal2-cancel {
+  padding: .375rem .75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .03em;
+  line-height: 1.8461538462 !important;
+  min-width: 5rem;
+}
+
+.swal2-title {
+  font-weight: 400 !important;
+}
+
+.swal2-content {
+  font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif !important;
+  font-size: .9375rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+}
+
+.swal2-select {
+  margin: 0.25em auto 0 !important;
+}

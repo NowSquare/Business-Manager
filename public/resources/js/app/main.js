@@ -18,4 +18,5 @@ window.selectize = require('selectize');
 window.moment = require('moment-timezone');
 window.datepicker = require('bootstrap-datepicker');
 window.currency = require('currency.js');
-window.Swal = require('sweetalert2');
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+window.Swal = Swal;

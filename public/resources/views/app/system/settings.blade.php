@@ -179,13 +179,15 @@ function addRecord() {
   Swal({
     title: "{!! trans('g.create_tax_rate') !!}",
     input: 'select',
-    inputValue: '',
+    imageUrl: "{{ url('assets/img/icons/fe/plus-circle.svg') }}",
+    imageWidth: 48,
     inputOptions: {
 <?php for($rate = 0; $rate <= 3000; $rate += 25) { ?>
       '{{ $rate }}': '{{ number_format($rate / 100, auth()->user()->getDecimals(), auth()->user()->getDecimalSep(), auth()->user()->getThousandsSep()) }}%',
 <?php } ?>
     },
-    inputPlaceholder: '',
+    inputPlaceholder: "{!! trans('g.select_option') !!}",
+    inputClass: 'custom-select form-control',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
@@ -203,7 +205,7 @@ function addRecord() {
         if(data === true) {
           datatable.ajax.reload();
         } else if(typeof data.msg !== 'undefined') {
-          Swal(data.msg);
+          Swal({ imageUrl: "{{ url('assets/img/icons/fe/x-circle.svg') }}", imageWidth: 48, title: "{!! trans('g.operation_failed') !!}", text: data.msg });
         }
       })
       .fail(function() {
@@ -217,7 +219,8 @@ function deleteRecords(ids) {
   Swal({
     title: "{!! trans('g.are_you_sure') !!}",
     text: "{!! trans('g.confirm_delete') !!}",
-    type: 'warning',
+    imageUrl: "{{ url('assets/img/icons/fe/trash-2.svg') }}",
+    imageWidth: 48,
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
@@ -233,7 +236,7 @@ function deleteRecords(ids) {
         if(data === true) {
           datatable.ajax.reload();
         } else if(typeof data.msg !== 'undefined') {
-          Swal(data.msg);
+          Swal({ imageUrl: "{{ url('assets/img/icons/fe/x-circle.svg') }}", imageWidth: 48, title: "{!! trans('g.operation_failed') !!}", text: data.msg });
         }
       })
       .fail(function() {
