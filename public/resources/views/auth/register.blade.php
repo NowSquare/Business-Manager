@@ -59,10 +59,10 @@
 
             </div>
             <div class="form-group">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="terms" value="1" {{ old('terms') ? 'checked' : '' }}>
-                <span class="custom-control-label">{!! trans('g.agree_to_terms', ['link' => url('terms')]) !!}</span>
-              </label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="terms" id="terms" value="1" class="custom-control-input" {{ old('terms') ? 'checked' : '' }}>
+                <label class="custom-control-label" for="terms">{!! trans('g.agree_to_terms', ['link' => url('terms')]) !!}</label>
+              </div>
 
               @if ($errors->has('terms'))
               <span class="form-text text-danger">

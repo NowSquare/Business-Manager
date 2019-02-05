@@ -66,10 +66,10 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
 
           </div>
           <div class="form-group">
-            <label class="custom-control custom-checkbox">
-              <input type="checkbox" name="remember" value="1" class="custom-control-input" {{ old('remember') ? 'checked' : '' }}>
-              <span class="custom-control-label">{{ trans('g.remember_me') }}</span>
-            </label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" name="remember" id="remember" value="1" class="custom-control-input" {{ old('remember') ? 'checked' : '' }}>
+              <label class="custom-control-label" for="remember">{{ trans('g.remember_me') }}</label>
+            </div>
           </div>
           <div class="form-footer">
             <button type="submit" class="btn btn-primary btn-block">{{ trans('g.sign_in') }}</button>
