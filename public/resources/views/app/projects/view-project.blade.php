@@ -72,18 +72,18 @@
               <div class="tab-content">
                 <div class="tab-pane px-5 pt-5 pb-0" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-4 col-lg-4">
                       {!! form_row($form->start_date) !!}
                       {!! form_row($form->due_date) !!}
                       {!! form_row($form->completed_date) !!}
                     </div>
-                    <div class="col-md-6 col-lg-2">
+                    <div class="col-2 col-lg-2">
                     </div>
-                    <div class="col-md-6 col-lg-2">
+                    <div class="col-2 col-lg-2">
                     </div>
 
 
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-4 col-lg-4">
 
                       <div class="form-group">
                         <label class="form-label">{{ trans_choice('g.manager_s_', $project->managers->count()) }}</label>
