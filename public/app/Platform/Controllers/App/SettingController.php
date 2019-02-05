@@ -186,6 +186,8 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postCreateTaxRate() {
+    if (env('DEMO', false)) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
+
     $rate = request()->get('rate');
 
     // No duplicate
@@ -209,6 +211,8 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postDeleteTaxRates() {
+    if (env('DEMO', false)) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
+
     $ids = request()->get('ids');
 
     if (is_array($ids)) {
