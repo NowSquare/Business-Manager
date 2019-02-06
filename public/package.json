@@ -33,6 +33,7 @@
         "datatables.net-buttons-dt": "^1.5.4",
         "elfinder-material-theme": "^2.1.7",
         "handlebars": "^4.0.12",
+        "handsontable": "^6.2.2",
         "jquery-circle-progress": "^1.2.2",
         "moment-timezone": "^0.5.23",
         "selectize": "^0.12.6",

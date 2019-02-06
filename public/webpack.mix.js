@@ -39,4 +39,8 @@ mix
 	 /* WYSIWYG assets */
    .js('resources/js/wysiwyg/main.js', 'public/assets/js/wysiwyg.js')
    .sass('resources/sass/wysiwyg/main.scss', 'public/assets/css/wysiwyg.css')
+
+	 /* Handsontable assets */
+   .js('resources/js/spreadsheet/main.js', 'public/assets/js/spreadsheet.js')
+   .sass('resources/sass/spreadsheet/main.scss', 'public/assets/css/spreadsheet.css')
 ;
