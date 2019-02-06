@@ -49,6 +49,7 @@ class CompaniesExport implements ShouldAutoSize, FromCollection, WithColumnForma
         'header8', 
         'header9', 
         'header10',
+        'default', 
         'notes', 
         'back', 
         'submit'
