@@ -57,7 +57,8 @@ class ProjectsExport implements ShouldAutoSize, FromCollection, WithColumnFormat
         'client_can_upload_files',
         'client_can_view_proposition',
         'client_can_approve_proposition',
-        'notify_client',
+        'notify_people_involved',
+        'managers',
         'notes', 
         'back', 
         'submit'
@@ -97,19 +98,26 @@ class ProjectsExport implements ShouldAutoSize, FromCollection, WithColumnFormat
     }
    
     /**
-    * @var UsersExport $company
+    * @var UsersExport $model
     */
-    public function map($company): array
+    public function map($model): array
     {
       $mapping = [];
 
+      $project_statuses = \Platform\Models\ProjectStatus::all()->pluck('name', 'id');
+      $companies = \Platform\Models\Company::all()->pluck('name', 'id');
+
       foreach ($this->table_columns as $column) {
         if ($column == 'active') {
-          $mapping[] = ($company->{$column} == 1) ? trans('g.yes') : trans('g.no');
+          $mapping[] = ($model->{$column} == 1) ? trans('g.yes') : trans('g.no');
         } elseif ($column == 'phone' || $column == 'mobile' || $column == 'fax') {
-          $mapping[] = ($company->{$column} != '') ? '"' . $company->{$column} . '"' : '';
+          $mapping[] = ($model->{$column} != '') ? '"' . $model->{$column} . '"' : '';
+        } elseif ($column == 'project_status_id') {
+          $mapping[] = ($model->{$column} != '' && isset($project_statuses[$model->{$column}])) ? $project_statuses[$model->{$column}] : '';
+        } elseif ($column == 'company_id') {
+          $mapping[] = ($model->{$column} != '' && isset($companies[$model->{$column}])) ? $companies[$model->{$column}] : '';
         } else {
-          $mapping[] = $company->{$column};
+          $mapping[] = $model->{$column};
         }
       }
 
