@@ -58,6 +58,7 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithColumnFormattin
         'thousands_seperator', 
         'language', 
         'locale', 
+        'seperators', 
         'notes', 
         'back', 
         'submit'
