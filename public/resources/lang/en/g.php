@@ -432,4 +432,12 @@ return [
     "people_in_conversation" => "People in this conversation",
     "unread" => "Unread",
 
+    /*
+     |--------------------------------------------------------------------------
+     | File management
+     |--------------------------------------------------------------------------
+     */
+
+    "select_file" => "Select file",
+
 ];

@@ -133,15 +133,15 @@
     <div class="modal-content border-0 rounded-0 shadow-lg">
       <div class="modal-header">
         <h5 class="modal-title">{{ trans('g.select_file') }} <small class="text-muted" id="elfinderModalTitleAddition"></small></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('g.close') }}">
         </button>
       </div>
       <div class="modal-body p-0">
         <div id="elfinderModal"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onClick="$('#elfinderModal').elfinder('instance').exec('getfile')" disabled id="elfinderModalSelectFile">Select file</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('g.close') }}</button>
+        <button type="button" class="btn btn-primary" onClick="$('#elfinderModal').elfinder('instance').exec('getfile')" disabled id="elfinderModalSelectFile">{{ trans('g.select_file') }}</button>
       </div>
     </div>
   </div>
