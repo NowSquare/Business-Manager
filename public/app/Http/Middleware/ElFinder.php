@@ -29,6 +29,14 @@ class ElFinder
       $company_id = session('elfinder.company_id', null);
       $project_id = session('elfinder.project_id', null);
 
+      // Default to personal files
+      if (auth()->user()->files_dir === null) {
+        auth()->user()->files_dir = str_slug(auth()->user()->name);
+        auth()->user()->save();
+      }
+      $files_dir = 'users/' . auth()->user()->files_dir . '-' . Core\Secure::staticHash(auth()->user()->id * 10000);
+      $alias = auth()->user()->name;
+
       // Files on user level
       if ($type == 'user') {
         $user = \App\User::find($user_id);
@@ -38,7 +46,7 @@ class ElFinder
           $user->files_dir = str_slug($user->name);
           $user->save();
         }
-        $files_dir = 'users/' . $user->files_dir . '-' . Core\Secure::staticHash($user_id * 10000) . '/';
+        $files_dir = 'users/' . $user->files_dir . '-' . Core\Secure::staticHash($user_id * 10000);
         $alias = $user->name;
       }
 
