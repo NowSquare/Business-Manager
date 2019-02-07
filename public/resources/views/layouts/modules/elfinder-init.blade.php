@@ -31,8 +31,7 @@
             ['rm'],
             ['duplicate', 'rename', 'edit'],
             ['extract', 'archive'],
-            ['search'],
-            ['view']
+            ['search']
           ]
         },
         contextmenu : {
@@ -95,8 +94,7 @@
             ['rm'],
             ['duplicate', 'rename', 'edit'],
             ['extract', 'archive'],
-            ['search'],
-            ['view']
+            ['search']
           ]
         },
         commandsOptions: {
