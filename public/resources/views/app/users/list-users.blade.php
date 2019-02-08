@@ -114,6 +114,7 @@ foreach ($roles as $role) {
     buttons: [
       {
         extend: 'collection',
+        fade: 0,
         text: "<i class=\"material-icons d-none d-md-inline\" style=\"position:relative;top:1px\">import_export</i> {{ trans('g.export') }} ",
         className: 'btn btn-secondary buttons-collection dropdown-toggle mr-2 rounded-0',
         buttons: [
@@ -130,6 +131,14 @@ foreach ($roles as $role) {
             text: "HTML (.html)",
             action: function ( e, dt, node, config ) { document.location = '{{ url('users/export/html') }}'; }
           }*/ ?>
+          , {
+            text: "<hr class='m-0 my-3'>",
+            className: "disabled py-0",
+            action: function ( e, dt, node, config ) { }
+          }, {
+            text: "{{ trans('g.import_people') }}...",
+            action: function ( e, dt, node, config ) { document.location = '{{ url('users/import') }}'; }
+          }
         ]
       },
 <?php if (auth()->user()->can('delete-user')) { ?>

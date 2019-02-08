@@ -62,6 +62,10 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   Route::get('users', '\Platform\Controllers\App\UserController@getUserList')->middleware('permission:list-users')->name('users');
   Route::get('users/view/{sl}', '\Platform\Controllers\App\UserController@getViewUser')->middleware('permission:view-user')->name('users');
   Route::get('users/create', '\Platform\Controllers\App\UserController@getCreateUser')->middleware('permission:create-user')->name('users');
+  Route::get('users/import', '\Platform\Controllers\App\UserController@getImportUsers')->middleware('permission:create-user')->name('users');
+  Route::post('users/import/parse-excel', '\Platform\Controllers\App\UserController@postParseExcel')->middleware('permission:create-user');
+  Route::post('users/import/data', '\Platform\Controllers\App\UserController@postImport')->middleware('permission:create-user');
+  Route::get('users/import/download-example', '\Platform\Controllers\App\UserController@getDownloadExampleExcel')->middleware('permission:create-user');
   Route::post('users/create', '\Platform\Controllers\App\UserController@postCreateUser')->middleware('permission:create-user')->name('users');
   Route::get('users/edit/{sl}', '\Platform\Controllers\App\UserController@getEditUser')->middleware('permission:edit-user')->name('users');
   Route::post('users/edit/{sl}', '\Platform\Controllers\App\UserController@postEditUser')->middleware('permission:edit-user')->name('users');

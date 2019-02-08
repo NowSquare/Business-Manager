@@ -34,6 +34,11 @@
 
   <body @yield('body_attr')>
 
+    <div id="page_loader" class="dimmer active" style="position: fixed; left:0; top: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.85); z-index: 999999; display: none">
+      <div class="loader"></div>
+      <div style="margin: 2.5rem 0 0 0; position: absolute; top: 50%; text-align: center; width: 100%" class="text-muted" id="page_loader_text"></div>
+    </div>
+
     <div class="page">
       <div class="page-main">
 

@@ -620,4 +620,194 @@ class UserController extends \App\Http\Controllers\Controller {
     }
   }
 
+  /**
+   * Import columns
+   */
+
+  public static function getImportColumns() {
+    $columns = [];
+    $columns[] = ['name' => 'name', 'label' => trans('g.full_name')];
+    $columns[] = ['name' => 'email', 'label' => trans('g.email_address')];
+    $columns[] = ['name' => 'password', 'label' => trans('g.password')];
+    $columns[] = ['name' => 'job_title', 'label' => trans('g.job_title')];
+    $columns[] = ['name' => 'phone', 'label' => trans('g.phone')];
+    $columns[] = ['name' => 'role', 'label' => trans('g.role')];
+    $columns[] = ['name' => 'salutation', 'label' => trans('g.salutation')];
+    $columns[] = ['name' => 'first_name', 'label' => trans('g.first_name')];
+    $columns[] = ['name' => 'last_name', 'label' => trans('g.last_name')];
+    $columns[] = ['name' => 'street1', 'label' => trans('g.street')];
+    $columns[] = ['name' => 'postal_code', 'label' => trans('g.postal_code')];
+    $columns[] = ['name' => 'city', 'label' => trans('g.city')];
+    $columns[] = ['name' => 'state', 'label' => trans('g.state')];
+    $columns[] = ['name' => 'country_code', 'label' => trans('g.country')];
+
+    return $columns;
+  }
+
+  /**
+   * Import users
+   */
+
+  public function getImportUsers() {
+    // Destroy elFinder sessions, so directory defaults to personal folder
+    session()->forget('elfinder');
+
+    // Get columns
+    $columns = UserController::getImportColumns();
+
+    return view('app.users.import-users', compact('columns'));
+  }
+
+  /**
+   * Download example Excel file
+   */
+
+  public function getDownloadExampleExcel() {
+    // Destroy elFinder sessions, so directory defaults to personal folder
+    session()->forget('elfinder');
+
+    // Filename
+    $filename = str_slug(str_replace([':','/',' '], '-', config('system.name') . '-' . trans('g.people')));
+
+    // Get columns and transform to collection
+    $columns = UserController::getImportColumns();
+
+    $array = [];
+    foreach($columns as $column) {
+      $array[] = $column['label'];
+    }
+    $collection = collect([$array]);
+
+    return \Excel::download(new class($collection) implements \Maatwebsite\Excel\Concerns\FromCollection {
+      public function __construct($collection) {
+        $this->collection = $collection;
+      }
+      public function collection() {
+        return $this->collection;
+      }
+    }, $filename . '.xlsx');
+  }
+
+  /**
+   * Parse Excel file and return json data for grid view
+   */
+
+  public function postParseExcel() {
+    // Url to local path
+    $file = urldecode(request()->get('file', null));
+    $path = parse_url($file)['path'];
+    $file = public_path($path);
+
+    if (\File::exists($file)) {
+      $data = \Excel::toArray(function($reader) {}, $path, 'public');
+
+      if (isset($data[0])) {
+        return response()->json($data[0]);
+      } else {
+        return response()->json(['msg' => trans('g.error_parsing_file')]);
+      }
+    } else {
+      return response()->json(['msg' => trans('g.file_not_found')]);
+    }
+  }
+
+  /**
+   * Post grid view data for import
+   */
+
+  public function postImport() {
+    $data = request()->get('data', null);
+
+    if ($data !== null) {
+      // Get columns
+      $columns = UserController::getImportColumns();
+
+      // Get countries
+      $countries = \Countries::getList(auth()->user()->getLanguage(), 'php');
+      $countries = array_keys($countries);
+
+      $rows_success = 0;
+      $rows_failed = 0;
+
+      foreach($data as $row) {
+        // Match row columns
+        foreach ($columns as $i => $column) {
+          $row[$column['name']] = ($row[$i] != '') ? $row[$i] : null;
+        }
+
+        // Check required fields
+        if ($row['name'] == null || $row['email'] == null) {
+          $rows_failed++;
+          continue;
+        }
+
+        // Validate email address
+        $email = validator(['email' => $row['email']], ['email' => 'required|email|unique:users,email']);
+        if ($email->errors()->count() > 0) {
+          $rows_failed++;
+          continue;
+        }
+
+        // Parse password
+        if ($row['password'] != null) {
+          $row['password'] = \Illuminate\Support\Facades\Hash::make($row['password']);
+        } else {
+          $row['password'] = \Illuminate\Support\Facades\Hash::make(str_random(12));
+        }
+
+        // Parse role
+        if ($row['role'] == null) {
+          $row['role'] = 3;
+        } elseif (is_numeric($row['role']) && $row['role'] <= \App\Role::all()->count()) {
+          // Valid number
+        } else {
+          $result = \App\Role::whereRaw('LOWER(name) = ?', [strtolower($row['role'])])->first();
+          if ($result !== null) {
+            $row['role'] = $result->id;
+          } else {
+            $row['role'] = 3;
+          }
+        }
+
+        // Parse country code
+        if ($row['country_code'] != null) {
+          if (strlen($row['country_code']) == 2) {
+            $row['country_code'] = strtoupper($row['country_code']);
+            if (! in_array($row['country_code'], $countries)) {
+              $row['country_code'] = null;
+            }
+          } else {
+            $row['country_code'] = null;
+          }
+        }
+
+        // Validations passed, insert record
+        $user = new \App\User;
+
+        $user->active = true;
+        $user->email_verified_at = \Carbon\Carbon::now('UTC');
+
+        foreach ($columns as $i => $column) {
+          if ($column['name'] != 'role') {
+          $user->{$column['name']} = $row[$column['name']];
+          }
+        }
+
+        $user->save();
+
+        // Set role
+        $user->assignRole(\App\Role::find($row['role']));
+
+        $rows_success++;
+      }
+
+      return response()->json([
+        'icon' => url('assets/img/icons/fe/check-circle.svg'), 
+        'title' => trans('g.finished'), 
+        'msg' => trans('g.import_results', ['rows_success' => $rows_success, 'rows_failed' => $rows_failed])
+      ]);
+    } else {
+      return response()->json(['msg' => trans('g.error_parsing_file')]);
+    }
+  }
 }

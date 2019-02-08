@@ -14,11 +14,16 @@ return [
     "view" => "View",
     "active" => "Active",
     "inactive" => "Inactive",
+    "import" => "Import",
+    "select_excel_file_to_import" => "Select Excel file to import",
+    "import_results" => ":rows_success records were imported, :rows_failed records failed.",
+    "finished" => "Finished",
     "export" => "Export",
     "yes" => "Yes",
     "no" => "No",
     "close" => "Close",
     "created" => "Created",
+    "help" => "Help",
     "select_option" => "Please select an option...",
     "operation_failed" => "Operation failed",
     "nothing_to_show" => "Nothing to see yet.",
@@ -256,6 +261,7 @@ return [
     "user_select_projects" => "The projects this user is involved in.",
     "active_user_help" => "Inactive users can't login and are placed at the bottom of selection lists. To keep data relationships intact, they are still available.",
     "notify_user" => "Notify user",
+    "import_people" => "Import people",
     "send_user_notification_email" => "Send the user an email with the login details.",
     "manager_s_" => "Manager|Managers",
 
@@ -439,5 +445,9 @@ return [
      */
 
     "select_file" => "Select file",
+    "file_not_found" => "File not found.",
+    "error_parsing_file" => "Error parsing file.",
+    "unkown_error" => "Unknown error",
+    "unkown_error_msg" => "An unknown error has occured. Refresh this page and try again. If the error persists, contact the system admin.",
 
 ];
