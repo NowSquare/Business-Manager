@@ -106,6 +106,7 @@ foreach ($roles as $role) {
     buttons: [
       {
         extend: 'collection',
+        fade: 0,
         text: "<i class=\"material-icons d-none d-md-inline\" style=\"position:relative;top:1px\">import_export</i> {{ trans('g.export') }} ",
         className: 'btn btn-secondary buttons-collection dropdown-toggle mr-2 rounded-0 btn-export',
         buttons: [
