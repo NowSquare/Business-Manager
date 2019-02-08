@@ -80,7 +80,7 @@
           <li>{{ $role->id }} or {{ $role->name }}</li>
 <?php } ?>
         </ul>
-        <p>If the role column is empty or can't be matched to an existing role, it is set to {{ \App\Role::find(3)->name }} by default.</p>
+        <p>If the role column is empty or can't be matched with an existing role, it is set to {{ \App\Role::find(3)->name }} by default.</p>
 
         <h3>Country</h3>
         <p>A country must be the two-letter country code according to the <a href="https://www.nationsonline.org/oneworld/country_code_list.htm" target="_blank">ISO 3166-1 alpha-2 codes</a>.</p>
