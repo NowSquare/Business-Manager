@@ -1,3 +1,8 @@
+// Fix chrome # issue
+.selectize-control.single .selectize-input:after {
+	background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 5'%3E%3Cpath fill='rgba(153,153,153, 1)' d='M0 0L10 0L5 5L0 0'/%3E%3C/svg%3E") no-repeat center;
+}
+
 // Small select
 .selectize-control.form-control-sm .selectize-input {
   padding: 5px 12px 6px 10px;
