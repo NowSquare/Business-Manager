@@ -1102,7 +1102,7 @@ class ProjectController extends \App\Http\Controllers\Controller {
 			$pdf = \PDF::loadView('pdf.project.proposition', compact('project'))
 			->setWarnings(false);
 
-			return $pdf->stream();
+			//return $pdf->stream();
 
 			return $pdf->download('proposition-' . str_slug($project->client->name . '-' . $project->name) . '.pdf');
 		}
