@@ -1087,4 +1087,25 @@ class ProjectController extends \App\Http\Controllers\Controller {
 
     return response()->json(true);
   }
+
+  /**
+   * Generate project proposal pdf
+   */
+
+  public function getProjectProposition($sl) {
+    $qs = Core\Secure::string2array($sl);
+    $id = $qs['project_id'];
+
+    if (is_numeric($id)) {
+    	$project = \Platform\Models\Project::findOrFail($id);
+			
+			$pdf = \PDF::loadView('pdf.project.proposition', compact('project'))
+			->setPaper('letter')
+			->setWarnings(false);
+
+			//return $pdf->stream();
+
+			return $pdf->download('proposition-' . str_slug($project->client->name . '-' . $project->name) . '.pdf');
+		}
+  }
 }

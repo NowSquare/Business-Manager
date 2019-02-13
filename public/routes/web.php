@@ -98,6 +98,7 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   Route::post('projects/task/edit', '\Platform\Controllers\App\ProjectController@postEditTask')->middleware('permission:edit-project-task|mark-project-task-complete');
   Route::post('projects/proposition/approve', '\Platform\Controllers\App\ProjectController@postApproveProposition');
   Route::post('projects/proposition/reset-approval', '\Platform\Controllers\App\ProjectController@postResetPropositionApproval');
+  Route::get('projects/pdf/proposition/{sl}', '\Platform\Controllers\App\ProjectController@getProjectProposition')->middleware('permission:view-project');
 
   // Comments
   Route::post('comments/add', '\Platform\Controllers\App\CommentController@postAddComment')->middleware('permission:create-comment');

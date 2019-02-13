@@ -479,6 +479,7 @@ $(function() {
 </script>
   <?php } ?>
 <?php } ?>
+												<i class="fas fa-file-pdf mr-1 mt-4"></i> <a href="{{ url('projects/pdf/proposition/' . $sl) }}" class="text-inherit">{{ trans('g.download_proposition') }}</a>
                       </div>
                     </div>
                   </div>

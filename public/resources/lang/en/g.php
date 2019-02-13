@@ -23,6 +23,8 @@ return [
     "no" => "No",
     "close" => "Close",
     "created" => "Created",
+    "to" => "To",
+    "from" => "From",
     "help" => "Help",
     "select_option" => "Please select an option...",
     "operation_failed" => "Operation failed",
@@ -35,7 +37,7 @@ return [
     /*
      |--------------------------------------------------------------------------
      | Forms
-     |--------------------------------------------------------------------------
+     |--------------------------------------------------------------------------p
      */
 
     "name" => "Name",
@@ -361,6 +363,7 @@ return [
     "start_date" => "Start date",
     "deadline" => "Deadline",
     "proposition" => "Proposition",
+    "download_proposition" => "Download proposition",
     "create_project_info" => "You can upload files when the project is saved.",
     "project_notification_client" => "Send project related notifications to client and team members",
     "project_client_help" => "\"Client\" refers to all active members of the client company. This can be more than one person.",
@@ -380,6 +383,7 @@ return [
     "reference" => "Reference",
     "reference_code" => "Reference code",
     "proposition_valid_until" => "Proposition valid until",
+    "valid_until" => "Valid until",
     "tasks" => "Tasks",
     "tax_of_row" => "Tax :percentage% of :amount :currency",
     "discount" => "Discount",
