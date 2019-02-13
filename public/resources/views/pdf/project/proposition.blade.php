@@ -112,7 +112,7 @@ if (count($project->propositions) > 0) {
 
 @section('content')
 <div class="container-fluid">
-	<div class="row" style="width: 727px">
+	<div class="row">
 		<div class="col-12">
 
 			<h2 class="mb-3">{{ trans('g.proposition') }}</h2>

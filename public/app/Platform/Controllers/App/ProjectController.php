@@ -1100,10 +1100,9 @@ class ProjectController extends \App\Http\Controllers\Controller {
     	$project = \Platform\Models\Project::findOrFail($id);
 			
 			$pdf = \PDF::loadView('pdf.project.proposition', compact('project'))
-			->setPaper('letter')
 			->setWarnings(false);
 
-			//return $pdf->stream();
+			return $pdf->stream();
 
 			return $pdf->download('proposition-' . str_slug($project->client->name . '-' . $project->name) . '.pdf');
 		}
