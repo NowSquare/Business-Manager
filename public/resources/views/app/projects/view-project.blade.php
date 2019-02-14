@@ -385,7 +385,7 @@ $('#taskForm .btn-complete-task')
 
                   <div class="pt-5 pb-5">
                     <div class="row">
-                      <div class="col-md-6 col-lg-4">
+                      <div class="col-6 col-lg-6">
 <?php if ($project->reference !== null) { ?>
                         {!! form_until($form, 'reference') !!}
 <?php } ?>
@@ -394,9 +394,7 @@ $('#taskForm .btn-complete-task')
                         {!! form_until($form, 'proposition_valid_until') !!}
 <?php } ?>
                       </div>
-                      <div class="col-md-6 col-lg-4">
-                      </div>
-                      <div class="col-md-6 col-lg-4 text-right">
+                      <div class="col-md-6 col-lg-6 text-right">
 <?php if (auth()->user()->can('user-approve-project-proposition', $project)) { ?>
   <?php if (isset($project->propositions[0]) && $project->propositions[0]->approved === null && auth()->user()->roles[0]->id != 1) { ?>
                         <button type="button" class="btn btn-success btn-lg btn-block btn-approve-proposition"><i class="material-icons" style="position: relative; top:1px;">check_circle_outline</i> {{ trans('g.approve_proposition') }}</button>
