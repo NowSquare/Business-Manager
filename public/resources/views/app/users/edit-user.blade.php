@@ -161,7 +161,7 @@ $(function(){
                       <td class="align-middle text-center" width="64"><img src="{!! $log->user->getAvatar() !!}" class="avatar"></td>
                       <td class="align-middle">{!! $log->event !!}</td>
                       <td class="align-middle text-muted text-truncate text-center">IP {!! $log->ip_address !!}</td>
-                      <td class="align-middle text-muted text-truncate text-right">{!! $log->created_at->timezone(auth()->user()->getTimezone())->format(auth()->user()->getUserDateFormat() . ' @ ' . auth()->user()->getUserTimeFormat()) !!}</td>
+                      <td class="align-middle text-muted text-truncate text-right">{!! auth()->user()->formatDate($log->created_at, 'datetime_medium') !!}</td>
                     </tr>
 <?php } ?>
                   </table>
@@ -179,7 +179,7 @@ $(function(){
                       <td class="align-middle text-center" width="64"><img src="{!! $log->user->getAvatar() !!}" class="avatar"></td>
                       <td class="align-middle">{!! $log->event !!}</td>
                       <td class="align-middle text-muted text-truncate text-center">IP {!! $log->ip_address !!}</td>
-                      <td class="align-middle text-muted text-truncate text-right">{!! $log->created_at->timezone(auth()->user()->getTimezone())->format(auth()->user()->getUserDateFormat() . ' @ ' . auth()->user()->getUserTimeFormat()) !!}</td>
+                      <td class="align-middle text-muted text-truncate text-right">{!! auth()->user()->formatDate($log->created_at, 'datetime_medium') !!}</td>
                     </tr>
 <?php } ?>
                   </table>
