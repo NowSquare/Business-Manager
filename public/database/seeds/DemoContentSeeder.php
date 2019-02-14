@@ -167,6 +167,7 @@ class DemoContentSeeder extends Seeder
             $notify_people_involved = true;
             $active = true;
             $task_count = mt_rand(8, 26);
+						$reference = 'PRJ-' . mt_rand(100,999) . '-' . strtoupper(str_random(2));
 
             $max_employees = (count($employee_ids) > 10) ? 10 : 8;
             $employee_pool = array_random($employee_ids, mt_rand(4, $max_employees));
@@ -195,6 +196,7 @@ class DemoContentSeeder extends Seeder
               'short_description' => $faker->catchPhrase,
               'description' => '<h1>' . $faker->realText($maxNbChars = 36, $indexSize = 1) . '</h1><p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p><h2>' . $faker->realText($maxNbChars = 36, $indexSize = 1) . '</h2><p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p>',
               'category' => $faker->bs,
+              'reference' => $reference,
               'client_can_comment' => true,
               'client_can_view_tasks' => true,
               'client_can_view_description' => true,
@@ -204,6 +206,7 @@ class DemoContentSeeder extends Seeder
               'start_date' => $start_date,
               'due_date' => $due_date,
               'completed_date' => $completed_date,
+              'currency_code' => 'USD',
               'created_at' => $created_at,
               'created_by' => 1,
               'updated_at' => $updated_at,
@@ -277,6 +280,98 @@ class DemoContentSeeder extends Seeder
                 }
               }
             }
+
+						// Add proposition
+						$tax_rates = [1900, 2000, 2100];
+
+						$items = [
+							['description' => 'Planning, research / outreach', 'quantity' => [15, 20, 10], 'unit' => 'hour', 'unit' => 'hour', 'unit_price' => [7000, 8000, 9000]],
+							['description' => 'Design, consultation', 'quantity' => [32, 35, 38], 'unit' => 'hour', 'unit' => 'hour', 'unit_price' => [7200, 7500, 7000]],
+							['description' => 'Development', 'quantity' => [60, 70, 80], 'unit' => 'hour', 'unit' => 'hour', 'unit_price' => [7000, 8000, 9000]],
+							['description' => 'Testing, launch', 'quantity' => [15, 20, 10], 'unit' => 'hour', 'unit' => 'hour', 'unit_price' => [4000, 4500, 4800]]
+						];
+
+						$discounts = [
+							['description' => 'Loyal customer discount', 'quantity' => [10, 15, 20], 'discount_type' => '%']
+						];
+
+						// Totals
+						$total = 0;
+						$total_discount = 0;
+						$total_tax = 0;
+
+						// Random tax rate
+						$tax_rate = $tax_rates[mt_rand(0, count($tax_rates) - 1)];
+						$tax = $tax_rate / 100;
+
+						// Proposition items
+						$proposition_items = [];
+						foreach ($items as $item) {
+							$quantity = $item['quantity'][mt_rand(0, count($item['quantity']) - 1)];
+							$unit_price = $item['unit_price'][mt_rand(0, count($item['unit_price']) - 1)];
+							$total_without_tax = $quantity * $unit_price;
+
+							$total += $total_without_tax;
+							$total_tax += ($total_without_tax * $tax) / 100;
+
+							$proposition_items[] = ['type' => 'item', 'description' => $item['description'], 'quantity' => $quantity, 'unit' => $item['unit'], 'unit_price' => $unit_price, 'discount_type' => null];
+						}
+
+						$total_items = $total;
+
+						foreach ($discounts as $item) {
+							$quantity = $item['quantity'][mt_rand(0, count($item['quantity']) - 1)];
+							if ($item['discount_type'] == '%') {
+								$total_without_tax = ($total_items / 100) * $quantity;
+							} else {
+								$total_without_tax = $quantity;
+							}
+
+							$total -= $total_without_tax;
+							$total_tax -= ($total_without_tax * $tax) / 100;
+							$total_discount += $total_without_tax;
+
+							$proposition_items[] = ['type' => 'discount', 'description' => $item['description'], 'quantity' => $quantity, 'discount_type' => $item['discount_type'], 'unit' => null, 'unit_price' => null];
+						}
+
+						$total_tax = round($total_tax);
+
+						$created_at = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now');
+						$updated_at = $faker->dateTimeBetween($startDate = $created_at, $endDate = 'now');
+
+						$project_proposition = new \Platform\Models\ProjectProposition;
+						$project_proposition->account_id = 1;
+						$project_proposition->project_id = $project->id;
+						$project_proposition->reference = $reference;
+						$project_proposition->locked = 0;
+						$project_proposition->total = $total;
+						$project_proposition->total_discount = $total_discount;
+						$project_proposition->total_tax = $total_tax;
+						$project_proposition->proposition_valid_until = $faker->dateTimeBetween($startDate = '+1 months', $endDate = '+2 months');
+						$project_proposition->created_by = 1;
+						$project_proposition->created_at = $created_at;
+						$project_proposition->updated_by = 1;
+						$project_proposition->updated_at = $updated_at;
+						$project_proposition->save();
+
+						// Items
+						foreach ($proposition_items as $item) {
+							$project_proposition_item = new \Platform\Models\ProjectPropositionItem;
+							$project_proposition_item->project_proposition_id = $project_proposition->id;
+							$project_proposition_item->type = $item['type'];
+							$project_proposition_item->description = $item['description'];
+							$project_proposition_item->quantity = $item['quantity'];
+							$project_proposition_item->unit = $item['unit'];
+							$project_proposition_item->discount_type = $item['discount_type'];
+							$project_proposition_item->unit_price = $item['unit_price'];
+							$project_proposition_item->tax_rate = $tax_rate;
+							$project_proposition_item->type = $item['type'];
+							$project_proposition_item->created_by = 1;
+							$project_proposition_item->created_at = $created_at;
+							$project_proposition_item->updated_by = 1;
+							$project_proposition_item->updated_at = $updated_at;
+							$project_proposition_item->save();
+						}
           }
         }
 
