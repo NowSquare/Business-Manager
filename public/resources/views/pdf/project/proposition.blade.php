@@ -169,9 +169,9 @@ if (count($project->propositions) > 0) {
 						{{ trans('g.currency') }}<br>
 						{{ $currency }}
 						<br><br>
-<?php if ($project->estimate_valid_until !== null) { ?>
+<?php if ($project->propositions->last()->proposition_valid_until !== null) { ?>
 						{{ trans('g.valid_until') }}<br>
-						{{ $project->estimate_valid_until }}
+						{{ auth()->user()->formatDate($project->propositions->last()->proposition_valid_until, 'date_medium') }}
 <?php } ?>
 					</td>
 				</tr>
