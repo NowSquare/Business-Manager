@@ -111,12 +111,12 @@
                  </tr>
                  <tr>
                    <td><code>XSRF-TOKEN</code></td>
-                   <td>2 hours</td>
+                   <td><?php if (config('session.lifetime') < 60) { echo config('session.lifetime') . ' minutes'; } else { echo floor(config('session.lifetime') / 60) . ' hours'; } ?></td>
                    <td>Used to prevent cross site forgery attacks on forms. Doesn't contain any personally identifiable information.</td>
                  </tr>
                  <tr>
                    <td><code>{{ config('session.cookie') }}</code></td>
-                   <td>2 hours</td>
+                   <td><?php if (config('session.lifetime') < 60) { echo config('session.lifetime') . ' minutes'; } else { echo floor(config('session.lifetime') / 60) . ' hours'; } ?></td>
                    <td>Cookie used to identify a session instance by ID. Doesn't store personally identifiable information, is to ensure the working of our website.</td>
                  </tr>
                 </table>
