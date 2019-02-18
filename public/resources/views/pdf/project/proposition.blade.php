@@ -25,7 +25,7 @@ if (count($project->propositions) > 0) {
 			$item->unit_price != '' && 
 			$item->tax_rate != ''
 		) {
-			$row_total_excl_taxes = \Money\Money::{$currency}($item->unit_price)->multiply($item->quantity);
+			$row_total_excl_taxes = \Money\Money::{$currency}($item->unit_price)->multiply($item->quantity / 100);
 			$tax = $row_total_excl_taxes->multiply($item->tax_rate / 10000);
 
 			$sub_total = $sub_total->add($row_total_excl_taxes);
@@ -41,7 +41,7 @@ if (count($project->propositions) > 0) {
 			$proposition[] = [
 				'type' => $item->type,
 				'description' => $item->description,
-				'quantity' => $item->quantity,
+				'quantity' => $item->quantity / 100,
 				'unit' => $item->unit,
 				'unit_price' => ($item->unit_price !== null) ? $item->unit_price : 0,
 				'tax_rate' => $item->tax_rate,
@@ -59,9 +59,9 @@ if (count($project->propositions) > 0) {
 			$item->tax_rate != ''
 		) {
 			if ($item->discount_type == '%') {
-				$row_total_excl_taxes = $sub_total->multiply($item->quantity / 100);
+				$row_total_excl_taxes = $sub_total->multiply($item->quantity / 10000);
 			} else {
-				$row_total_excl_taxes = Money::{$currency}($item->quantity);
+				$row_total_excl_taxes = Money::{$currency}($item->quantity / 100);
 			}
 
 			$tax = $row_total_excl_taxes->multiply($item->tax_rate / 10000);
@@ -79,7 +79,7 @@ if (count($project->propositions) > 0) {
 			$proposition[] = [
 				'type' => $item->type,
 				'description' => $item->description,
-				'quantity' => $item->quantity,
+				'quantity' => $item->quantity / 100,
 				'unit' => $item->unit,
 				'unit_price' => ($item->unit_price !== null) ? $item->unit_price : 0,
 				'tax_rate' => $item->tax_rate,

@@ -361,7 +361,10 @@ class ProjectController extends \App\Http\Controllers\Controller {
       session(['elfinder.company_id' => $project->client->id]);
       session(['elfinder.project_id' => $project->id]);
 
-      return view('app.projects.view-project', compact('form', 'project', 'sl', 'can_access_project'));
+      // Variable indicating the project is in view mode
+      $view_project = true;
+
+      return view('app.projects.view-project', compact('form', 'project', 'sl', 'can_access_project', 'view_project'));
     }
   }
 
@@ -415,6 +418,9 @@ class ProjectController extends \App\Http\Controllers\Controller {
     $task_assigned_to_id = request()->get('task_assigned_to_id', null);
     $task_start_date = request()->get('task_start_date', null);
     $task_due_date = request()->get('task_due_date', null);
+    $task_hours = request()->get('task_hours', null);
+    $task_hourly_rate = request()->get('task_hourly_rate', null);
+    $task_billable = request()->get('task_billable', null);
     $task_completed_date = request()->get('task_completed_date', null);
     $task_completed_by_id = request()->get('task_completed_by_id', null);
     $task_project_status_id = request()->get('task_project_status_id', null);
@@ -432,6 +438,11 @@ class ProjectController extends \App\Http\Controllers\Controller {
         $project_task->description = $task_description[$i];
         $project_task->start_date = $task_start_date[$i];
         $project_task->due_date = $task_due_date[$i];
+        if ($task_hours[$i] !== null) $task_hours[$i] = $task_hours[$i] * 100;
+        $project_task->hours = $task_hours[$i];
+        if ($task_hourly_rate[$i] !== null) $task_hourly_rate[$i] = $task_hourly_rate[$i] * 100;
+        $project_task->hourly_rate = $task_hourly_rate[$i];
+        $project_task->billable = $task_billable[$i];
         $project_task->completed_date = $task_completed_date[$i];
         $project_task->completed_by_id = $task_completed_by_id[$i];
         $project_task->save();
@@ -495,6 +506,7 @@ class ProjectController extends \App\Http\Controllers\Controller {
           $proposition_item->project_proposition_id = $proposition->id;
           $proposition_item->type = $proposition_type[$i];
           $proposition_item->description = $proposition_description[$i];
+          if ($proposition_quantity[$i] !== null) $proposition_quantity[$i] = $proposition_quantity[$i] * 100;
           $proposition_item->quantity = $proposition_quantity[$i];
           $proposition_item->unit = $proposition_unit[$i];
           $proposition_item->unit_price = $proposition_unit_price[$i] * 100;
@@ -682,6 +694,9 @@ class ProjectController extends \App\Http\Controllers\Controller {
       $task_assigned_to_id = request()->get('task_assigned_to_id', null);
       $task_start_date = request()->get('task_start_date', null);
       $task_due_date = request()->get('task_due_date', null);
+      $task_hours = request()->get('task_hours', null);
+      $task_hourly_rate = request()->get('task_hourly_rate', null);
+      $task_billable = request()->get('task_billable', null);
       $task_completed_date = request()->get('task_completed_date', null);
       $task_completed_by_id = request()->get('task_completed_by_id', null);
       $task_project_status_id = request()->get('task_project_status_id', null);
@@ -699,6 +714,11 @@ class ProjectController extends \App\Http\Controllers\Controller {
           $project_task->description = $task_description[$i];
           $project_task->start_date = $task_start_date[$i];
           $project_task->due_date = $task_due_date[$i];
+          if ($task_hours[$i] !== null) $task_hours[$i] = $task_hours[$i] * 100;
+          $project_task->hours = $task_hours[$i];
+          if ($task_hourly_rate[$i] !== null) $task_hourly_rate[$i] = $task_hourly_rate[$i] * 100;
+          $project_task->hourly_rate = $task_hourly_rate[$i];
+          $project_task->billable = $task_billable[$i];
           $project_task->completed_date = $task_completed_date[$i];
           $project_task->completed_by_id = $task_completed_by_id[$i];
           $project_task->save();
@@ -768,7 +788,7 @@ class ProjectController extends \App\Http\Controllers\Controller {
             $proposition_item->project_proposition_id = $proposition->id;
             $proposition_item->type = $proposition_type[$i];
             $proposition_item->description = $proposition_description[$i];
-            $proposition_item->quantity = $proposition_quantity[$i];
+            $proposition_item->quantity = $proposition_quantity[$i] * 100;
             $proposition_item->unit = $proposition_unit[$i];
             $proposition_item->unit_price = $proposition_unit_price[$i] * 100;
             $proposition_item->tax_rate = $proposition_tax_rate[$i];
@@ -881,6 +901,9 @@ class ProjectController extends \App\Http\Controllers\Controller {
         $project_task->start_date = request()->get('form_task_start_date', null);
         $project_task->due_date = request()->get('form_task_due_date', null);
         $project_task->priority = request()->get('form_task_priority', null);
+        $hours = request()->get('form_task_hours', null);
+        if ($hours !== null) $hours = $hours * 100;
+        $project_task->hours = $hours;
 
         if ($task_completed_date === null || request()->get('form_task_status_changed', 0) == 1) {
           $project_task->project_status_id = request()->get('form_task_project_status_id', 72);
@@ -1097,14 +1120,14 @@ class ProjectController extends \App\Http\Controllers\Controller {
     $id = $qs['project_id'];
 
     if (is_numeric($id)) {
-    	$project = \Platform\Models\Project::findOrFail($id);
-			
-			$pdf = \PDF::loadView('pdf.project.proposition', compact('project'))
-			->setWarnings(false);
+      $project = \Platform\Models\Project::findOrFail($id);
+      
+      $pdf = \PDF::loadView('pdf.project.proposition', compact('project'))
+      ->setWarnings(false);
 
-			//return $pdf->stream();
+      //return $pdf->stream();
 
-			return $pdf->download('proposition-' . str_slug($project->client->name . '-' . $project->name) . '.pdf');
-		}
+      return $pdf->download('proposition-' . str_slug($project->client->name . '-' . $project->name) . '.pdf');
+    }
   }
 }

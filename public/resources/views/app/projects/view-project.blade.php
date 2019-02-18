@@ -256,6 +256,7 @@ if ($tasks->count() > 0) {
     due_date_friendly: <?php echo ($task->due_date != null) ? "moment('" . $task->due_date . "').format('MMM Do YYYY')" : "'-'";  ?>,
     start_date: '<?php echo $task->start_date ?>',
     due_date: '<?php echo $task->due_date ?>',
+    hours: '<?php echo ($task->hours !== null) ? $task->hours / 100 : ''; ?>',
     completed_date: '<?php echo $task->completed_date ?>',
     completed_by_id: '<?php echo $task->completed_by_id ?>',
     project_status_id: <?php echo $task->project_status_id ?>,
@@ -356,6 +357,7 @@ $('#taskForm .btn-complete-task')
     $('[name=form_task_start_date_field]').datepicker('update', task.start_date);
     $('#form_task_due_date').val(task.due_date);
     $('[name=form_task_due_date_field]').datepicker('update', task.due_date);
+    $('#form_task_hours').val(task.hours);
     $('#form_task_assigned_to_id')[0].selectize.setValue(task.assigned_to_id.split(','));
 
     // Set time to null before showing time
@@ -477,7 +479,7 @@ $(function() {
 </script>
   <?php } ?>
 <?php } ?>
-												<i class="fas fa-file-pdf mr-1 mt-4"></i> <a href="{{ url('projects/pdf/proposition/' . $sl) }}" class="text-inherit">{{ trans('g.download_proposition') }}</a>
+                        <i class="fas fa-file-pdf mr-1 mt-4"></i> <a href="{{ url('projects/pdf/proposition/' . $sl) }}" class="text-inherit">{{ trans('g.download_proposition') }}</a>
                       </div>
                     </div>
                   </div>
@@ -559,7 +561,7 @@ if (count($project->propositions) > 0) {
       id: item_row_id,
       type: '<?php echo $item->type; ?>',
       description: "<?php echo str_replace('"', '&quot;', $item->description); ?>",
-      quantity: "<?php echo $item->quantity; ?>",
+      quantity: "<?php if ($item->quantity !== null) echo $item->quantity / 100; ?>",
       unit: "<?php echo $item->unit; ?>",
       unit_price: "<?php if ($item->unit_price !== null) echo $item->unit_price / 100; ?>",
       tax_rate: "<?php echo $item->tax_rate; ?>",
@@ -749,7 +751,7 @@ if (count($project->propositions) > 0) {
       <input class="form-control" type="text" value="@{{ description }}" maxlength="150" name="proposition_description[]" disabled>
     </td>
     <td class="align-middle">
-      <input class="form-control text-right input-quantity" type="number" min="-100000" max="100000" value="@{{ quantity }}" name="proposition_quantity[]" disabled>
+      <input class="form-control text-right input-quantity" type="number" min="-100000" max="100000" step="0.25" value="@{{ quantity }}" name="proposition_quantity[]" disabled>
     </td>
     <td class="align-middle">
       <select class="form-control select-unit" name="proposition_unit[]" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}} disabled>
@@ -770,7 +772,7 @@ foreach ($units as $unit) {
       </select>
     </td>
     <td class="align-middle">
-      <input class="form-control text-right input-unit_price" name="proposition_unit_price[]" disabled type="number" min="-10000" max="10000" value="@{{ unit_price }}" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}}></td>
+      <input class="form-control text-right input-unit_price" name="proposition_unit_price[]" disabled type="number" min="-10000" max="10000" step="0.01" value="@{{ unit_price }}" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}}></td>
     <td class="align-middle">
       <select class="form-control select-tax" name="proposition_tax_rate[]" disabled>
         <option value=""></option>
@@ -987,6 +989,7 @@ $('.selectize-project-statuses').selectize({
   <tbody>
   <tr id="task-row-@{{ id }}" class="task-row">
     <td class="align-middle text-truncate task-priority small">
+      <textarea name="task_hours[]" style="display: none">@{{ hours }}</textarea>
       <textarea name="task_new[]" style="display: none">@{{ task_new }}</textarea>
       <textarea name="task_changed[]" style="display: none">@{{ task_changed }}</textarea>
       <textarea name="task_project_status_id[]" style="display: none">@{{ project_status_id }}</textarea>

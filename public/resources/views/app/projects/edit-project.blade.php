@@ -164,6 +164,9 @@ if (count($project->tasks) > 0) {
     due_date_friendly: <?php echo ($task->due_date != null) ? "moment('" . $task->due_date . "').format('MMM Do YYYY')" : "'-'";  ?>,
     start_date: '<?php echo $task->start_date ?>',
     due_date: '<?php echo $task->due_date ?>',
+    hours: '<?php echo ($task->hours !== null) ? $task->hours / 100 : ''; ?>',
+    hourly_rate: '<?php echo ($task->hourly_rate !== null) ? $task->hourly_rate / 100 : ''; ?>',
+    billable: '<?php echo $task->billable ?>',
     completed_date: '<?php echo $task->completed_date ?>',
     completed_date_friendly: <?php echo ($task->completed_date != null) ? "moment('" . $task->completed_date . "').format('MMM Do YYYY')" : "'-'";  ?>,
     completed_by_id: '<?php echo $task->completed_by_id ?>',
@@ -228,6 +231,9 @@ if (count($project->tasks) > 0) {
     $('[name=form_task_start_date_field]').datepicker('update', $row.find('[name="task_start_date[]"]').val());
     $('#form_task_due_date').val($row.find('[name="task_due_date[]"]').val());
     $('[name=form_task_due_date_field]').datepicker('update', $row.find('[name="task_due_date[]"]').val());
+    $('#form_task_hours').val($row.find('[name="task_hours[]"]').val());
+    $('#form_task_hourly_rate').val($row.find('[name="task_hourly_rate[]"]').val());
+    $('#form_task_billable').prop('checked', ($row.find('[name="task_billable[]"]').val() == 1) ? true : null);
     $('#form_task_assigned_to_id')[0].selectize.setValue($row.find('[name="task_assigned_to_id[]"]').val().split(','));
 
     // Set time to null before showing time
@@ -276,6 +282,9 @@ if (count($project->tasks) > 0) {
     project_status = project_status.getItem(project_status.getValue())[0].innerHTML;
     var completed_date = $('#form_task_completed_date').val();
     var completed_by_id = $('#form_task_completed_by_id').val();
+    var hours = $('#form_task_hours').val();
+    var hourly_rate = $('#form_task_hourly_rate').val();
+    var billable = ($('#form_task_billable').prop('checked')) ? 1 : 0;
 
     if (subject == '') {
       $('#form_task_subject').addClass('is-invalid');
@@ -296,6 +305,9 @@ if (count($project->tasks) > 0) {
       due_date_friendly: (due_date != '') ? moment(due_date).format('MMM Do YYYY') : '-',
       start_date: start_date,
       due_date: due_date,
+      hours: hours,
+      hourly_rate: hourly_rate,
+      billable: billable,
       project_status_id: project_status_id,
       project_status: project_status,
       priority_id: priority_id,
@@ -333,6 +345,9 @@ if (count($project->tasks) > 0) {
     project_status = project_status.getItem(project_status.getValue())[0].innerHTML;
     var completed_date = $('#form_task_completed_date').val();
     var completed_by_id = $('#form_task_completed_by_id').val();
+    var hours = $('#form_task_hours').val();
+    var hourly_rate = $('#form_task_hourly_rate').val();
+    var billable = ($('#form_task_billable').prop('checked')) ? 1 : 0;
 
     if (subject == '') {
       $('#form_task_subject').addClass('is-invalid');
@@ -353,6 +368,9 @@ if (count($project->tasks) > 0) {
       due_date_friendly: (due_date != '') ? moment(due_date).format('MMM Do YYYY') : '-',
       start_date: start_date,
       due_date: due_date,
+      hours: hours,
+      hourly_rate: hourly_rate,
+      billable: billable,
       project_status_id: project_status_id,
       project_status: project_status,
       priority_id: priority_id,
@@ -378,6 +396,9 @@ if (count($project->tasks) > 0) {
     $('#form_task_start_date').val('');
     $('[name=form_task_due_date_field]').val('').datepicker('update');
     $('#form_task_due_date').val('');
+    $('#form_task_hours').val('');
+    $('#form_task_hourly_rate').val('');
+    $('#form_task_billable').prop('checked', false);
     $('#form_task_project_status_id')[0].selectize.setValue(<?php echo \Platform\Models\ProjectStatus::getDefaultTask(); ?>);
     $('#form_task_priority')[0].selectize.setValue(1);
     $('#form_task_assigned_to_id').val('');
@@ -558,7 +579,7 @@ if (count($project->propositions) > 0) {
       id: item_row_id,
       type: '<?php echo $item->type; ?>',
       description: "<?php echo str_replace('"', '&quot;', $item->description); ?>",
-      quantity: "<?php echo $item->quantity; ?>",
+      quantity: "<?php if ($item->quantity !== null) echo $item->quantity / 100; ?>",
       unit: "<?php echo $item->unit; ?>",
       unit_price: "<?php if ($item->unit_price !== null) echo $item->unit_price / 100; ?>",
       tax_rate: "<?php echo $item->tax_rate; ?>",
@@ -812,7 +833,7 @@ $('.selectize-project-statuses').selectize({
       <input class="form-control" type="text" value="@{{ description }}" maxlength="150" name="proposition_description[]">
     </td>
     <td class="align-middle">
-      <input class="form-control text-right input-quantity" type="number" min="-100000" max="100000" value="@{{ quantity }}" name="proposition_quantity[]">
+      <input class="form-control text-right input-quantity" type="number" min="-100000" max="100000" step="0.25" value="@{{ quantity }}" name="proposition_quantity[]">
     </td>
     <td class="align-middle">
       <select class="form-control select-unit" name="proposition_unit[]" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}}>
@@ -832,7 +853,7 @@ foreach ($units as $unit) {
 
       </select>
     </td>
-    <td class="align-middle"><input class="form-control text-right input-unit_price" name="proposition_unit_price[]" type="number" min="-10000" max="10000" value="@{{ unit_price }}" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}}></td>
+    <td class="align-middle"><input class="form-control text-right input-unit_price" name="proposition_unit_price[]" type="number" min="-10000" max="10000" step="0.01" value="@{{ unit_price }}" @{{#ifvalue type value="discount"}} style="display:none"@{{/ifvalue}}></td>
     <td class="align-middle">
       <select class="form-control select-tax" name="proposition_tax_rate[]">
         <option value=""></option>
@@ -878,6 +899,9 @@ foreach ($tax_rates as $rate) {
       <a href="javascript:void(0);" style="margin:7px 0 0 0; float:left; cursor: move" class="sortable-handle"><i class="material-icons text-muted">reorder</i></a>
     </td>
     <td class="align-middle text-truncate task-priority small">
+      <textarea name="task_hours[]" style="display: none">@{{ hours }}</textarea>
+      <textarea name="task_hourly_rate[]" style="display: none">@{{ hourly_rate }}</textarea>
+      <textarea name="task_billable[]" style="display: none">@{{ billable }}</textarea>
       <textarea name="task_completed_date[]" style="display: none">@{{ completed_date }}</textarea>
       <textarea name="task_completed_by_id[]" style="display: none">@{{ completed_by_id }}</textarea>
       <textarea name="task_new[]" style="display: none">@{{ task_new }}</textarea>

@@ -132,6 +132,33 @@ $task_form = \FormBuilder::plain(['language_name' => 'g'])
     'rules' => 'nullable',
     'height' => 180,
     'attr' => ['disabled' => $disabled_attr]
+  ])	
+  ->add('form_task_hours', 'number', [
+    'label' => (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) ? trans('g.hours') : trans('g.hours_spent'),
+    'rules' => 'nullable',
+    'attr' => ['style' => 'background-color: #fff', 'min' => 0, 'max' => 100000, 'step' => .25, 'disabled' => $disabled_attr],
+		'help_block' => (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) ? [
+			'text' => trans('g.form_task_hours_help'),
+			'tag' => 'small',
+			'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
+		] : null
+  ])
+  ->add('form_task_hourly_rate', 'number', [
+    'label' => trans('g.rate'),
+    'rules' => 'nullable',
+    'attr' => ['style' => 'background-color: #fff', 'min' => 0, 'max' => 100000, 'step' => .25, 'disabled' => $disabled_attr],
+		'help_block' => [
+			'text' => trans('g.form_task_rate_help'),
+			'tag' => 'small',
+			'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
+		]
+  ])
+  ->add('form_task_billable', 'boolean', [
+    'default_value' => 0,
+    'label' => trans('g.billable'),
+    'label_attr' => ['class' => 'custom-control-label mt-5'],
+    'wrapper' => ['class' => 'custom-control custom-checkbox'],
+    'attr' => ['class' => 'custom-control-input', 'id' => 'form_task_billable', 'disabled' => $disabled_attr]
   ]);
 
 if (isset($edit_form_tags) && $edit_form_tags) {
@@ -187,8 +214,8 @@ echo form_row($task_form->form_task_start_date);
 echo form_row($task_form->form_task_due_date);
 ?>
           </div>
-
         </div>
+
         <div class="row">
           <div class="col-12 col-sm-6">
 <?php
@@ -200,8 +227,18 @@ echo form_row($task_form->form_task_completed_date);
 echo form_row($task_form->form_task_completed_by_id);
 ?>
           </div>
-
         </div>
+
+<?php if (isset($view_project) && $view_project) { ?>
+        <div class="row">
+          <div class="col-12 col-sm-12">
+<?php
+echo form_row($task_form->form_task_hours);
+?>
+          </div>
+        </div>
+<?php } ?>
+
         <div class="row">
           <div class="col-12">
 <?php
@@ -209,6 +246,27 @@ echo form_row($task_form->form_task_description);
 ?>
           </div>
         </div>
+<?php if (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) { ?>
+        <div class="row mt-5">
+          <div class="col-12 col-sm-4">
+<?php
+echo form_row($task_form->form_task_hours);
+?>
+          </div>
+          <div class="col-12 col-sm-4">
+<?php
+echo form_row($task_form->form_task_hourly_rate);
+?>
+          </div>
+          <div class="col-12 col-sm-4">
+						<div class="mt-3">
+<?php
+echo form_row($task_form->form_task_billable);
+?>
+						</div>
+          </div>
+        </div>
+<?php } ?>
 
       </div>
       <div class="modal-footer">

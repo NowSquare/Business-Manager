@@ -273,9 +273,9 @@ return [
 
     "role_description_2" => "A user with the :role role can view and edit all tasks of &dash; and add tasks to &dash; the projects the user is manager of. These users can also manage the proposition and view all files of projects they are manager of.<br><br>These users can't create or delete projects and have no access to the user management.",
 
-    "role_description_3" => "A user with the :role role can be assigned to a task. When assigned to a task, this user can see all tasks of the project, but can't change anything except for the <strong>Date completed</strong> field of tasks they are assigned to.<br><br>They can't view propositions, and upload files to their personal project folder. They can also add comments to a project.",
+    "role_description_3" => "A user with the :role role can be assigned to a task. When assigned to a task, this user can see all tasks of the project, but can't change anything except for the <strong>Date completed</strong> field of tasks they are assigned to.<br><br>They can't view propositions, but can upload files to their personal project folder and add comments to a project.",
 
-    "role_description_4" => "A user with the :role role can be assigned to a task. When assigned to a task, this user can see all tasks of the project, but can't change anything except for the <strong>Date completed</strong> field of tasks they are assigned to.<br><br>They can't view propositions, and can upload files to their personal project folder. They can also add comments to a project.",
+    "role_description_4" => "A user with the :role role can be assigned to a task. When assigned to a task, this user can see all tasks of the project, but can't change anything except for the <strong>Date completed</strong> field of tasks they are assigned to.<br><br>They can't view propositions, but can upload files to their personal project folder and add comments to a project.",
   
     "role_description_5" => "A user with the :role role can be set as a contact person of a company. When contact person of a company, the user can see all projects of this company. They can view propositions, and upload files to their personal project folder.<br><br>They can't view tasks, but they can view and add comments for generic project communication.",
     
@@ -428,6 +428,12 @@ return [
     "view_task" => "View task",
     "team" => "Team",
     "set_complete" => "Set complete",
+    "billable" => "Billable",
+    "hours" => "Hours",
+    "hours_spent" => "Hours spent",
+    "form_task_hours_help" => "You can leave this empty for the assignee to fill in, or enter an estimate.",
+    "rate" => "Hourly rate",
+    "form_task_rate_help" => "This rate is not visible for task assignees. It is used for invoices.",
 
     /*
      |--------------------------------------------------------------------------

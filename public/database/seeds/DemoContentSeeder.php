@@ -360,7 +360,7 @@ class DemoContentSeeder extends Seeder
 							$project_proposition_item->project_proposition_id = $project_proposition->id;
 							$project_proposition_item->type = $item['type'];
 							$project_proposition_item->description = $item['description'];
-							$project_proposition_item->quantity = $item['quantity'];
+							$project_proposition_item->quantity = $item['quantity'] * 100;
 							$project_proposition_item->unit = $item['unit'];
 							$project_proposition_item->discount_type = $item['discount_type'];
 							$project_proposition_item->unit_price = $item['unit_price'];
