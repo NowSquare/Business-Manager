@@ -16,6 +16,7 @@
         "barryvdh/laravel-elfinder": "^0.4.1",
         "commerceguys/intl": "^1.0",
         "czim/laravel-paperclip": "^2.6",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "graham-campbell/flysystem": "^5.1",
         "hashids/hashids": "^3.0",
