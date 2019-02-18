@@ -23,7 +23,7 @@ return [
     'default_timezone' => 'UTC',
     'default_date_format' => 'm/d/Y',
     'default_currency' => 'USD',
-    'default_time_format' => 'g:i a', // 24-hour use date("H:i"), 12-hour use date("g:i a") (a = AM/PM, A = am/pm)
+    'default_time_format' => 'g:i a', // 24-hour use date("H:i"), 12-hour use date("g:i a") (a = am/pm, A = AM/PM)
     'default_decimals' => 2,
     'default_decimal_seperator' => '.',
     'default_thousands_seperator' => ',',
