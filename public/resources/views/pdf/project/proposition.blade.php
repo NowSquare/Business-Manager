@@ -122,42 +122,12 @@ if (count($project->propositions) > 0) {
 				<tr class="align-top">
 					<td style="width: 40%">
 						{{ trans('g.to') }}<br>
-						<div class="my-1"><strong>{{ $project->client->name }}</strong></div>
-<?php if ($project->client->street1 !== null) { ?>
-						{{ $project->client->street1 }}
-<?php } ?>
-<?php if ($project->client->postal_code !== null) { ?>
-						<br>{{ $project->client->postal_code }}
-<?php } ?>
-<?php if ($project->client->city !== null) { ?>
-						{{ $project->client->city }}
-<?php } ?>
-<?php if ($project->client->state !== null) { ?>
-						<br>{{ $project->client->state }}
-<?php } ?>
-<?php if ($project->client->country_code !== null) { ?>
-						<br>{{ $project->client->country_code }}
-<?php } ?>
+            {!! $project->client->print_address !!}
 					</td>
 					<td style="width: 40%">
 <?php if ($from !== null) { ?>
 						{{ trans('g.from') }}<br>
-						<div class="my-1"><strong>{{ $from->name }}</strong></div>
-<?php if ($from->street1 !== null) { ?>
-						{{ $from->street1 }}
-<?php } ?>
-<?php if ($from->postal_code !== null) { ?>
-						<br>{{ $from->postal_code }}
-<?php } ?>
-<?php if ($from->city !== null) { ?>
-						{{ $from->city }}
-<?php } ?>
-<?php if ($from->state !== null) { ?>
-						<br>{{ $from->state }}
-<?php } ?>
-<?php if ($from->country_code !== null) { ?>
-						<br>{{ $from->country_code }}
-<?php } ?>
+            {!! $from->print_address !!}
 <?php } ?>
 					</td>
 					<td style="width: 20%">

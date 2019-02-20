@@ -119,6 +119,31 @@ class Company extends Model implements AttachableInterface
     }
 
     /**
+     * Full address for print (pdf) with <br>'s.
+     *
+     * @return string
+     */
+    public function getPrintAddressAttribute() {
+      $ret = '<div class="my-1"><strong>' . $this->name . '</strong></div>';
+      if ($this->street1 !== null) {
+        $ret .= $this->street1;
+      }
+      if ($this->postal_code !== null) {
+        $ret .= '<br>' . $this->postal_code;
+      }
+      if ($this->city !== null) {
+        $ret .= ' ' . $this->city;
+      }
+      if ($this->state !== null) {
+        $ret .= '<br>' . $this->state;
+      }
+      if ($this->country_code !== null) {
+        $ret .= '<br>' . $this->country_code;
+      }
+      return $ret;
+    }
+
+    /**
      * Relationships
      * -------------
      */
