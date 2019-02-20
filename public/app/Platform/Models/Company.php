@@ -25,6 +25,7 @@ class Company extends Model implements AttachableInterface
       'default', 
       'active', 
       'name', 
+      'email', 
       'industry', 
       'legal_form', 
       'logo', 
