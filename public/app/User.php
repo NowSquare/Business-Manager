@@ -167,11 +167,15 @@ class User extends Authenticatable implements AttachableInterface
      * Date / time formatting
      */
     public function formatDate($date, $format = 'date_short') {
-			switch ($format) {
-				case 'date_medium': $date = $date->timezone($this->getTimezone())->format($this->getUserDateFormat()); break;
-				case 'datetime_medium': $date = $date->timezone($this->getTimezone())->format($this->getUserDateFormat() . ' @ ' . $this->getUserTimeFormat()); break;
-			}
-			return $date;
+      if ($date !== null) {
+        switch ($format) {
+          case 'date_medium': $date = $date->timezone($this->getTimezone())->format($this->getUserDateFormat()); break;
+          case 'datetime_medium': $date = $date->timezone($this->getTimezone())->format($this->getUserDateFormat() . ' @ ' . $this->getUserTimeFormat()); break;
+        }
+        return $date;
+      } else {
+        return null;
+      }
     }
 
     /**
