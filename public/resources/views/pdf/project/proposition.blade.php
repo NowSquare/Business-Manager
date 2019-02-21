@@ -111,6 +111,20 @@ if (count($project->propositions) > 0) {
 @extends('../../layouts.pdf')
 
 @section('content')
+<script type="text/php">
+if ( isset($pdf) ) { 
+    $pdf->page = trans('g.page');
+    $pdf->of = trans('g._of_');
+    $pdf->page_script('
+      $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+      $size = 10;
+      $pageText = $pdf->page . " " . $PAGE_NUM . " " . $pdf->of . " " . $PAGE_COUNT;
+      $y = 15;
+      $x = 520;
+      $pdf->text($x, $y, $pageText, $font, $size);
+    ');
+}
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
@@ -120,17 +134,17 @@ if (count($project->propositions) > 0) {
 
 			<table class="table table-borderless mb-5">
 				<tr class="align-top">
-					<td style="width: 40%">
+					<td style="width: 40%; padding: 0;">
 						{{ trans('g.to') }}<br>
             {!! $project->client->print_address !!}
 					</td>
-					<td style="width: 40%">
+					<td style="width: 40%; padding: 0;">
 <?php if ($from !== null) { ?>
 						{{ trans('g.from') }}<br>
             {!! $from->print_address !!}
 <?php } ?>
 					</td>
-					<td style="width: 20%">
+					<td style="width: 20%; padding: 0;">
 <?php if ($project->reference !== null) { ?>
 						{{ trans('g.reference') }}<br>
 						{{ $project->reference }}
