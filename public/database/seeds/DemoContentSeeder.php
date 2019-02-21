@@ -117,7 +117,7 @@ class DemoContentSeeder extends Seeder
         // Companies
         if ($company_count > 0) {
           foreach (range(1, $company_count) as $index) {
-            $default = ($index == 1) ? true : null;
+            $default = ($index == 1) ? true : false;
             $active = true;
             $company = $faker->company;
             $email_pre = ['info', 'info', 'info', 'contact', 'hi', 'hello'];
@@ -224,6 +224,8 @@ class DemoContentSeeder extends Seeder
 
             // Add tasks
             for($i = 1; $i < $task_count; $i++) {
+              $hours = [2, 5, 10, 12, 15, 25, 30, 35, 40];
+              $hourly_rate = [25, 35, 40, 50, 75, 80, 90];
               $project_status_id = [1, 28, 21, 32, 43, 45, 49, 72];
               $project_status_id = array_random($project_status_id);
               $priority = [0,1,2,3,1,1,1,1,1,1,1];
@@ -252,6 +254,10 @@ class DemoContentSeeder extends Seeder
                 $completed_by_id = array_random($assigned_to_id);
               }
 
+              $billable = (mt_rand(0,1) == 0) ? true : false;
+              $hours = $hours[mt_rand(0, count($hours) - 1)];
+              $hourly_rate = $hourly_rate[mt_rand(0, count($hourly_rate) - 1)];
+
               $project_task = new \Platform\Models\ProjectTask;
               $project_task->project_id = $project->id;
               $project_task->project_status_id = $project_status_id;
@@ -259,6 +265,10 @@ class DemoContentSeeder extends Seeder
               $project_task->priority = $priority;
               $project_task->description = '<p>' . implode('</p><p>', $faker->paragraphs($nb = 3, $asText = false)) . '</p>';
               $project_task->start_date = $start_date;
+              $project_task->due_date = $due_date;
+              $project_task->billable = $billable;
+              $project_task->hours = $hours * 100;
+              $project_task->hourly_rate = $hourly_rate * 100;
               $project_task->due_date = $due_date;
               $project_task->completed_date = $completed_date;
               $project_task->completed_by_id = $completed_by_id;

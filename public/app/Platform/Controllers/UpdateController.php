@@ -15,15 +15,6 @@ class UpdateController extends \App\Http\Controllers\Controller {
 	*/
 
 	/**
-	 * Update view
-	 */
-	public function getUpdate() {
-    $version = (\File::exists(storage_path('app/version'))) ? \File::get(storage_path('app/version')) : '1.0.0';
-    $latest_version = '1.1.0';
-		return view('installation.update', compact('version', 'latest_version'));
-	}
-
-	/**
 	 * Reset installation
 	 */
 	public static function resetInstallation($app_key) {
@@ -53,8 +44,9 @@ class UpdateController extends \App\Http\Controllers\Controller {
    * Delete uploads and database tables
    */
   public static function clean($drop_tables = false) {
+
     /**
-     * Empty all user directories
+     * Empty directories and put .gitignore back
      */
     $gitignore = '*
 !.gitignore';
@@ -74,6 +66,21 @@ class UpdateController extends \App\Http\Controllers\Controller {
           // Deploy .gitignore
           \File::put($full_dir . '.gitignore', $gitignore);
         }
+      }
+    }
+
+    /**
+     * Delete directories
+     */
+    $dirs = [
+      '/storage/app/invoices/',
+    ];
+
+    foreach($dirs as $dir) {
+      $full_dir = base_path() . $dir;
+
+      if(\File::isDirectory($full_dir)) {
+        \File::deleteDirectory($full_dir, true);
       }
     }
 
