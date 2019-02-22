@@ -514,8 +514,8 @@ class ProjectController extends \App\Http\Controllers\Controller {
 
           $proposition_item->save();
 
-          $row_total_excl_taxes = Money::{$currency}($proposition_item->unit_price)->multiply($proposition_item->quantity);
-          $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate / 10000);
+          $row_total_excl_taxes = Money::{$currency}($proposition_item->unit_price)->multiply($proposition_item->quantity)->divide(100);
+          $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate)->divide(10000);
 
           $sub_total = $sub_total->add($row_total_excl_taxes);
           $tax_total = $tax_total->add($tax);
@@ -535,19 +535,19 @@ class ProjectController extends \App\Http\Controllers\Controller {
           $proposition_item->project_proposition_id = $proposition->id;
           $proposition_item->type = $proposition_type[$i];
           $proposition_item->description = $proposition_description[$i];
-          $proposition_item->quantity = $proposition_quantity[$i];
+          $proposition_item->quantity = $proposition_quantity[$i] * 100;
           $proposition_item->discount_type = $proposition_discount_unit[$i];
           $proposition_item->tax_rate = $proposition_tax_rate[$i];
 
           $proposition_item->save();
 
           if ($proposition_item->discount_type == '%') {
-            $row_total_excl_taxes = $sub_total->multiply($proposition_item->quantity / 100);
+            $row_total_excl_taxes = $sub_total->multiply($proposition_item->quantity)->divide(10000);
           } else {
-            $row_total_excl_taxes = Money::{$currency}($proposition_item->quantity);
+            $row_total_excl_taxes = Money::{$currency}($proposition_item->quantity)->divide(100);
           }
 
-          $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate / 10000);
+          $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate)->divide(10000);
 
           $discount_total = $discount_total->add($row_total_excl_taxes);
           $tax_total = $tax_total->subtract($tax);
@@ -795,8 +795,8 @@ class ProjectController extends \App\Http\Controllers\Controller {
 
             $proposition_item->save();
 
-            $row_total_excl_taxes = Money::{$currency}($proposition_item->unit_price)->multiply($proposition_item->quantity);
-            $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate / 10000);
+            $row_total_excl_taxes = Money::{$currency}($proposition_item->unit_price)->multiply($proposition_item->quantity)->divide(100);
+            $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate)->divide(10000);
 
             $sub_total = $sub_total->add($row_total_excl_taxes);
             $tax_total = $tax_total->add($tax);
@@ -816,19 +816,19 @@ class ProjectController extends \App\Http\Controllers\Controller {
             $proposition_item->project_proposition_id = $proposition->id;
             $proposition_item->type = $proposition_type[$i];
             $proposition_item->description = $proposition_description[$i];
-            $proposition_item->quantity = $proposition_quantity[$i];
+            $proposition_item->quantity = $proposition_quantity[$i] * 100;
             $proposition_item->discount_type = $proposition_discount_unit[$i];
             $proposition_item->tax_rate = $proposition_tax_rate[$i];
 
             $proposition_item->save();
 
             if ($proposition_item->discount_type == '%') {
-              $row_total_excl_taxes = $sub_total->multiply($proposition_item->quantity / 100);
+              $row_total_excl_taxes = $sub_total->multiply($proposition_item->quantity)->divide(10000);
             } else {
-              $row_total_excl_taxes = Money::{$currency}($proposition_item->quantity);
+              $row_total_excl_taxes = Money::{$currency}($proposition_item->quantity)->divide(100);
             }
 
-            $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate / 10000);
+            $tax = $row_total_excl_taxes->multiply($proposition_item->tax_rate)->divide(10000);
 
             $discount_total = $discount_total->add($row_total_excl_taxes);
             $tax_total = $tax_total->subtract($tax);
