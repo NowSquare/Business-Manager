@@ -100,6 +100,19 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   Route::post('projects/proposition/reset-approval', '\Platform\Controllers\App\ProjectController@postResetPropositionApproval');
   Route::get('projects/pdf/proposition/{sl}', '\Platform\Controllers\App\ProjectController@getProjectProposition')->middleware('permission:view-project');
 
+  // Invoices
+  Route::get('invoices', '\Platform\Controllers\App\InvoiceController@getInvoiceList')->middleware('permission:list-invoices')->name('invoices');
+  Route::get('invoices/create/{type?}/{sl?}/{var1?}/{var2?}', '\Platform\Controllers\App\InvoiceController@getCreateInvoice')->middleware('permission:create-invoice')->name('invoices');
+  Route::post('invoices/create', '\Platform\Controllers\App\InvoiceController@postCreateInvoice')->middleware('permission:create-invoice')->name('invoices');
+  Route::get('invoices/edit/{sl}', '\Platform\Controllers\App\InvoiceController@getEditInvoice')->middleware('permission:edit-invoice')->name('invoices');
+  Route::post('invoices/edit/{sl}', '\Platform\Controllers\App\InvoiceController@postEditInvoice')->middleware('permission:edit-invoice')->name('invoices');
+  Route::post('invoices/status', '\Platform\Controllers\App\InvoiceController@postChangeInvoiceStatus')->middleware('permission:edit-invoice');
+  Route::post('invoices/send', '\Platform\Controllers\App\InvoiceController@postSendInvoice')->middleware('permission:edit-invoice');
+  Route::get('invoices/json', '\Platform\Controllers\App\InvoiceController@getInvoiceListJson')->middleware('permission:list-invoices');
+  Route::get('invoices/export/{type}', '\Platform\Controllers\App\InvoiceController@getExportRecords')->middleware('permission:list-invoices');
+  Route::post('invoices/delete-invoices', '\Platform\Controllers\App\InvoiceController@postDeleteInvoices')->middleware('permission:delete-invoice');
+  Route::get('invoices/pdf/{sl}', '\Platform\Controllers\App\InvoiceController@getInvoicePdf')->middleware('permission:view-invoice');
+
   // Comments
   Route::post('comments/add', '\Platform\Controllers\App\CommentController@postAddComment')->middleware('permission:create-comment');
 

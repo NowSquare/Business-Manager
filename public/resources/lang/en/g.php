@@ -96,6 +96,7 @@ return [
     "yes_delete" => "Yes, delete",
     "back" => "Back",
     "save" => "Save",
+    "go" => "Go",
     "delete_selected" => "Delete selected",
     "create" => "Create",
     "show_password" => "Show password",
@@ -122,6 +123,8 @@ return [
     "email_signature" => "The :app_name Team",
     "email_trouble_clicking_button" => "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below into your web browser:",
     "email_ip_address" => "This email was sent from IP address",
+
+    "message_signature" => "Kind regards,",
 
     "verify_email_address_mail" => "You are receiving this email because someone has created an account with this email address. Please click the button below to verify your email address.",
     "verify_email_address_mail_footer" => "If you did not create an account, no further action is required.",
@@ -163,6 +166,10 @@ return [
     "proposition_approval_reset_subject_mail" => "You are receiving this email because :sender has reset the proposition approval for a project you are involved in. Please click the button below to log in to your account.",
     "project_proposition_approval_reset_notification" => ":sender reset the proposition approval for project: :name.",
 
+    "send_invoice_subject" => "Invoice :invoice_number from :company_name",
+    "send_invoice_mail" => "Attached is an invoice from :company_name. Please do not hesitate to let us know if you have any questions or comments.",
+    "send_invoice_mail_footer" => "Thank you for doing business with us.",
+
     /*
      |--------------------------------------------------------------------------
      | Log
@@ -196,6 +203,11 @@ return [
     "log_project_update_project" => ":name updated project :project",
     "log_project_update_task" => ":name updated task :task of project :project",
 
+    "log_invoice_create_invoice" => ":name created invoice :invoice",
+    "log_invoice_delete_invoice" => ":name deleted invoice :invoice",
+    "log_invoice_update_invoice" => ":name updated invoice :invoice",
+    "log_invoice_send_invoice" => ":name sent invoice :invoice",
+
     /*
      |--------------------------------------------------------------------------
      | Dashboard
@@ -204,7 +216,6 @@ return [
 
     "dashboard" => "Dashboard",
     "activity" => "Activity",
-    "" => "",
 
     /*
      |--------------------------------------------------------------------------
@@ -459,5 +470,72 @@ return [
     "error_parsing_file" => "Error parsing file.",
     "unkown_error" => "Unknown error",
     "unkown_error_msg" => "An unknown error has occured. Refresh this page and try again. If the error persists, contact the system admin.",
+
+    /*
+     |--------------------------------------------------------------------------
+     | Invoices
+     |--------------------------------------------------------------------------
+     */
+
+    "invoices" => "Invoices",
+    "invoice" => "Invoice",
+    "invoice_number" => "Invoice number",
+    "previous_number" => "Previous number",
+    "create_invoice" => "Create invoice",
+    "edit_invoice" => "Edit invoice",
+    "issue_date" => "Issue date",
+    "sent_date" => "Sent date",
+    "paid_date" => "Paid date",
+    "partially_paid_date" => "Partially paid date",
+    "written_off_date" => "Written off date",
+    "total_discount" => "Total discount",
+    "total_tax" => "Total tax",
+    "sent" => "Sent",
+    "due" => "Due",
+    "start_from_scratch" => "Start from scratch",
+    "project_proposition_invoice" => "Based on project proposition",
+    "project_tasks_invoice" => "Based on billable project tasks",
+    "select_project_" => "Select project...",
+    "invoice_statuses" => [
+      "draft" => ["color" => "#7b7b7b", "value" => "draft", "label" => "Draft"],
+      "sent" => ["color" => "#146eff", "value" => "sent", "label" => "Sent"],
+      "partially_paid" => ["color" => "#58bd24", "value" => "partially_paid", "label" => "Partially paid"],
+      "paid" => ["color" => "#007200", "value" => "paid", "label" => "Paid"],
+      "overdue" => ["color" => "#fd9644", "value" => "overdue", "label" => "Overdue"],
+      "written_off" => ["color" => "#ff4141", "value" => "written_off", "label" => "Written off"]
+    ],
+    "only_add_completed_tasks" => "Only add completed tasks",
+    "select_default_tax_rate_" => "Select default tax rate...",
+    "no_projects_with_proposition_found" => "No projects with a proposition found",
+    "no_projects_with_tasks_found" => "No projects with tasks found",
+    "save_draft" => "Save as draft",
+    "send" => "Send",
+    "invoice_footer_note" => "Write a message to the recipient",
+    "save_invoice_notes" => "Save notes for future invoices",
+    "payment_methods" => "Payment methods",
+    "accepted_payment_methods" => "Accepted payment methods",
+    "add_payment_methods" => "Add payment terms and means",
+    "payment_methods_choices" => [
+      "terms" => "Payment terms",
+      "bank" => "Bank payment",
+      "cash" => "Cash payment",
+      "check" => "Check"
+    ],
+    "save_invoice_payment_methods" => "Save payment methods for future invoices",
+    "bic_swift" => "BIC/SWIFT",
+    "iban" => "IBAN",
+    "download_pdf" => "Download PDF",
+    "send_invoice" => "Send invoice",
+    "send_invoice_msg" => "The invoice will be sent to the email address entered at the company of the recipient.",
+    "invoice_success_sent" => "The invoice has been sent to :email",
+    "date" => "Date",
+    "page" => "Page",
+    "_of_" => "of",
+    "paid" => "Paid",
+    "partially_paid" => "Partially paid",
+    "written_off" => "Written off",
+    "resend" => "Resend",
+    "" => "",
+    "" => "",
 
 ];

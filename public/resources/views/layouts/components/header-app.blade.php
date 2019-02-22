@@ -126,7 +126,12 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
 <?php } ?>
 <?php if (auth()->user()->can('list-projects')) { ?>
                   <li class="nav-item">
-                    <a href="{{ url('projects') }}" class="nav-link<?php if (\Request::route()->getName() == 'projects') echo ' active'; ?>"><i class="material-icons">folder</i> {{ trans('g.projects') }}</a>
+                    <a href="{{ url('projects') }}" class="nav-link<?php if (\Request::route()->getName() == 'projects') echo ' active'; ?>"><i class="material-icons">work</i> {{ trans('g.projects') }}</a>
+                  </li>
+<?php } ?>
+<?php if (auth()->user()->can('list-invoices')) { ?>
+                  <li class="nav-item">
+                    <a href="{{ url('invoices') }}" class="nav-link<?php if (\Request::route()->getName() == 'invoices') echo ' active'; ?>"><i class="material-icons">receipt</i> {{ trans('g.invoices') }}</a>
                   </li>
 <?php } ?>
 <?php /*
