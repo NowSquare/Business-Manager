@@ -314,8 +314,10 @@ foreach($columns as $i => $column) {
           ret += '  <a href="<?php echo url('companies/view/') ?>/' + data + '" class="dropdown-item"><i class="dropdown-icon fe fe-search"></i> {{ trans('g.view') }}</a>';
 <?php } ?>
 <?php if (auth()->user()->can('delete-company')) { ?>
-          ret += '  <div class="dropdown-divider"></div>';
-          ret += '  <a href="javascript:deleteRecords([' + row.id + '])" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> {{ trans('g.delete_record') }}</a>';
+          if (row.default !== 1) {
+            ret += '  <div class="dropdown-divider"></div>';
+            ret += '  <a href="javascript:deleteRecords([' + row.id + '])" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> {{ trans('g.delete_record') }}</a>';
+          }
 <?php } ?>
           ret += '</div>';
           ret += '</div>';
