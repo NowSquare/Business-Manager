@@ -13,6 +13,15 @@ Class Setting extends Model implements AttachableInterface
 
   protected $table = 'settings';
 
+  /**
+   * Field mutators.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'value_json' => 'json'
+  ];
+
   public function __construct(array $attributes = []) {
 
     /**
