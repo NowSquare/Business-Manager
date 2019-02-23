@@ -724,7 +724,8 @@ class InvoiceController extends \App\Http\Controllers\Controller {
 
         return response()->download($file, 'invoice-' . str_slug($invoice->reference . '-' . $from->name . '-' . auth()->user()->formatDate($invoice->issue_date, 'date_medium')) . '.pdf');
       } else {
-        return 'File not found, open invoice and save again.';
+        $this->generateInvoicePdf($id);
+        return $this->getInvoicePdf($sl);
       }
     }
   }
