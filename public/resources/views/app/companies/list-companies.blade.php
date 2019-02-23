@@ -380,8 +380,9 @@ function deleteRecords(ids) {
         method: 'POST'
       })
       .done(function(data) {
-        if(data === true) {
-          datatable.ajax.reload();
+        datatable.ajax.reload();
+        if(typeof data.msg !== 'undefined') {
+          Swal({ imageUrl: "{{ url('assets/img/icons/fe/x-circle.svg') }}", imageWidth: 48, title: "{!! trans('g.operation_partially_failed') !!}", text: data.msg });
         }
       })
       .fail(function() {

@@ -399,6 +399,7 @@ class CompanyController extends \App\Http\Controllers\Controller {
    */
 
   public function postDeleteCompanies() {
+    $msg = null;
     $ids = request()->get('ids');
 
     if (is_array($ids)) {
@@ -412,22 +413,34 @@ class CompanyController extends \App\Http\Controllers\Controller {
         }
         $query = $query->find($id);
         if ($query !== null) {
-          // Log
-          Core\Log::add(
-            'delete_company', 
-            trans('g.log_company_delete_company', ['name' => auth()->user()->name, 'company' => $query->name]),
-            '\Platform\Models\Company',
-            $query->id,
-            auth()->user()
-          );
+          // Check if company is used for project or invoice
+          $project = \Platform\Models\Project::where('company_id', '=', $id)->get();
+          $invoice = \Platform\Models\Project::where('company_id', '=', $id)->get();
 
-          // Delete
-          $query->delete();
+          if ($project->count() === 0 && $invoice->count() === 0) {
+            // Log
+            Core\Log::add(
+              'delete_company', 
+              trans('g.log_company_delete_company', ['name' => auth()->user()->name, 'company' => $query->name]),
+              '\Platform\Models\Company',
+              $query->id,
+              auth()->user()
+            );
+
+            // Delete
+            $query->delete();
+          } else {
+            $msg = trans('g.company_could_not_be_deleted');
+          }
         }
       }
     }
 
-    return response()->json(true);
+    if ($msg !== null) {
+      return response()->json(['msg' => $msg]);
+    } else {
+      return response()->json(true);
+    }
   }
 
   /**

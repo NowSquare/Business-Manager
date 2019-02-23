@@ -28,6 +28,7 @@ return [
     "help" => "Help",
     "select_option" => "Please select an option...",
     "operation_failed" => "Operation failed",
+    "operation_partially_failed" => "Operation (partially) failed",
     "nothing_to_show" => "Nothing to see yet.",
     "demo_mode_login" => "The system is in demo mode and is reset every hour. No notification emails will be sent.",
     "demo_mode_update_root_user" => "You can't update the root admin in demo mode.",
@@ -346,7 +347,8 @@ return [
     "client" => "Client",
     "clients" => "Clients",
     "contact_persons" => "Contact persons",
-
+    "company_could_not_be_deleted" => "One or more companies could not be deleted because they are used in a project or invoice. You can set this company on non-active.",
+  
     /*
      |--------------------------------------------------------------------------
      | Projects and tasks
