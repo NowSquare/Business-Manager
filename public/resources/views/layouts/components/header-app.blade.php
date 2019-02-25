@@ -83,6 +83,12 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
                       <i class="dropdown-icon fe fe-settings"></i> {{ trans('g.settings') }}
                     </a>
 <?php } ?>
+<?php if (auth()->user()->hasRole(\App\Role::find(1))) { ?>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url('uploads') }}">
+                      <i class="dropdown-icon fe fe-folder"></i> {{ trans('g.uploads') }}
+                    </a>
+<?php } ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ url('logout') }}">
                       <i class="dropdown-icon fe fe-log-out"></i> {{ trans('g.sign_out') }}
@@ -134,26 +140,6 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
                     <a href="{{ url('invoices') }}" class="nav-link<?php if (\Request::route()->getName() == 'invoices') echo ' active'; ?>"><i class="material-icons">receipt</i> {{ trans('g.invoices') }}</a>
                   </li>
 <?php } ?>
-<?php /*
-                  <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" data-toggle="dropdown" data-target="#"><i class="material-icons">folder</i> Projects</a>
-                    <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="#" class="dropdown-item ">Proposals</a>
-                      <a href="#" class="dropdown-item ">Projects</a>
-                    </div>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="{{ url('dashboard') }}" class="nav-link<?php if (\Request::route()->getName() == 'customers') echo ' active'; ?>"><i class="material-icons">desktop_windows</i> Services</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" data-toggle="dropdown" data-target="#"><i class="material-icons">bar_chart</i> Reports</a>
-                    <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./cards.html" class="dropdown-item ">Log</a>
-                      <a href="./charts.html" class="dropdown-item ">Create new project</a>
-                    </div>
-                  </li>
-*/ ?>
                 </ul>
               </div>
             </div>

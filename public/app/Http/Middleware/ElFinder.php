@@ -34,8 +34,15 @@ class ElFinder
         auth()->user()->files_dir = str_slug(auth()->user()->name);
         auth()->user()->save();
       }
+
       $files_dir = 'users/' . auth()->user()->files_dir . '-' . Core\Secure::staticHash(auth()->user()->id * 10000);
       $alias = auth()->user()->name;
+
+      // Files on admin level
+      if ($type == 'admin') {
+        $files_dir = '';
+        $alias = trans('g.uploads');
+      }
 
       // Files on user level
       if ($type == 'user') {
@@ -119,7 +126,7 @@ class ElFinder
                'locked' => false
             ],
             [ // hide file types
-              'pattern' => '/\.(php|py|pl|sh)$/i',
+              'pattern' => '/\.(php|py|pl|sh|gitignore)$/i',
               'read'   => false,
               'write'  => false,
               'locked' => true,

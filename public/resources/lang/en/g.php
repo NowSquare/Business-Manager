@@ -467,6 +467,8 @@ return [
      |--------------------------------------------------------------------------
      */
 
+    "uploads" => "Uploads",
+    "uploads_info" => "Here admins can see all files uploaded by users.",
     "select_file" => "Select file",
     "file_not_found" => "File not found.",
     "error_parsing_file" => "Error parsing file.",
@@ -537,7 +539,5 @@ return [
     "partially_paid" => "Partially paid",
     "written_off" => "Written off",
     "resend" => "Resend",
-    "" => "",
-    "" => "",
 
 ];

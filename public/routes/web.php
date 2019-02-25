@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth' ,'verified']], function () {
   Route::post('settings/tax-rates/create', '\Platform\Controllers\App\SettingController@postCreateTaxRate')->middleware('permission:access-settings');
   Route::post('settings/run-migrations', '\Platform\Controllers\App\SettingController@postRunMigrations')->middleware('permission:access-settings');
 
+  // Uploads
+  Route::get('uploads', '\Platform\Controllers\App\FileManagerController@getUploads')->middleware('role:Admin')->name('uploads');
+
   // Users
   Route::get('users', '\Platform\Controllers\App\UserController@getUserList')->middleware('permission:list-users')->name('users');
   Route::get('users/view/{sl}', '\Platform\Controllers\App\UserController@getViewUser')->middleware('permission:view-user')->name('users');
