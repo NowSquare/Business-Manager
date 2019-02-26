@@ -52,6 +52,8 @@ return [
       'password' => App\Forms\Fields\PasswordType::class,
       'boolean' => App\Forms\Fields\BooleanType::class,
       'tinymce' => App\Forms\Fields\TinyMceType::class,
-      'data-select' => App\Forms\Fields\DataSelectType::class
+      'data-select' => App\Forms\Fields\DataSelectType::class,
+      'hex-color' => App\Forms\Fields\HexColorType::class,
+      'rgba-color' => App\Forms\Fields\RgbaColorType::class
     ]
 ];
