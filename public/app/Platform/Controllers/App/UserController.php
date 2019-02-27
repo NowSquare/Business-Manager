@@ -49,7 +49,7 @@ class UserController extends \App\Http\Controllers\Controller {
    */
 
   public function postProfile(FormBuilder $formBuilder) {
-    if (env('DEMO', false) && auth()->user()->id == 1) return redirect('profile')->with('warning', trans('g.demo_mode_update_root_user'));
+    if (config('app.demo') && auth()->user()->id == 1) return redirect('profile')->with('warning', trans('g.demo_mode_update_root_user'));
 
     // Form and model
     $form = $this->form(Profile::class);
@@ -457,7 +457,7 @@ class UserController extends \App\Http\Controllers\Controller {
     $qs = Core\Secure::string2array($sl);
     $id = $qs['user_id'];
 
-    if (env('DEMO', false) && $id == 1) return redirect('users')->with('warning', trans('g.demo_mode_update_root_user'));
+    if (config('app.demo') && $id == 1) return redirect('users')->with('warning', trans('g.demo_mode_update_root_user'));
 
     if (is_numeric($id)) {
       // Form

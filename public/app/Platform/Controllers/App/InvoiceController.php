@@ -627,7 +627,7 @@ class InvoiceController extends \App\Http\Controllers\Controller {
    */
 
   public function sendInvoice($invoice) {
-    if (! env('DEMO', false)) {
+    if (! config('app.demo')) {
       // Default company
       $from = \Platform\Models\Company::where('default', 1)->first();
 

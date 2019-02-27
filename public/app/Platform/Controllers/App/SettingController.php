@@ -53,7 +53,7 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postSettings(FormBuilder $formBuilder) {
-    if (env('DEMO', false)) return redirect('settings')->with('warning', trans('g.demo_mode_update_settings'));
+    if (config('app.demo')) return redirect('settings')->with('warning', trans('g.demo_mode_update_settings'));
 
     // Form and model
     $form = $this->form(Settings::class);
@@ -97,7 +97,7 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postRunMigrations() {
-    if (env('DEMO', false)) return response()->json(true);
+    if (config('app.demo')) return response()->json(true);
 
     \Artisan::call('config:clear');
 
@@ -106,6 +106,18 @@ class SettingController extends \App\Http\Controllers\Controller {
     \Artisan::call('migrate', [
       '--force' => true
     ]);
+
+    // Migrate modules
+    $modules = \Module::getOrdered();
+
+    foreach ($modules as $module) {
+      \Artisan::call('module:migrate', [
+          'module' => $module->getName(),
+          '--force' => true,
+      ]);
+    }
+
+    \Artisan::call('config:cache');
 
     return response()->json(true);
   }
@@ -186,7 +198,7 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postCreateTaxRate() {
-    if (env('DEMO', false)) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
+    if (config('app.demo')) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
 
     $rate = request()->get('rate');
 
@@ -211,7 +223,7 @@ class SettingController extends \App\Http\Controllers\Controller {
    */
 
   public function postDeleteTaxRates() {
-    if (env('DEMO', false)) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
+    if (config('app.demo')) return response()->json(['msg' => trans('g.demo_mode_update_settings')]);
 
     $ids = request()->get('ids');
 

@@ -34,7 +34,7 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
           </div>
           @endif
 
-<?php if (env('DEMO', false)) { ?>
+<?php if (config('app.demo')) { ?>
           <div class="alert alert-warning rounded-0">
             {!! trans('g.demo_mode_login') !!}
           </div>
@@ -42,7 +42,7 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
 
           <div class="form-group">
             <label class="form-label">{{ trans('g.email_address') }}</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="{{ trans('g.enter_email') }}" value="{{ old('email', env('DEMO', false) ? 'info@example.com' : '') }}" required <?php if ($errors->isEmpty()) echo 'autofocus'; ?>>
+            <input type="email" class="form-control" name="email" id="email" placeholder="{{ trans('g.enter_email') }}" value="{{ old('email', config('app.demo') ? 'info@example.com' : '') }}" required <?php if ($errors->isEmpty()) echo 'autofocus'; ?>>
 
             @if ($errors->has('email'))
             <span class="form-text text-danger">
@@ -56,7 +56,7 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
               {{ trans('g.password') }}
               <a href="{{ url('password/reset') }}" class="float-right small" tabindex="-1">{{ trans('g.forgot_password') }}</a>
             </label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="{{ trans('g.password') }}" value="{{ env('DEMO', false) ? 'welcome' : '' }}" required>
+            <input type="password" class="form-control" name="password" id="password" placeholder="{{ trans('g.password') }}" value="{{ config('app.demo') ? 'welcome' : '' }}" required>
 
             @if ($errors->has('password'))
             <span class="form-text text-danger">
