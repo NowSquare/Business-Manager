@@ -20,3 +20,5 @@ window.datepicker = require('bootstrap-datepicker');
 window.currency = require('currency.js');
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 window.Swal = Swal;
+import colorpicker from 'bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js';
+window.colorpicker = colorpicker;

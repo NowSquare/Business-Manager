@@ -54,6 +54,7 @@ return [
       'tinymce' => App\Forms\Fields\TinyMceType::class,
       'data-select' => App\Forms\Fields\DataSelectType::class,
       'hex-color' => App\Forms\Fields\HexColorType::class,
-      'rgba-color' => App\Forms\Fields\RgbaColorType::class
+      'rgba-color' => App\Forms\Fields\RgbaColorType::class,
+      'text-suffix' => App\Forms\Fields\TextSuffixType::class
     ]
 ];

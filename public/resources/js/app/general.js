@@ -100,6 +100,17 @@ $(function(){
     persist: false
   });
 
+  $('.selectize-tags').selectize({
+    delimiter: ',',
+    persist: false,
+    create: function(input) {
+      return {
+        value: input,
+        text: input
+      }
+    }
+  });
+
   /*
    * Generate random string
    */
