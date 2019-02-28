@@ -17,16 +17,19 @@
   <loc>https://businessmanager.app/Technical_Documentation/Installation/Server_requirements.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/User_Manual/People/index.html</loc>
+  <loc>https://businessmanager.app/User_Manual/People/General.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/User_Manual/Companies/index.html</loc>
+  <loc>https://businessmanager.app/User_Manual/Companies/General.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/User_Manual/Projects/index.html</loc>
+  <loc>https://businessmanager.app/User_Manual/Projects/General.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/User_Manual/Invoices/index.html</loc>
+  <loc>https://businessmanager.app/User_Manual/Invoices/General.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/Available_add-ons.html</loc>
 </url>
 <url>
   <loc>https://businessmanager.app/Technical_Documentation/Installation/Install_the_script.html</loc>
@@ -38,16 +41,19 @@
   <loc>https://businessmanager.app/Updates_and_Changes/Changelog.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/Roadmap.html</loc>
+  <loc>https://businessmanager.app/Frequently_Asked_Questions.html</loc>
 </url>
 <url>
-  <loc>https://businessmanager.app/Frequently_Asked_Questions.html</loc>
+  <loc>https://businessmanager.app/Updates_and_Changes/Roadmap.html</loc>
 </url>
 <url>
   <loc>https://businessmanager.app/User_Manual/Dashboard.html</loc>
 </url>
 <url>
   <loc>https://businessmanager.app/User_Manual/Profile.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Uploads.html</loc>
 </url>
 <url>
   <loc>https://businessmanager.app/User_Manual/Settings/General.html</loc>
@@ -90,6 +96,18 @@
 </url>
 <url>
   <loc>https://businessmanager.app/User_Manual/Invoices/Invoice_PDF.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/How_to_install_add-ons.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/How_to_update_add-ons.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/Lead_Pop-ups/General.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/Lead_Pop-ups/Changelog.html</loc>
 </url>
 <url>
   <loc>https://businessmanager.app/Technical_Documentation/Installation/Technology_stack.html</loc>
