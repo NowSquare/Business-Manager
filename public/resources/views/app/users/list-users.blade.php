@@ -245,7 +245,7 @@ foreach($columns as $i => $column) {
           }
 
           if (row.lead_source != null) {
-            ret += '<div><small class="text-muted">{{ trans('g.lead_source') }}: ' + row.lead_source + '</small></div>';
+            ret += '<div><small class="text-muted"><strong>{{ trans('g.lead_source') }}:</strong> ' + row.lead_source + '</small></div>';
           }
 
           if (parseInt(row.active) == 0) {
