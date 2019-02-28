@@ -238,7 +238,7 @@ foreach($columns as $i => $column) {
 
           var active_class = (parseInt(row.active) == 0) ? ' class="text-muted"' : '';
 
-          ret += '<div' + active_class + '>' + row.name + '</div>';
+          ret += '<div' + active_class + '>' + ((row.name == null) ? '-' : row.name) + '</div>';
 
           if (row.job_title != null) {
             ret += '<div><small class="text-muted">' + row.job_title + '</small></div>';
