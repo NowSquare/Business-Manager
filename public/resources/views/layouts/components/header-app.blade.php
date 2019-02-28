@@ -140,6 +140,26 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
                     <a href="{{ url('invoices') }}" class="nav-link<?php if (\Request::route()->getName() == 'invoices') echo ' active'; ?>"><i class="material-icons">receipt</i> {{ trans('g.invoices') }}</a>
                   </li>
 <?php } ?>
+<?php
+$modules = \Module::getOrdered();
+foreach ($modules as $module) {
+  $header_menu_name = config($module->alias . '.header_menu_name');
+  $header_menu_icon = config($module->alias . '.header_menu_icon');
+  $route_prefix = config($module->alias . '.route_prefix');
+  $role_or_permission = config($module->alias . '.role_or_permission');
+  $role_or_permission = is_array($role_or_permission) ? $role_or_permission : explode('|', $role_or_permission);
+
+  if (auth()->user()->hasAnyRole($role_or_permission) || auth()->user()->hasAnyPermission($role_or_permission)) {
+    if ($header_menu_name !== null && $header_menu_icon !== null) {
+?>
+                  <li class="nav-item">
+                    <a href="{{ url($route_prefix) }}"<?php if (config('app.demo')) { ?> data-toggle="tooltip" title="Optional add-on"<?php } ?> class="nav-link<?php if (\Request::route()->getName() == $module->getName()) echo ' active'; ?>"><i class="material-icons">{{ $header_menu_icon }}</i> {{ $header_menu_name }}</a>
+                  </li>
+<?php
+    }
+  }
+}
+?>
                 </ul>
               </div>
             </div>

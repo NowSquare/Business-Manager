@@ -82,8 +82,34 @@
                 <div class="tab-pane px-5 pt-5 pb-3" id="update" role="tabpanel" aria-labelledby="update-tab">
                   <div class="row">
                     <div class="col-md-8">
+                      <h3>{{ trans('g.system') }}</h3>
                       <h4>{{ trans('g.current_version', ['version' => $version]) }}</h4>
-                      <p class="text-muted">{{ trans('g.update_text') }}</p>
+<?php
+$modules = \Module::getOrdered();
+if (count($modules) > 0) {
+?>
+                      <h3 class="mt-5">{{ trans('g.add_ons') }}</h3>
+<?php
+  foreach ($modules as $module) {
+    $header_menu_name = config($module->alias . '.header_menu_name');
+    $header_menu_icon = config($module->alias . '.header_menu_icon');
+
+    if ($header_menu_name !== null && $header_menu_icon !== null) {
+      // Version
+      $file = base_path('Modules/' . $module->getName() . '/version');
+      if (\File::exists($file)) {
+        $version = \File::get($file);
+      } else {
+        $version = '?';
+      }
+?>
+                      <h4><i class="material-icons" style="position: relative; top: 6px">{{ $header_menu_icon }}</i> {{ $header_menu_name }} {{ $version }}</h4>
+<?php
+    }
+  }
+}
+?>
+                      <p class="text-muted my-5">{{ trans('g.update_text') }}</p>
                       <button type="button" id="run_migrations" class="btn btn-success btn-lg mb-3">{{ trans('g.run_migrations') }}</button>
                     </div>
                   </div>

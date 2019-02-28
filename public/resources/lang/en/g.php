@@ -308,6 +308,7 @@ return [
     "update_settings" => "Update settings",
     "accounts" => "Accounts",
     "system" => "System",
+    "add_ons" => "Add-ons",
     "system_settings" => "System settings",
     "icon" => "Icon",
     "update" => "Update",
