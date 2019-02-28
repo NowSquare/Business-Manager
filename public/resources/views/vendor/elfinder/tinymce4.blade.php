@@ -9,17 +9,10 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-        <!-- elFinder CSS (REQUIRED) -->
-        <link rel="stylesheet" type="text/css" href="{{ asset($dir.'/css/elfinder.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset($dir.'/css/theme.css') }}">
-
-        <!-- elFinder JS (REQUIRED) -->
-        <script src="{{ asset($dir.'/js/elfinder.min.js') }}"></script>
-
-        @if($locale)
-            <!-- elFinder translation (OPTIONAL) -->
-            <script src="{{ asset($dir."/js/i18n/elfinder.$locale.js") }}"></script>
-        @endif
+        <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/elfinder.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url('packages/barryvdh/elfinder/css/theme.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url('packages/Material/css/theme-gray.min.css') }}">
+        <script src="{{ url('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script>
         
         <!-- elFinder initialization (REQUIRED) -->
         <script type="text/javascript">
@@ -38,18 +31,40 @@
 
             $().ready(function() {
                 var elf = $('#elfinder').elfinder({
-                    // set your elFinder options here
-                    @if($locale)
-                        lang: '{{ $locale }}', // locale
-                    @endif
-                    customData: { 
-                        _token: '{{ csrf_token() }}'
-                    },
-                    url: '{{ route("elfinder.connector") }}',  // connector URL
-                    soundPath: '{{ asset($dir.'/sounds') }}',
-                    getFileCallback: function(file) { // editor callback
-                        FileBrowserDialogue.mySubmit(file.url); // pass selected file path to TinyMCE
-                    }
+            <?php if (app()->getLocale() != 'en') { ?>
+                  lang: '{{ app()->getLocale() }}',
+            <?php } ?>
+                  customData: { 
+                    _token: '{{ csrf_token() }}'
+                  },
+                  url : '{{ route("elfinder.connector") }}',
+                  width: '100%',
+                  height: '100%',
+                  soundPath: '{{ url('packages/barryvdh/elfinder/sounds') }}',
+                  getFileCallback: function(file) { // editor callback
+                      FileBrowserDialogue.mySubmit(file.url); // pass selected file path to TinyMCE
+                  },
+                  resizable: false,
+                  rememberLastDir: false,
+                  useBrowserHistory: false,
+                  uiOptions: {
+                    toolbar : [
+                      ['back', 'forward'],
+                      ['home', 'up'],
+                      ['mkdir', 'upload'],
+                      ['paste'],
+                      ['rm'],
+                      ['duplicate', 'rename', 'edit'],
+                      ['extract', 'archive'],
+                      ['search']
+                    ]
+                  },
+                  contextmenu : {
+                    files  : [
+                      'getfile', '|','open', '|', 'copy', 'cut', 'paste', 'duplicate', '|',
+                      'rm', '|', 'edit', 'rename', '|', 'archive', 'extract', '|', 'info'
+                    ]
+                  }
                 }).elfinder('instance');
             });
         </script>

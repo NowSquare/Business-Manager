@@ -28,9 +28,26 @@ tinymce.init({
 <?php if ($disabled) { ?>
   toolbar: false,
 <?php } else { ?>
-  toolbar: 'fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat',
+  toolbar: 'fontsizeselect | bold forecolor backcolor | link | image | alignleft aligncenter alignjustify | bullist | removeformat',
 <?php } ?>
   menubar: 'file edit insert view format table tools',
+  file_browser_callback: function (field_name, url, type, win) {
+    tinyMCE.activeEditor.windowManager.open({
+      file: '<?php echo route('elfinder.tinymce4'); ?>',
+      title: "<?php echo trans('g.files'); ?>",
+      width: 940,
+      height: 450,
+      resizable: 'yes',
+      inline: 'yes',
+      popup_css: false,
+      close_previous: 'no'
+    }, {
+      setUrl: function(url) {
+        win.document.getElementById(field_name).value = url;
+      }
+    });
+    return false;
+  },
   menu: {
     file: {title: 'File', items: 'newdocument'},
     edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
