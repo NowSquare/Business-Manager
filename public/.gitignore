@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/Modules
+/public/modules
 /resources/sass/**/*.css
 .env
 *.env
