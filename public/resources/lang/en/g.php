@@ -271,6 +271,7 @@ return [
     "create_user" => "Create user",
     "edit_user" => "Edit user",
     "profile" => "Profile",
+    "lead_source" => "Lead source",
     "user_select_companies" => "The companies this user is related to.",
     "user_select_projects" => "The projects this user is involved in.",
     "active_user_help" => "Inactive users can't login and are placed at the bottom of selection lists. To keep data relationships intact, they are still available.",

@@ -244,6 +244,10 @@ foreach($columns as $i => $column) {
             ret += '<div><small class="text-muted">' + row.job_title + '</small></div>';
           }
 
+          if (row.lead_source != null) {
+            ret += '<div><small class="text-muted">{{ trans('g.lead_source') }}: ' + row.lead_source + '</small></div>';
+          }
+
           if (parseInt(row.active) == 0) {
             ret += ' <div class="badge badge-secondary"><?php echo strtolower(trans('g.inactive')) ?></div>';
           }

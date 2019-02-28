@@ -166,6 +166,7 @@ class UserController extends \App\Http\Controllers\Controller {
     $select_columns = [];
     $select_columns[] = $table . '.id';
     $select_columns[] = $table . '.active';
+    $select_columns[] = $table . '.lead_source';
     $select_columns[] = $table . '.created_at';
     $search_columns = [];
     $columns = [];
@@ -254,6 +255,7 @@ class UserController extends \App\Http\Controllers\Controller {
       $row['role'] = $record->roles->pluck('id')->first();
       $row['recently_online'] = $record->getRecentlyOnline();
       $row['active'] = $record->active;
+      $row['lead_source'] = $record->lead_source;
       $row['sl'] = Core\Secure::array2string(array('user_id' => $record->id));
 
       $data[] = $row;
