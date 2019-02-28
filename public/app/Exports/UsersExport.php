@@ -78,11 +78,15 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithColumnFormattin
       array_unshift($table_columns, 'id');
       array_unshift($header_names, 'ID');
 
+      $header_names[] = 'Role';
+      $header_names[] = 'Lead source';
       $header_names[] = 'Created at';
       $header_names[] = 'Created by';
       $header_names[] = 'Updated at';
       $header_names[] = 'Updated by';
 
+      $table_columns[] = 'use_parentheses_for_negative_numbers'; // Substitute for custom role accessor
+      $table_columns[] = 'lead_source';
       $table_columns[] = 'created_at';
       $table_columns[] = 'created_by';
       $table_columns[] = 'updated_at';
@@ -140,6 +144,14 @@ class UsersExport implements ShouldAutoSize, FromCollection, WithColumnFormattin
         $query = $query->has('assignedUsers');
       }
 
-      return $query->get();
+      $users = collect($query->get());
+
+      $users->map(function ($users) {
+          $users['use_parentheses_for_negative_numbers'] = $users->role;
+          $users['lead_source'] = $users->lead_source;
+          return $users;
+      });
+
+      return $users;
     }
 }

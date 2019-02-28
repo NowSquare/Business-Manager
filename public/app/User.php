@@ -245,6 +245,15 @@ class User extends Authenticatable implements AttachableInterface
     }
 
     /**
+     * Get role name.
+     *
+     * @return string
+     */
+    public function getRoleAttribute() {
+      return $this->roles[0]->name;
+    }
+
+    /**
      * Get name with [inactive] in case a record is not active, and the role name.
      *
      * @return string
