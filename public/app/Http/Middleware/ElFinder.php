@@ -139,6 +139,9 @@ class ElFinder
       app()->config->set('elfinder.roots', $roots);
     }
 
+    // Unset elFinder session
+    session()->forget('elfinder');
+
     return $next($request);
   }
 }
