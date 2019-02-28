@@ -95,6 +95,26 @@
 
     <div class="s-content">
         <p>Information on how to update can be found <a href="../Technical_Documentation/Installation/How_to_update.html">here</a>.</p>
+<p><code>Version 1.2.1</code> - Feb 28 2019</p>
+<ul>
+<li>Updated docs - Add-ons, uploads + various improvements</li>
+<li>Composer dump-autoload and modules preparation</li>
+<li>Added custom modules to main navigation and settings &gt; update</li>
+<li>Added lead source to the user list if it exists</li>
+<li>Added role and lead source to user export</li>
+<li>Drop unique index from users email column to allow leads from multiple sources</li>
+<li>Added image browser to wysiwyg editor</li>
+<li>Destroy file manager session after use. so upload dir default to personal folder</li>
+<li>Show &quot;-&quot; in users list if there is no name filled in</li>
+<li>Switched from env() to config() for reliability reasons</li>
+<li>Added laravel-mix-merge-manifest for module webpack asset management</li>
+<li>Added text suffix form field</li>
+<li>Added color form fields for hex and rgba color selection</li>
+<li>File manager for admins to view all the files that users have uploaded</li>
+<li>Added invoice demo seeder</li>
+<li>Prevent removal of companies used in projects or invoices</li>
+<li>Generate invoice PDF if file does not exist</li>
+</ul>
 <p><code>Version 1.2.0</code> - Feb 22 2019</p>
 <ul>
 <li>Updated docs - Invoicing module and various improvements and changes</li>
