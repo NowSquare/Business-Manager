@@ -96,6 +96,18 @@ class InstallationController extends \App\Http\Controllers\Controller {
       '--force' => true
     ]);
 
+    // Migrate modules
+    $modules = \Module::getOrdered();
+
+    foreach ($modules as $module) {
+      \Artisan::call('module:migrate', [
+          'module' => $module->getName(),
+          '--force' => true,
+      ]);
+    }
+
+    \Artisan::call('config:cache');
+
     $user = \App\User::find(1);
     $user->name = $name;
     $user->email = $email;
