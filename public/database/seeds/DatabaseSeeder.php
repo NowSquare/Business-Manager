@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
           'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        if (! env('DEMO', false)) {
+        if (! config('app.demo')) {
           // Add company
           DB::table('companies')->insert([
             'account_id' => 1,
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call('IndustriesSeeder');
         $this->call('CompanyTypesSeeder');
 
-        if (env('DEMO', false)) {
+        if (config('app.demo')) {
           $this->call('DemoContentSeeder');
         }
 

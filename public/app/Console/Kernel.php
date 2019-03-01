@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
       // Reset demo
       $schedule->call(function () {
 
-        if (env('DEMO', false)) {
-          \Platform\Controllers\UpdateController::resetInstallation(env('APP_KEY'));
+        if (config('app.demo')) {
+          \Platform\Controllers\UpdateController::resetInstallation(config('app.key'));
         }
 
       })->hourly();

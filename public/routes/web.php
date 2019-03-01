@@ -10,7 +10,7 @@
 $languages = implode('|', array_keys(array_except(config('system.available_languages'), ['en'])));
 
 // Reset demo
-if (env('DEMO', false)) {
+if (config('app.demo')) {
   Route::get('reset/{app_key}', '\Platform\Controllers\UpdateController@resetInstallation');
 }
 

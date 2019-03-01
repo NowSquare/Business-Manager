@@ -288,7 +288,7 @@ class DemoContentSeeder extends Seeder
                 if ($project_task->assignees->count() > 0) {
                   foreach ($project_task->assignees as $user) {
                     if ($user->active) {
-                      \Notification::send($user, new \App\Notifications\ProjectAssignedToTask(env('APP_URL') . '/login', \App\User::find(array_random($project_managers)), $user, $project_task));
+                      \Notification::send($user, new \App\Notifications\ProjectAssignedToTask(config('app.url') . '/login', \App\User::find(array_random($project_managers)), $user, $project_task));
                     }
                   }
                 }
