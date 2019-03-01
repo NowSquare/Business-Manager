@@ -18,7 +18,7 @@ class UpdateController extends \App\Http\Controllers\Controller {
 	 * Reset installation
 	 */
 	public static function resetInstallation($app_key) {
-    if ($app_key !== env('APP_KEY')) abort(404);
+    if ($app_key !== config('app.key')) abort(404);
 
     set_time_limit(500);
 
@@ -26,18 +26,34 @@ class UpdateController extends \App\Http\Controllers\Controller {
     UpdateController::clean();
 
     \Artisan::call('cache:clear');
-    \Artisan::call('route:clear');
+    \Artisan::call('route:cache');
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
 
     // Set session temprorarily to file
-    config(['driver.driver' => 'file']);
+    config(['session.driver' => 'file']);
 
     //\Artisan::call('migrate', ['--force' => true]);
     \Artisan::call('migrate:refresh', ['--force' => true]);
     \Artisan::call('db:seed', ['--force' => true]);
 
+    // Migrate modules
+    $modules = \Module::getOrdered();
+
+    foreach ($modules as $module) {
+      \Artisan::call('module:migrate-refresh', [
+          'module' => $module->getName(),
+          '--force' => true,
+      ]);
+    }
+
+    // Clear all caches, necessary to prevent unexpected behaviour
+    \Artisan::call('cache:clear');
+    \Artisan::call('route:cache');
+    \Artisan::call('view:clear');
     \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
 	}
 
   /**
