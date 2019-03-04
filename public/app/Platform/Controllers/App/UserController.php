@@ -354,8 +354,24 @@ class UserController extends \App\Http\Controllers\Controller {
     // Form
     $form = $this->form(User::class);
 
-    // Override validation
-    $form->validate(['password' => 'required|min:6|max:32']);
+    // Extend / override validation
+    $email = request()->get('email');
+    $lead_source = request()->get('lead_source', null);
+
+    $form->validate(
+      ['password' => 'required|min:6|max:32'],
+      ['email' => 
+        ['required', 'email', 
+          \Illuminate\Validation\Rule::unique('users')->where(function ($query) use($email, $lead_source) {
+            if ($lead_source === null) {
+              return $query->where('email', $email)->whereNull('lead_source');
+            } else {
+              return $query->where('email', $email)->where('lead_source', $lead_source);
+            }
+          })
+        ]
+      ]
+    );
 
     // Validate form
     if (! $form->isValid()) {
@@ -465,10 +481,21 @@ class UserController extends \App\Http\Controllers\Controller {
       // Form
       $form = $this->form(User::class);
 
-      // Override validation
-      $form->validate(['email' => 'required|email|unique:users,email,' . $qs['user_id']]);
-
       $model = \App\User::findOrFail($id);
+
+      // Extend validation
+      $email = request()->get('email');
+      $lead_source = request()->get('lead_source', $model->lead_source);
+
+      $form->validate([
+        'email' => [
+          'required', 
+          'email', 
+          \Illuminate\Validation\Rule::unique('users')->where(function ($query) use($email, $lead_source, $qs) {
+            return $query->where('email', $email)->where('lead_source', $lead_source)->where('id', '<>', $qs['user_id']);
+          })
+        ]
+      ]);
 
       // Validate form
       if (! $form->isValid()) {

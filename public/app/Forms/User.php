@@ -8,6 +8,8 @@ class User extends Form
 {
     public function buildForm()
     {
+        $role = ($this->getData('model') !== null) ? $this->getData('model')->roles->pluck('id')[0] : 0;
+
         $this
             ->add('header1', 'static', [
               'tag' => 'legend',
@@ -18,7 +20,7 @@ class User extends Form
             ])
             ->add('name', 'text', [
               'label' => trans('g.full_name'),
-              'rules' => 'required|min:2|max:32',
+              'rules' => ($role == 7) ? 'min:2|max:32' : 'required|min:2|max:32',
               'crud' => [
                 'list' => [
                   'sort' => 1,
