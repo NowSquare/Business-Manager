@@ -103,7 +103,7 @@ if (count($modules) > 0) {
         $version = '?';
       }
 ?>
-                      <h4><i class="material-icons" style="position: relative; top: 6px">{{ $header_menu_icon }}</i> {{ $header_menu_name }} {{ $version }}</h4>
+                      <h4><i class="material-icons mr-1" style="position: relative; top: 5px; font-size: 20px">{{ $header_menu_icon }}</i> {{ $header_menu_name }} {{ $version }}</h4>
 <?php
     }
   }

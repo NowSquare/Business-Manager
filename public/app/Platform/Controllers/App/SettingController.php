@@ -99,7 +99,11 @@ class SettingController extends \App\Http\Controllers\Controller {
   public function postRunMigrations() {
     if (config('app.demo')) return response()->json(true);
 
+    \Artisan::call('cache:clear');
+    \Artisan::call('route:cache');
+    \Artisan::call('view:clear');
     \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
 
     sleep(1);
 
@@ -117,11 +121,7 @@ class SettingController extends \App\Http\Controllers\Controller {
       ]);
     }
 
-    // Clear all caches, necessary to prevent unexpected behaviour
-    \Artisan::call('cache:clear');
-    \Artisan::call('route:cache');
-    \Artisan::call('view:clear');
-    \Artisan::call('config:clear');
+    // Clear config cache again to prevent unexpected behaviour
     \Artisan::call('config:cache');
 
     return response()->json(true);
