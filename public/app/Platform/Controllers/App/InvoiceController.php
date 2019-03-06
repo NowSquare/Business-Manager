@@ -209,7 +209,7 @@ class InvoiceController extends \App\Http\Controllers\Controller {
     }
 
     // Default company
-    $from = \Platform\Models\Company::where('default', 1)->first();
+    $from = auth()->user()->getDefaultCompany();
 
     return view('app.invoices.invoice', compact('form', 'action', 'title', 'invoice', 'items', 'from'));
   }
@@ -406,7 +406,7 @@ class InvoiceController extends \App\Http\Controllers\Controller {
       $history = \Platform\Models\Log::where('model', '\Platform\Models\Invoice')->where('model_id', $id)->where('user_id', '<>', $id)->orderBy('created_at', 'desc')->get();
 
       // Default company
-      $from = \Platform\Models\Company::where('default', 1)->first();
+      $from = auth()->user()->getDefaultCompany();
 
       return view('app.invoices.invoice', compact('sl', 'invoice', 'items', 'form', 'action', 'title', 'from', 'history'));
     }
@@ -629,7 +629,7 @@ class InvoiceController extends \App\Http\Controllers\Controller {
   public function sendInvoice($invoice) {
     if (! config('app.demo')) {
       // Default company
-      $from = \Platform\Models\Company::where('default', 1)->first();
+      $from = auth()->user()->getDefaultCompany();
 
       if ($from !== null) {
         // Send email
@@ -720,7 +720,7 @@ class InvoiceController extends \App\Http\Controllers\Controller {
 
       if (\File::exists($file)) {
         // Default company
-        $from = \Platform\Models\Company::where('default', 1)->first();
+        $from = auth()->user()->getDefaultCompany();
 
         return response()->download($file, 'invoice-' . str_slug($invoice->reference . '-' . $from->name . '-' . auth()->user()->formatDate($invoice->issue_date, 'date_medium')) . '.pdf');
       } else {

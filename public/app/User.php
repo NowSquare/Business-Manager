@@ -164,6 +164,16 @@ class User extends Authenticatable implements AttachableInterface
     }
 
     /**
+     * Get default company.
+     *
+     * @return Company
+     */
+    public function getDefaultCompany() {
+      $company = \Platform\Models\Company::where('account_id', $this->account_id)->where('default', 1)->first();
+      return $company;
+    }
+
+    /**
      * Date / time formatting
      */
     public function formatDate($date, $format = 'date_short') {

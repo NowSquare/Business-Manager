@@ -9,7 +9,7 @@ $moneyFormatter = new \Money\Formatter\IntlMoneyFormatter($numberFormatter, $cur
 $proposition = [];
 $taxes = [];
 $combined_taxes = [];
-$from = \Platform\Models\Company::where('default', 1)->first();
+$from = auth()->user()->getDefaultCompany();
 
 // Totals
 $sub_total = \Money\Money::{$currency}(0);
