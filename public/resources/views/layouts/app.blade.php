@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ app()->getLocale() }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="Content-Language" content="en" />
+    <meta http-equiv="Content-Language" content="{{ app()->getLocale() }}" />
     <meta name="msapplication-TileColor" content="#146eff">
     <meta name="theme-color" content="#146eff">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -29,6 +29,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script>var APP_URL = '{{ config('app.url') }}';var csrf_token = '{{ csrf_token() }}';</script>
+    <script src="{!! url('assets/javascript?locale=' . app()->getLocale() . '&' . config('system.client_side_timestamp')) !!}"></script>
     <script src="{{ url('assets/js/app.js?' . config('system.client_side_timestamp')) }}"></script>
 
 @yield('page_head')

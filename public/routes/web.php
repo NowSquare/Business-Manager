@@ -28,6 +28,14 @@ Route::post('install', '\Platform\Controllers\InstallationController@postInstall
 
 /*
  |--------------------------------------------------------------------------
+ | Assets, JavaScript variables and translations
+ |--------------------------------------------------------------------------
+ */
+
+Route::get('assets/javascript', '\Platform\Controllers\AssetController@getJavascript');
+
+/*
+ |--------------------------------------------------------------------------
  | Dashboard
  |--------------------------------------------------------------------------
  */

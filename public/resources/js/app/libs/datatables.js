@@ -20,17 +20,17 @@ $.extend(true, $.fn.dataTable.defaults, {
   language: {
   lengthMenu: "_MENU_",
   processing: '<div class="text-center" style="width:100%;margin:1rem 0"><div class="loader" style="margin:auto"></div></div>',
-  info: "Showing _START_ to _END_ of _TOTAL_ entries",
-  infoEmpty: "No entries to show",
-  zeroRecords: "No records found",
+  info: _trans['datatables_info'],
+  infoEmpty: _trans['datatables_infoEmpty'],
+  zeroRecords: _trans['datatables_zeroRecords'],
   search: "",
-  searchPlaceholder: "Search...",
+  searchPlaceholder: _trans['datatables_searchPlaceholder'],
   paginate: {
-      first: "First",
-      last: "Last",
-      next: "Next",
-      previous: "Previous"
+      first: _trans['first'],
+      last: _trans['last'],
+      next: _trans['next'],
+      previous: _trans['previous']
   },
   },
-  lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, 'All'] ],
+  lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, _trans['all']] ],
 });
