@@ -4,7 +4,7 @@ return [
     'client_side_timestamp' => 201811231027, // Timestamp to prevent CSS/JS caching
 
     'name' => env('APP_NAME', 'Business Manager'), // Name used for page titles and header display
-    'legal_name' => env('APP_NAME'), // Used in terms and policy
+    'legal_name' => env('APP_NAME', 'Business Manager'), // Used in terms and policy
 
     'default_signup_role' => 5, // 1 = Admin, 2 = Manager, 3 = Employee, 4 = Contractor, 5 = Client, 6 = Lead
 
@@ -14,7 +14,8 @@ return [
 
     // Available languages
     'available_languages' => [
-      'en' => 'English'
+      'en' => 'English',
+      'nl' => 'Nederlands'
     ],
 
     // Localization defaults
@@ -39,6 +40,16 @@ return [
         'decimals' => 2,
         'decimal_seperator' => '.',
         'thousands_seperator' => ','
+      ],
+      'en' => [
+        'locale' => 'nl-NL',
+        'timezone' => 'Europe/Berlin',
+        'date_format' => 'd-m-y',
+        'currency' => 'EUR',
+        'time_format' => 'H:i',
+        'decimals' => 2,
+        'decimal_seperator' => ',',
+        'thousands_seperator' => '.'
       ]
     ],
 ];

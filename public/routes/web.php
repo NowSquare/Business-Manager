@@ -7,7 +7,7 @@
 */
 
 // String for REGEX with all available languages, except EN as that's the default language
-$languages = implode('|', array_keys(array_except(config('system.available_languages'), ['en'])));
+$languages = implode('|', array_keys(array_except(config('system.available_languages'), [config('system.default_language')])));
 
 // Reset demo
 if (config('app.demo')) {
@@ -171,7 +171,7 @@ $optionalLanguageRoutes = function() {
 if ($languages != '') {
   // Add routes with language-prefix
   Route::group(['prefix' => '{language?}', 'where' => ['language' => '[' . $languages . ']+']], $optionalLanguageRoutes);
-} else {
-  // Add routes without prefix
-  $optionalLanguageRoutes();
 }
+
+// Always add routes without prefix for default language
+$optionalLanguageRoutes();

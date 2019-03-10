@@ -85,6 +85,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'language' => $language,
             'locale' => $language,
             'signup_ip_address' => request()->ip(),
             'verification_code' => $verification_code,

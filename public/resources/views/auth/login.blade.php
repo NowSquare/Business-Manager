@@ -54,7 +54,7 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
           <div class="form-group">
             <label class="form-label">
               {{ trans('g.password') }}
-              <a href="{{ url('password/reset') }}" class="float-right small" tabindex="-1">{{ trans('g.forgot_password') }}</a>
+              <a href="{{ url(trans('g.route_prefix') . 'password/reset') }}" class="float-right small" tabindex="-1">{{ trans('g.forgot_password') }}</a>
             </label>
             <input type="password" class="form-control" name="password" id="password" placeholder="{{ trans('g.password') }}" value="{{ config('app.demo') ? 'welcome' : '' }}" required>
 
@@ -78,7 +78,7 @@ $system_signup = \Platform\Controllers\Core\Settings::get('system_signup', 'bool
       </form>
 <?php if ($system_signup === 1) { ?>
       <div class="text-center text-muted">
-        {{ trans('g.sign_up_cta') }} <a href="{{ url('register') }}">{{ trans('g.sign_up') }}</a>
+        {{ trans('g.sign_up_cta') }} <a href="{{ url(trans('g.route_prefix') . 'register') }}">{{ trans('g.sign_up') }}</a>
       </div>
 <?php } ?>
     </div>

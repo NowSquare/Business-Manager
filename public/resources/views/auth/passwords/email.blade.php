@@ -46,7 +46,7 @@
         </div>
       </form>
       <div class="text-center text-muted">
-        <a href="{{ url('login') }}">{{ trans('g.back_to_login') }}</a>
+        <a href="{{ url(trans('g.route_prefix') . 'login') }}">{{ trans('g.back_to_login') }}</a>
       </div>
     </div>
   </div>

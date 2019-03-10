@@ -4,6 +4,15 @@ return [
 
     /*
      |--------------------------------------------------------------------------
+     | Url prefix for certain routes, leave empty for default language, otherwise
+     | something like "es/" or "de/"
+     |--------------------------------------------------------------------------
+     */
+
+    "route_prefix" => "",
+
+    /*
+     |--------------------------------------------------------------------------
      | Global translations
      |--------------------------------------------------------------------------
      */
@@ -34,6 +43,11 @@ return [
     "demo_mode_update_root_user" => "You can't update the root admin in demo mode.",
     "demo_mode_update_settings" => "You can't update system settings in demo mode.",
     "copyright_info" => "Copyright © :year :system_name. All rights reserved.",
+    "contacts" => "Contacts",
+    "business" => "Business",
+    "commerce" => "Commerce",
+    "financial" => "Financial",
+    "marketing" => "Marketing",
 
     /*
      |--------------------------------------------------------------------------
@@ -230,11 +244,11 @@ return [
     "forgot_password" => "Forgot password",
     "remember_me" => "Remember me",
     "sign_in" => "Sign in",
-    "sign_up_cta" => "Don't have account yet?",
+    "sign_up_cta" => "Don't have an account yet?",
     "sign_up" => "Sign up",
     "signup" => "Signup",
     "signup_header" => "Create a new account",
-    "sign_in_cta" => "Already have account?",
+    "sign_in_cta" => "Already have an account?",
     "create_new_account" => "Create new account",
     "agree_to_terms" => "Agree to the <a href=':link' target='_blank'>terms and policy</a>",
     "reset_password" => "Reset password",
@@ -282,9 +296,9 @@ return [
 
     "select_a_user_role" => "The role of this user in the system.",
 
-    "role_description_1" => "A user with the :role role has access to all items and features.<br><br>They can create, edit and delete items, and have full access to the user management.",
+    "role_description_1" => "A user with the :role role has access to all add-ons, items and features.<br><br>They can create, edit and delete items, and have full access to the user management.",
 
-    "role_description_2" => "A user with the :role role can view and edit all tasks of &dash; and add tasks to &dash; the projects the user is manager of. These users can also manage the proposition and view all files of projects they are manager of.<br><br>These users can't create or delete projects and have no access to the user management.",
+    "role_description_2" => "A user with the :role role has full access to all add-ons. This user can view and edit all tasks of &dash; and add tasks to &dash; the projects the user is manager of. These users can also manage the proposition and view all files of projects they are manager of.<br><br>These users can't create or delete projects and have no access to the user management.",
 
     "role_description_3" => "A user with the :role role can be assigned to a task. When assigned to a task, this user can see all tasks of the project, but can't change anything except for the <strong>Date completed</strong> field of tasks they are assigned to.<br><br>They can't view propositions, but can upload files to their personal project folder and add comments to a project.",
 
@@ -294,7 +308,7 @@ return [
     
     "role_description_6" => "A user with the :role role can only edit his own profile.<br><br>This role does not yet have a function.",
     
-    "role_description_7" => "A user with the :role role can only edit his own profile.<br><br>Currently this role is for internal usage, leads usually won't login to the system.",
+    "role_description_7" => "A user with the :role role can only edit his own profile.<br><br>There are various add-ons to capture leads, and to perform actions on leads. Leads usually won't login to the system.",
 
     /*
      |--------------------------------------------------------------------------

@@ -31,7 +31,7 @@ class Localization
         //date_default_timezone_set(config('system.default_timezone'));
 
         // No user logged in, check first route element
-        $languages = array_keys(array_except(config('system.available_languages'), ['en']));
+        $languages = array_keys(array_except(config('system.available_languages'), [config('system.default_language')]));
         if (in_array(\Request::segment(1), $languages)) {
           app()->setLocale(\Request::segment(1));
         } else {

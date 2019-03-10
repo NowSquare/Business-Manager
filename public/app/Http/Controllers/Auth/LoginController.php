@@ -124,6 +124,7 @@ class LoginController extends Controller
           Auth::logout();
           Session::flush();
         }
-        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/')->with('success', trans('g.logged_out_success'));
+        return redirect(trans('g.route_prefix') . 'login')->with('success', trans('g.logged_out_success'));
+        //return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/')->with('success', trans('g.logged_out_success'));
     }
 }

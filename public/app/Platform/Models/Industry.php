@@ -41,5 +41,4 @@ class Industry extends Model {
   public function getNameTranslatedAttribute() {
     return __($this->name);
   }
-
 }

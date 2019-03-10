@@ -77,7 +77,7 @@
           </div>
         </form>
         <div class="text-center text-muted">
-          {{ trans('g.sign_in_cta') }} <a href="{{ url('login') }}">{{ trans('g.sign_in') }}</a>
+          {{ trans('g.sign_in_cta') }} <a href="{{ url(trans('g.route_prefix') . 'login') }}">{{ trans('g.sign_in') }}</a>
         </div>
       </div>
     </div>
