@@ -64,6 +64,25 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
                   </div>
                 </div>
 <?php } ?>
+
+<?php if (count(config('system.available_languages')) > 1) { ?>
+            <div class="dropdown-divider"></div>
+                <div class="dropdown d-flex">
+                  <a class="nav-link icon" data-toggle="dropdown" data-target="#">
+                    <i class="material-icons">language</i> <span class="ml-1 d-none d-lg-block">{{ strtoupper(auth()->user()->language) }}</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+<?php
+foreach (config('system.available_languages') as $code => $language) {
+  $selected = (auth()->user()->language == $code) ? true : false;
+?>
+                    <a href="?set_lang={{ $code }}" class="py-2 dropdown-item d-flex<?php if ($selected) echo ' active'; ?>">{{ $language }}</a>
+<?php } ?>
+                  </div>
+                </div>
+<?php } ?>
+
+
                 <div class="dropdown">
                   <a href="javascript:void(0);" class="nav-link pr-0 leading-none" data-toggle="dropdown" data-target="#">
                     <span class="avatar" style="background-image: url('{{ auth()->user()->getAvatar() }}')"></span>
@@ -120,14 +139,17 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
                   <li class="nav-item">
                     <a href="{{ url('dashboard') }}" class="nav-link<?php if (\Request::route()->getName() == 'dashboard') echo ' active'; ?>"><i class="material-icons">dashboard</i> {{ trans('g.dashboard') }}</a>
                   </li>
+<?php if (auth()->user()->can('list-users') || auth()->user()->can('list-companies')) { ?>
+                  <li class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="nav-link<?php if (\Request::route()->getName() == 'users' || \Request::route()->getName() == 'companies') echo ' active'; ?>" data-toggle="dropdown"><i class="material-icons">contacts</i> {{ trans('g.contacts') }}</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
 <?php if (auth()->user()->can('list-users')) { ?>
-                  <li class="nav-item">
-                    <a href="{{ url('users') }}" class="nav-link<?php if (\Request::route()->getName() == 'users') echo ' active'; ?>"><i class="material-icons">people</i> {{ trans('g.people') }}</a>
-                  </li>
+                    <a href="{{ url('users') }}" class="py-2 dropdown-item<?php if (\Request::route()->getName() == 'users') echo ' active'; ?>">{{ trans('g.people') }}</a>
 <?php } ?>
 <?php if (auth()->user()->can('list-companies')) { ?>
-                  <li class="nav-item">
-                    <a href="{{ url('companies') }}" class="nav-link<?php if (\Request::route()->getName() == 'companies') echo ' active'; ?>"><i class="material-icons">business</i> {{ trans('g.companies') }}</a>
+                    <a href="{{ url('companies') }}" class="py-2 dropdown-item<?php if (\Request::route()->getName() == 'companies') echo ' active'; ?>">{{ trans('g.companies') }}</a>
+<?php } ?>
+                    </div>
                   </li>
 <?php } ?>
 <?php if (auth()->user()->can('list-projects')) { ?>
@@ -142,7 +164,11 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
 <?php } ?>
 <?php
 $modules = \Module::getOrdered();
+$active_category = '';
+$category_icon  = ['marketing' => 'record_voice_over'];
+$addons = [];
 foreach ($modules as $module) {
+  $header_menu_category = config($module->alias . '.category');
   $header_menu_name = config($module->alias . '.header_menu_name');
   $header_menu_icon = config($module->alias . '.header_menu_icon');
   $route_prefix = config($module->alias . '.route_prefix');
@@ -151,12 +177,40 @@ foreach ($modules as $module) {
 
   if (auth()->user()->hasAnyRole($role_or_permission) || auth()->user()->hasAnyPermission($role_or_permission)) {
     if ($header_menu_name !== null && $header_menu_icon !== null) {
+      if (\Request::route()->getName() == $module->getName()) {
+        $active = true;
+        $active_category = $header_menu_category;
+      } else {
+        $active = false;
+      }
+      $addons[$header_menu_category][] = ['active' => $active, 'module_name' => $module->getName(), 'route_prefix' => $route_prefix, 'name' => $header_menu_name, 'icon' => $header_menu_icon];
+      /*
 ?>
                   <li class="nav-item">
                     <a href="{{ url($route_prefix) }}"<?php if (config('app.demo')) { ?> data-toggle="tooltip" title="Separately sold add-on"<?php } ?> class="nav-link<?php if (\Request::route()->getName() == $module->getName()) echo ' active'; ?>"><i class="material-icons">{{ $header_menu_icon }}</i> {{ $header_menu_name }}</a>
                   </li>
 <?php
+      */
     }
+  }
+}
+
+if (count($addons) > 0) {
+  foreach ($addons as $category => $category_addons) {
+?>
+                  <li class="nav-item dropdown"<?php if (config('app.demo')) { ?> data-toggle="tooltip" title="Separately sold add-ons"<?php } ?>>
+                    <a href="javascript:void(0)" class="nav-link<?php if ($active_category == $category) echo ' active'; ?>" data-toggle="dropdown"><i class="material-icons">{{ $category_icon[$category] }}</i> {{ trans('g.' . $category) }}</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+<?php
+    foreach ($category_addons as $addon) {
+?>
+                    <a href="{{ url($addon['route_prefix']) }}" class="py-2 dropdown-item<?php if ($addon['active']) echo ' active'; ?>"><i class="material-icons mr-1" style="position: relative; top:2px">{{ $addon['icon'] }}</i> {{ $addon['name'] }}</a>
+<?php
+    }
+?>
+                    </div>
+                  </li>
+<?php
   }
 }
 ?>
