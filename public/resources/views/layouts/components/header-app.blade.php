@@ -69,12 +69,12 @@ foreach (auth()->user()->unreadNotifications()->take(10)->get() as $notification
             <div class="dropdown-divider"></div>
                 <div class="dropdown d-flex">
                   <a class="nav-link icon" data-toggle="dropdown" data-target="#">
-                    <i class="material-icons">language</i> <span class="ml-1 d-none d-lg-block">{{ strtoupper(auth()->user()->language) }}</span>
+                    <i class="material-icons">language</i> <span class="ml-1 d-none d-lg-block">{{ strtoupper(auth()->user()->getLanguage()) }}</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 <?php
 foreach (config('system.available_languages') as $code => $language) {
-  $selected = (auth()->user()->language == $code) ? true : false;
+  $selected = (auth()->user()->getLanguage() == $code) ? true : false;
 ?>
                     <a href="?set_lang={{ $code }}" class="py-2 dropdown-item d-flex<?php if ($selected) echo ' active'; ?>">{{ $language }}</a>
 <?php } ?>

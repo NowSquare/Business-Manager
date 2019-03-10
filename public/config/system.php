@@ -41,7 +41,7 @@ return [
         'decimal_seperator' => '.',
         'thousands_seperator' => ','
       ],
-      'en' => [
+      'nl' => [
         'locale' => 'nl-NL',
         'timezone' => 'Europe/Berlin',
         'date_format' => 'd-m-y',
