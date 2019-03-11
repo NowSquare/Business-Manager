@@ -36,4 +36,16 @@ class ImageType extends FormField {
 
         return parent::render($options, $showLabel, $showField, $showError);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDefaults()
+    {
+        return [
+            'remove_preview' => false,
+            'empty_value' => null,
+            'selected' => null
+        ];
+    }
 }

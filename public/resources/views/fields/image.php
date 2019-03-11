@@ -31,10 +31,12 @@ $disabled = (isset($options['attr']['disabled']) && $options['attr']['disabled']
     <input type="hidden" name="<?php echo $name ?>_changed" id="<?php echo $name ?>_changed" value="0">
 <?php endif; ?>
 
+<?php if (! $options['remote_preview']) { ?>
 <?php if ($options['file_url'] !== null) { ?>
     <img id="imagePreview<?php echo $options['unique'] ?>" src="<?php echo $options['file_url'] ?>" class="<?php echo $options['preview']['class'] ?>" style="width:<?php echo $options['preview']['width'] ?>;height:<?php echo $options['preview']['height'] ?>;">
 <?php } else { ?>
     <img id="imagePreview<?php echo $options['unique'] ?>" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="<?php echo $options['preview']['class'] ?> d-none" style="width:<?php echo $options['preview']['width'] ?>;height:<?php echo $options['preview']['height'] ?>;">
+<?php } ?>
 <?php } ?>
 
     <?php include base_path() . '/resources/views/vendor/laravel-form-builder/help_block.php' ?>
