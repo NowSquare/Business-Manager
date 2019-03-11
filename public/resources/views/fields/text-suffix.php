@@ -11,12 +11,15 @@
 <?php if ($showField): ?>
 <?php
   $type = $options['type'] ?? $type;
+  $text = $options['text'] ?? '';
 ?>
     <div class="input-group">
       <?= Form::input($type, $name, $options['value'], $options['attr']) ?>
-      <span class="input-group-append" id="basic-addon2">
-        <span class="input-group-text"><?php echo $options['text'] ?? '' ?></span>
+<?php if ($text != '') { ?>
+      <span class="input-group-append">
+        <span class="input-group-text"><?php echo $text ?></span>
       </span>
+<?php } ?>
     </div>
 
     <?php include base_path() . '/resources/views/vendor/laravel-form-builder/help_block.php' ?>
