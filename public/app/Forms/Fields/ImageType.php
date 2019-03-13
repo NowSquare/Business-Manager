@@ -43,7 +43,7 @@ class ImageType extends FormField {
     public function getDefaults()
     {
         return [
-            'remove_preview' => false,
+            'remote_preview' => false,
             'empty_value' => null,
             'selected' => null
         ];

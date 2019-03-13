@@ -56,6 +56,7 @@ return [
       'hex-color' => App\Forms\Fields\HexColorType::class,
       'rgba-color' => App\Forms\Fields\RgbaColorType::class,
       'text-suffix' => App\Forms\Fields\TextSuffixType::class,
-      'text-prefix' => App\Forms\Fields\TextPrefixType::class
+      'text-prefix' => App\Forms\Fields\TextPrefixType::class,
+      'text-help' => App\Forms\Fields\TextHelpType::class
     ]
 ];

@@ -27,7 +27,7 @@ $readonly = (isset($options['attr']['readonly']) && $options['attr']['readonly']
         </div>
       </div>
       <div class="col-auto">
-        <select name="<?php echo $name . '_time' ?>" id="<?php echo $name . '_time' ?>" class="form-control" style="width: 115px"<?php if ($disabled) echo ' disabled'; ?><?php if ($readonly) echo ' readonly'; ?>>
+        <select name="<?php echo $name . '_time' ?>" id="<?php echo $name . '_time' ?>" class="custom-select" style="width: 115px"<?php if ($disabled) echo ' disabled'; ?><?php if ($readonly) echo ' readonly'; ?>>
           <option value=""></option>
 <?php
 $time = mktime(0, 0, 0, 1, 1);
@@ -96,7 +96,15 @@ $(function() {
   });
 
 <?php if($options['value'] !== null) { ?>
-  $('[name=<?php echo $name ?>_field]').val( moment($('#<?php echo $name ?>').val()).format('MMM Do YYYY HH:mm') );
+  $('[name=<?php echo $name ?>_field]').val( moment($('#<?php echo $name ?>').val()).format('MMM Do YYYY') );
+
+  var date = $('#<?php echo $name ?>').val();
+  if (date == '') {
+    $('#<?php echo $name ?>_time').val('');
+  } else {
+    var remainder = (parseInt(moment(date).minute()) == 0 || parseInt(moment(date).minute()) == 15 || parseInt(moment(date).minute()) == 30 || parseInt(moment(date).minute()) == 45) ? 0 :15 - (moment(date).minute() % 15);
+    $('#<?php echo $name ?>_time').val(moment(date).add(remainder, "minutes").format('HH:mm:00'));
+  }
 <?php } ?>
 });
 </script>

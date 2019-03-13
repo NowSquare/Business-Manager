@@ -17,9 +17,9 @@ $disabled = (isset($options['attr']['disabled']) && $options['attr']['disabled']
         <div class="custom-file">
         <?= Form::input('file', $name, $options['value'], $options['attr']) ?>
 <?php if ($options['file_name'] !== null) { ?>
-          <label class="custom-file-label" id="imageLabel<?php echo $options['unique'] ?>"><?php echo $options['file_name']; ?></label>
+          <label class="custom-file-label text-truncate" id="imageLabel<?php echo $options['unique'] ?>"><?php echo $options['file_name']; ?></label>
 <?php } else { ?>
-          <label class="custom-file-label text-muted" id="imageLabel<?php echo $options['unique'] ?>"><?php echo $options['file_label']; ?></label>
+          <label class="custom-file-label text-muted text-truncate" id="imageLabel<?php echo $options['unique'] ?>"><?php echo $options['file_label']; ?></label>
 <?php } ?>
         </div>
       </div>

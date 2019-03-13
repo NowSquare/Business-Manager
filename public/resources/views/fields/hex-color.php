@@ -12,7 +12,7 @@
     <div class="input-group" id="<?php echo $name ?>_picker">
       <?= Form::input($type, $name, $options['value'], $options['attr']) ?>
       <span class="input-group-append">
-        <span class="input-group-text colorpicker-input-addon"><i></i></span>
+        <span class="input-group-text colorpicker-input-addon" style="background: none"><i class="mdl-shadow--2dp"></i></span>
       </span>
     </div>
 

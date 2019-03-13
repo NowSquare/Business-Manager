@@ -45,7 +45,7 @@ class Profile extends Form
               'file_label' => trans('g.select_image'),
               'preview' => [
                 'class' => 'my-5 avatar',
-                'width' => 'auto',
+                'width' => '142px',
                 'height' => '142px',
               ]
             ])
