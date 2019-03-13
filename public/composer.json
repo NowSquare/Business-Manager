@@ -32,6 +32,7 @@
         "nwidart/laravel-modules": "^4.0",
         "orchestra/imagine": "^3.7",
         "phpoffice/phpspreadsheet": "^1.6",
+        "pusher/pusher-php-server": "^3.3",
         "spatie/laravel-permission": "^2.29",
         "tymon/jwt-auth": "^0.5.12"
     },
