@@ -23,7 +23,6 @@ class Settings extends Form
                 'height' => '64px',
               ]
             ])
-
             ->add('system_signup', 'boolean', [
               'default_value' => 1,
               'attr' => ['class' => 'custom-control-input', 'id' => 'system_signup'],
@@ -35,6 +34,27 @@ class Settings extends Form
                 'tag' => 'small',
                 'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
               ]
+            ])
+
+            ->add('pusher_app_id', 'text', [
+              'label' => 'app_id',
+              'rules' => 'nullable|min:2|max:32',
+              'attr' => ['placeholder' => 'xxxxxx']
+            ])
+            ->add('pusher_key', 'text', [
+              'label' => 'key',
+              'rules' => 'nullable|min:2|max:128',
+              'attr' => ['placeholder' => 'xxxxxxxxxxxxxxxxxxx']
+            ])
+            ->add('pusher_secret', 'text', [
+              'label' => 'secret',
+              'rules' => 'nullable|min:2|max:128',
+              'attr' => ['placeholder' => 'xxxxxxxxxxxxxxxxxxx']
+            ])
+            ->add('pusher_cluster', 'text', [
+              'label' => 'cluster',
+              'rules' => 'nullable|min:1|max:32',
+              'attr' => ['placeholder' => 'us3']
             ])
 
             ->add('submit', 'submit', [

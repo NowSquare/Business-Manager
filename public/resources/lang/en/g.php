@@ -338,6 +338,7 @@ return [
     "create_tax_rate" => "Add tax rate",
     "tax_rate_exists" => "This tax rate already exists.",
     "tax_rate_in_use" => "You cannot delete this rate because it is in use.",
+    "pusher_info" => "Create a free account on <a href='https://pusher.com/' target='_blank'>pusher.com</a>. Create a new Pusher app, click the \"App Keys\" tab and enter the credentials below.",
 
     /*
      |--------------------------------------------------------------------------

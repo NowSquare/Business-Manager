@@ -41,7 +41,10 @@
                 <li class="nav-item pl-5">
                   <a class="nav-link" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-selected="false">{{ trans('g.general') }}</a>
                 </li>
-                <li class="nav-item pl-5">
+                <li class="nav-item">
+                  <a class="nav-link" id="pusher-tab" data-toggle="tab" href="#pusher" role="tab" aria-selected="false">Pusher</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" id="tax-tab" data-toggle="tab" href="#tax" role="tab" aria-selected="false">{{ trans('g.tax_rates') }}</a>
                 </li>
                 <li class="nav-item">
@@ -53,10 +56,27 @@
                 <div class="tab-pane px-5 pt-5 pb-3" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <div class="row">
                     <div class="col-md-6 col-lg-5">
-                      {!! form_until($form, 'system_icon') !!}
+                      {!! form_row($form->system_name) !!}
+                      {!! form_row($form->system_icon) !!}
                     </div>
                     <div class="col-md-6 col-lg-5 offset-lg-1">
-                      {!! form_until($form, 'system_signup') !!}
+                      {!! form_row($form->system_signup) !!}
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane px-5 pt-5 pb-3" id="pusher" role="tabpanel" aria-labelledby="pusher-tab">
+                  <p class="text-muted">
+                    {!! trans('g.pusher_info') !!}
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6 col-lg-5">
+                      {!! form_row($form->pusher_app_id) !!}
+                      {!! form_row($form->pusher_key) !!}
+                      {!! form_row($form->pusher_secret) !!}
+                      {!! form_row($form->pusher_cluster) !!}
+                    </div>
+                    <div class="col-md-6 col-lg-5 offset-lg-1">
+
                     </div>
                   </div>
                 </div>
@@ -119,11 +139,11 @@ if (count($modules) > 0) {
             </div>
 
             <div class="card-footer text-right">
-                {!! form_rest($form) !!}
+                {!! form_row($form->submit) !!}
             </div>
           </div>
 
-          {!! form_end($form) !!}
+          </form>
 
         </div>
 

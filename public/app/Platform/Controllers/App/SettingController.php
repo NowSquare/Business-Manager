@@ -24,9 +24,15 @@ class SettingController extends \App\Http\Controllers\Controller {
   public function getSettings(FormBuilder $formBuilder) {
     // Set model
     $model = new \stdClass;
+    // General
     $model->system_name = Core\Settings::get('system_name', 'string', config('system.name'));
     $model->system_icon = Core\Settings::get('system_icon', 'image');
     $model->system_signup = Core\Settings::get('system_signup', 'boolean', 1);
+    // Pusher
+    $model->pusher_app_id = Core\Settings::get('pusher_app_id', 'string', null);
+    $model->pusher_key = Core\Settings::get('pusher_key', 'string', null);
+    $model->pusher_secret = Core\Settings::get('pusher_secret', 'string', null);
+    $model->pusher_cluster = Core\Settings::get('pusher_cluster', 'string', null);
 
     // Version
     if (\File::exists(base_path('storage/version'))) {
@@ -76,9 +82,15 @@ class SettingController extends \App\Http\Controllers\Controller {
     }
 
     // Save settings
+    // General
     Core\Settings::set('system_name', 'string', $form_fields['system_name']);
     if (isset($form_fields['system_icon'])) Core\Settings::set('system_icon', 'image', $form_fields['system_icon']);
     Core\Settings::set('system_signup', 'boolean', $form_fields['system_signup']);
+    // Pusher
+    Core\Settings::set('pusher_app_id', 'string', $form_fields['pusher_app_id']);
+    Core\Settings::set('pusher_key', 'string', $form_fields['pusher_key']);
+    Core\Settings::set('pusher_secret', 'string', $form_fields['pusher_secret']);
+    Core\Settings::set('pusher_cluster', 'string', $form_fields['pusher_cluster']);
 
     // Log
     Core\Log::add(
@@ -105,8 +117,6 @@ class SettingController extends \App\Http\Controllers\Controller {
     \Artisan::call('config:clear');
     \Artisan::call('config:cache');
 
-    sleep(1);
-
     \Artisan::call('migrate', [
       '--force' => true
     ]);
@@ -120,6 +130,8 @@ class SettingController extends \App\Http\Controllers\Controller {
           '--force' => true,
       ]);
     }
+
+    sleep(1);
 
     // Clear config cache again to prevent unexpected behaviour
     \Artisan::call('config:cache');
