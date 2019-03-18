@@ -28,11 +28,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <script>var APP_URL = '{{ config('app.url') }}';var csrf_token = '{{ csrf_token() }}';</script>
+    <script src="{{ url('assets/javascript?locale=' . app()->getLocale() . '&' . config('system.client_side_timestamp')) }}"></script>
     <script src="{{ url('assets/js/app.js?' . config('system.client_side_timestamp')) }}"></script>
 
 @yield('page_head')
 
-  <body @yield('body_attr')>
+  <body @yield('body_attr') style="background: url({{ url('assets/img/bg/full01.jpg') }}) no-repeat center center fixed; background-size: cover;">
 
     <div class="page">
       <div class="page-single">

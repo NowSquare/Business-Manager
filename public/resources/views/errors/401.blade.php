@@ -5,11 +5,10 @@
 @section('content')
 
   <div class="container text-center">
-    <div class="display-1 text-muted mb-5"><i class="fas fa-exclamation-triangle"></i> 401</div>
-    <h1 class="h2 mb-6">{{ __('Sorry, you are not authorized to access this page.') }}</h1>
-    <a class="btn btn-primary" href="javascript:history.back()">
-      <i class="fe fe-arrow-left mr-2"></i> {{ __('Go back') }}
-    </a>
+    <span style="background-color: rgba(255,255,255,0.8); display: inline-block" class="mdl-shadow--2dp">
+      <div class="display-1 text-muted mx-5 my-3"><i class="fas fa-exclamation-triangle"></i> 401</div>
+      <h1 class="h2 mx-5 mb-6">{{ __('Sorry, you are not authorized to access this page.') }}</h1>
+    </span>
   </div>
 
 @stop
