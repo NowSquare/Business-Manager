@@ -137,21 +137,13 @@ $task_form = \FormBuilder::plain(['language_name' => 'g'])
     'label' => (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) ? trans('g.hours') : trans('g.hours_spent'),
     'rules' => 'nullable',
     'attr' => ['style' => 'background-color: #fff', 'min' => 0, 'max' => 100000, 'step' => .25, 'disabled' => $disabled_attr],
-		'help_block' => (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) ? [
-			'text' => trans('g.form_task_hours_help'),
-			'tag' => 'small',
-			'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
-		] : null
+    'label_attr' => (auth()->user()->can('edit-project-task') && (! isset($view_project) || ! $view_project)) ? ['data-help' => trans('g.form_task_hours_help')] : null
   ])
   ->add('form_task_hourly_rate', 'number', [
     'label' => trans('g.rate'),
     'rules' => 'nullable',
     'attr' => ['style' => 'background-color: #fff', 'min' => 0, 'max' => 100000, 'step' => .25, 'disabled' => $disabled_attr],
-		'help_block' => [
-			'text' => trans('g.form_task_rate_help'),
-			'tag' => 'small',
-			'attr' => ['class' => 'text-muted mt-1 mb-3 float-left w-100']
-		]
+    'label_attr' => ['data-help' => trans('g.form_task_rate_help')]
   ])
   ->add('form_task_billable', 'boolean', [
     'default_value' => 0,

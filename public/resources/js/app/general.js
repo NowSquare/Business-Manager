@@ -111,6 +111,19 @@ $(function(){
     }
   });
 
+  // Input help based on label attribute
+  $('label[data-help').each(function(i) {
+    var help = $(this).attr('data-help');
+    $(this).closest('label').css('width', '100%');
+    $(this).append('<i class="material-icons text-muted" style="cursor: help;font-size:18px; margin-top:2px; float: right; margin-right: 5px" data-toggle="help-popover" data-content="' + help + '">help</i>');
+  });
+
+  $('[data-toggle="help-popover"]').popover({
+    boundary: 'window',
+    trigger: 'hover',
+    html: true
+  });
+
   /*
    * Generate random string
    */
