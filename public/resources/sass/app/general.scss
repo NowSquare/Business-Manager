@@ -23,6 +23,17 @@ button[disabled] {
   cursor: not-allowed;
 }
 
+// Popover tip placement fix
+.popover .arrow {
+  margin-left: calc(.25rem + -4px) !important;
+}
+.bs-popover-auto[x-placement^=top] .arrow:after, .bs-popover-top .arrow:after {
+  bottom: 2px;
+}
+.bs-popover-auto[x-placement^=left] .arrow:after, .bs-popover-left .arrow:after {
+  right: 2px;
+}
+
 // elFinder
 .elfinder.ui-widget.ui-widget-content {
   box-shadow: none !important;
@@ -53,6 +64,16 @@ button[disabled] {
   /* For IE10 */
   select::-ms-expand {
     display: none;
+  }
+}
+
+// Icon prefix input field
+.input-icon {
+  .input-icon-addon i.material-icons {
+    font-size: 16px;
+  }
+  .form-control:not(:first-child) {
+  padding-left: 2.2rem !important;
   }
 }
 
