@@ -16,4 +16,25 @@ class DateTimeType extends FormField {
     {
         return parent::render($options, $showLabel, $showField, $showError);
     }
+
+    /**
+     * Get value property.
+     *
+     * @param mixed|null $default
+     * @return mixed
+     */
+    public function getValue($default = null)
+    {
+        $value = $this->getOption($this->valueProperty, $default);
+
+        if (auth()->check() && $value !== null) {
+          $value = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value, 'UTC');
+          if ($value !== false) {
+            $value->setTimezone(auth()->user()->getTimezone());
+            $value = $value->format('Y-m-d H:i:s');
+            $this->setValue($value);
+          }
+        }
+        return $value;
+    }
 }
