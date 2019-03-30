@@ -38,7 +38,7 @@ class User extends Authenticatable implements AttachableInterface
       'email', 
       'active', 
       'password', 
-      'locale', 
+      'language', 
       'verification_code', 
       'avatar', 
       'image', 
