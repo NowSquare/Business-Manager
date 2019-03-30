@@ -59,6 +59,9 @@
   <loc>https://businessmanager.app/User_Manual/Settings/General.html</loc>
 </url>
 <url>
+  <loc>https://businessmanager.app/User_Manual/Settings/Pusher.html</loc>
+</url>
+<url>
   <loc>https://businessmanager.app/User_Manual/Settings/Tax_rates.html</loc>
 </url>
 <url>
@@ -116,7 +119,17 @@
   <loc>https://businessmanager.app/User_Manual/Add-ons/Newsletters/Changelog.html</loc>
 </url>
 <url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/Coupons/General.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/User_Manual/Add-ons/Coupons/Changelog.html</loc>
+</url>
+<url>
+
   <loc>https://businessmanager.app/Technical_Documentation/Installation/Technology_stack.html</loc>
+</url>
+<url>
+  <loc>https://businessmanager.app/Technical_Documentation/Customization/Add_translation.html</loc>
 </url>
 
 
