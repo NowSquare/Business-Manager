@@ -261,10 +261,10 @@ foreach($columns as $i => $column) {
           var ret = '';
           var active_class = (parseInt(row.active) == 0) ? ' class="text-muted"' : '';
 
-          ret += '<div' + active_class + '><i class="material-icons" style="font-size:12px; position:relative; top: 2px">alternate_email</i> ' + row.email + '</div>';
+          ret += '<div' + active_class + '><span class="text-truncate"><i class="material-icons" style="font-size:12px; position:relative; top: 2px">alternate_email</i> ' + row.email + '</span></div>';
 
           if (row.phone != null) {
-            ret += '<div' + active_class + '><i class="material-icons" style="font-size:12px; position:relative; top: 1px">phone</i> ' + row.phone + '</div>';
+            ret += '<div' + active_class + '><span class="text-truncate"><i class="material-icons" style="font-size:12px; position:relative; top: 1px">phone</i> ' + row.phone + '</span></div>';
           }
           return ret;
         },
