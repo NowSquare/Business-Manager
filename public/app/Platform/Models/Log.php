@@ -25,6 +25,8 @@ class Log extends Model {
     self::creating(function ($model) {
       if (auth()->check()) {
         $model->account_id = auth()->user()->account_id;
+      } else {
+        $model->account_id = 1;
       }
     });
   }
