@@ -1,9 +1,7 @@
-/node_modules
+node_modules
 /public/hot
 /public/storage
 /storage/*.key
-/Modules
-/public/modules
 /resources/sass/**/*.css
 .env
 *.env

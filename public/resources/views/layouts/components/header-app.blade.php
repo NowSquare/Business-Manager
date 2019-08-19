@@ -198,7 +198,7 @@ foreach ($modules as $module) {
 if (count($addons) > 0) {
   foreach ($addons as $category => $category_addons) {
 ?>
-                  <li class="nav-item dropdown"<?php if (config('app.demo')) { ?> data-toggle="tooltip" title="Separately sold add-ons"<?php } ?>>
+                  <li class="nav-item dropdown"<?php if (config('app.demo')) { ?> data-toggle="tooltip"<?php } ?>>
                     <a href="javascript:void(0)" class="nav-link<?php if ($active_category == $category) echo ' active'; ?>" data-toggle="dropdown"><i class="material-icons">{{ $category_icon[$category] }}</i> {{ trans('g.' . $category) }}</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
 <?php

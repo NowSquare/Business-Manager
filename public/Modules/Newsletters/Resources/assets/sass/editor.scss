@@ -1,0 +1,22 @@
+// GrapesJS
+
+// Palette variables
+$primaryColor: #343a40;
+$secondaryColor: #f5f7fb;
+$tertiaryColor: #146eff;
+$quaternaryColor: #146eff;
+$mainFont: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;
+
+$fontPath: 'fonts';
+
+@import "~grapesjs/src/styles/scss/main.scss";
+
+.gjs-cv-canvas {
+  height: calc(100% - 46px);
+  top: 46px;
+}
+
+.gjs-pn-btn i.material-icons {
+  top: 2px;
+  position: relative;
+}
