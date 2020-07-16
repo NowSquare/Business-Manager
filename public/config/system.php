@@ -15,6 +15,7 @@ return [
     // Available languages
     'available_languages' => [
       'en' => 'English',
+      'pt' => 'Português',
       'nl' => 'Nederlands'
     ],
 
@@ -40,6 +41,16 @@ return [
         'decimals' => 2,
         'decimal_seperator' => '.',
         'thousands_seperator' => ','
+      ],
+      'pt' => [
+        'locale' => 'pt-PT',
+        'timezone' => 'Europe/London',
+        'date_format' => 'd-m-y',
+        'currency' => 'EUR',
+        'time_format' => 'H:i',
+        'decimals' => 2,
+        'decimal_seperator' => ',',
+        'thousands_seperator' => '.'
       ],
       'nl' => [
         'locale' => 'nl-NL',
